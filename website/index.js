@@ -3,63 +3,99 @@ const ctx = canvas.getContext('2d')
 const width = 800
 const height = 800
 const size = 50
-const GridSize = 16
+const GridSize = 14
 const ms = 100
+
+const Grid = generateGrid()
+
+const GRASS = 0
+const PATH = 1
+const TURRET = 2
 
 let Timer = 0
 let Wave = 0
-let Gold = 0
-let Enemies = 0
+let Gold = 100
 let LastClick = {} // {x: number, y: number}
 
-function generateHeaderText(timer, gold, wave, enemies, x, y) {
-    return `Timer: ${Math.floor(timer/1000)}s | Gold: ${gold} | Wave: ${wave} | Enemy Remainings: ${enemies} | x = ${x} | y = ${y}`
+const Spawn = {
+    x: 0,
+    y: 1
+}
+
+const End = {
+    x: 13,
+    y: 12
+}
+
+function generateHeaderText(timer, gold, wave, x, y) {
+    return `Timer: ${Math.floor(timer / 1000)}s | Gold: ${gold} | Wave: ${wave} | x = ${x} | y = ${y}`
 }
 
 function draw() {
     drawGrid()
 }
 
-function update() { 
+function update() {
     const headerText = document.getElementById('headertext')
-    headerText.innerText = generateHeaderText(Timer, Gold, Wave, Enemies, LastClick.x, LastClick.y)
+    headerText.innerText = generateHeaderText(Timer, Gold, Wave, LastClick.x, LastClick.y)
 
 }
 
 function mainLoop() {
     update()
     draw()
-    console.log('Update', Timer)
     Timer += ms
 }
 
 setInterval(mainLoop, ms)
 
 function drawGrid() {
-    const grid = generateGrid()
-
     ctx.beginPath()
-    for (const x in grid) {
-        for (const y in grid) {
-            if (grid[y][x] == 0) {
+    const offset = size
+    let img = new Image();   // Create new img element
+    img.src = './img/grayTriangle.png'; // Set source path
+    for (const x in Grid) {
+        for (const y in Grid) {
+            if (Grid[y][x] == GRASS) {
                 ctx.fillStyle = 'green'
-                ctx.fillRect(x * size, y * size, size, size)
+                ctx.fillRect(offset + x * size, offset + y * size, size, size)
             }
-            if (grid[y][x] == 1) {
-                ctx.fillStyle = 'brown'
-                ctx.fillRect(x * size, y * size, size, size)
+            if (Grid[y][x] == PATH) {
+                ctx.fillStyle = '#e59400'
+                ctx.fillRect(offset + x * size, offset + y * size, size, size)
+            }
+            if (Grid[y][x] == TURRET) {
+                ctx.fillStyle = 'silver'
+                ctx.drawImage(img, offset + x * size, offset + y * size, size, size)
             }
         }
     }
+
+    ctx.strokeStyle = "rgba(100, 100, 100, 0.5"
     for (let x = 0; x <= width; x += size) {
         ctx.moveTo(x, size)
         ctx.lineTo(x, height - size)
+        ctx.stroke()
     }
     for (let y = 0; y <= height; y += size) {
         ctx.moveTo(size, y)
         ctx.lineTo(width - size, y)
+        ctx.stroke()
     }
-    ctx.stroke()
+    for (const x in Grid) {
+        for (const y in Grid) {
+            if (Grid[y][x] == TURRET) {
+                ctx.strokeStyle = 'red'
+                ctx.beginPath();
+                ctx.moveTo(x * size, y * size)
+                ctx.lineTo(3 * offset + x * size, y * size)
+                ctx.lineTo(3 * offset + x * size, 3 * offset + y * size)
+                ctx.lineTo(x * size, 3 * offset + y * size)
+                ctx.lineTo(x * size, y * size)
+                ctx.stroke()
+            }
+        }
+    }
 }
 
 function generateGrid() {
@@ -84,8 +120,8 @@ function mousePos(x, y) {
         y: Math.floor(y / size) - 1
     }
     const MAX = 13
-    if (obj.x < 0 || obj.x > MAX) return {x: undefined, y: undefined};
-    if (obj.y < 0 || obj.y > MAX) return {x: undefined, y: undefined}
+    if (obj.x < 0 || obj.x > MAX) return { x: undefined, y: undefined };
+    if (obj.y < 0 || obj.y > MAX) return { x: undefined, y: undefined }
     return obj
 }
 
@@ -96,13 +132,12 @@ function getMousePosition(canvas, event) {
     let y = event.clientY - rect.top;
     ctx.fillStyle = 'black'
     ctx.font = '24px Arial'
-    //ctx.fillText(`x = ${x} | y = ${y}`, 5, 25)
-    //ctx.fillText(headerText, 5, 25)
     const pos = mousePos(x, y)
+    if (!pos.x == undefined || pos.y == undefined) return;
     LastClick = pos
-    //ctx.fillText(generateHeaderText(Timer, Gold, Wave, Enemies, pos.x, pos.y), 5, 25)
-    //console.log("Coordinate x: " + x,
-    //    "Coordinate y: " + y);
+    //if (GridPos[pos.y][pos.x] == 0 && LastClick)
+    if (Grid[pos.y][pos.x] == 0 && LastClick)
+        Grid[pos.y][pos.x] = 2
 }
 
 let canvasElem = document.querySelector("canvas");
@@ -112,3 +147,32 @@ canvasElem.addEventListener("mousedown", function (e) {
 });
 
 mainLoop()
+
+function importGridFromText() {
+    const request = new XMLHttpRequest();
+    request.open('GET', 'data/arena.txt', true);
+    request.send(null);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            var type = request.getResponseHeader('Content-Type');
+            if (type.indexOf("text") !== 1) {
+                const txt = request.responseText
+                console.log(txt);
+                const lines = txt.split('\n')
+                let x = 0
+                let y = 0
+                for (const line of lines) {
+                    x = 0
+                    for (const c of line) {
+                        console.log(`${x} ${y}`)
+                        Grid[y][x] = c == '@' ? 1 : 0
+                        x++
+                    }
+                    y++
+                }
+            }
+        }
+    }
+}
+
+importGridFromText()
