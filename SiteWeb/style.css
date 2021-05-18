@@ -21,13 +21,12 @@ h3{
     font-size: 35px;
 }
 
-p{
-    margin-left: 20px;
-    margin-right: 20px;
+p, li{
+    margin-left: 50px;
+    margin-right: 50px;
     text-align: justify;
     font-size: 20px;
-}
-
+} 
 
 
 #banner{
@@ -131,7 +130,11 @@ hr{
     66.64%  {background-color:#DB3EB1;}
     83.31%  {background-color:#C724B1;}
     100% {background-color:#44D62C;}
-  }
+}
+
+#Towers img{
+    margin-right: 50px;
+}
 
 
 /* Footer */
