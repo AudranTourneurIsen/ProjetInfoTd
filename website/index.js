@@ -4,6 +4,36 @@ const width = 800
 const height = 800
 const size = 50
 const GridSize = 16
+const ms = 100
+
+let Timer = 0
+let Wave = 0
+let Gold = 0
+let Enemies = 0
+let LastClick = {}
+
+function generateHeaderText(timer, gold, wave, enemies, x, y) {
+    return `Timer: ${timer} | Gold: ${gold} | Wave: ${wave} | Enemy Remainings: ${enemies} | x = ${x} | y = ${y}`
+}
+
+function draw() {
+    drawGrid()
+}
+
+function update() { 
+    const headerText = document.getElementById('headertext')
+    headerText.innerText = generateHeaderText(Timer, Gold, Wave, Enemies, LastClick.x, LastClick.y)
+
+}
+
+function mainLoop() {
+    update()
+    draw()
+    console.log('Update', Timer)
+    Timer += ms
+}
+
+setInterval(mainLoop, ms)
 
 function drawGrid() {
     const grid = generateGrid()
@@ -47,7 +77,18 @@ function generateGrid() {
     return list
 }
 
-drawGrid()
+
+function mousePos(x, y) {
+    let obj = {
+        x: Math.floor(x / size) - 1,
+        y: Math.floor(y / size) - 1
+    }
+    const MAX = 13
+    if (obj.x < 0 || obj.x > MAX) return {x: undefined, y: undefined};
+    if (obj.y < 0 || obj.y > MAX) return {x: undefined, y: undefined}
+    return obj
+}
+
 
 function getMousePosition(canvas, event) {
     let rect = canvas.getBoundingClientRect();
@@ -55,9 +96,13 @@ function getMousePosition(canvas, event) {
     let y = event.clientY - rect.top;
     ctx.fillStyle = 'black'
     ctx.font = '24px Arial'
-    ctx.fillText(`x = ${x} | y = ${y}`, 5, 25)
-    console.log("Coordinate x: " + x,
-        "Coordinate y: " + y);
+    //ctx.fillText(`x = ${x} | y = ${y}`, 5, 25)
+    //ctx.fillText(headerText, 5, 25)
+    const pos = mousePos(x, y)
+    LastClick = pos
+    //ctx.fillText(generateHeaderText(Timer, Gold, Wave, Enemies, pos.x, pos.y), 5, 25)
+    //console.log("Coordinate x: " + x,
+    //    "Coordinate y: " + y);
 }
 
 let canvasElem = document.querySelector("canvas");
@@ -65,3 +110,5 @@ let canvasElem = document.querySelector("canvas");
 canvasElem.addEventListener("mousedown", function (e) {
     getMousePosition(canvasElem, e);
 });
+
+mainLoop()
