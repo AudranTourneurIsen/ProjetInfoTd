@@ -1,0 +1,11 @@
+{
+    "normal": {
+        "health": 5
+    },
+    "tank": {
+        "health": 10
+    },
+    "weak": {
+        "health": 3
+    }
+}
