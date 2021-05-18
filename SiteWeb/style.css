@@ -108,6 +108,31 @@ p{
     }
 }
 
+/* How2Play */
+
+hr{
+    width: 87.666%;
+    height: 2px;
+    margin-top: 20px;
+    background-color: blue;
+
+    position: relative;
+    animation-name: color;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes color {
+    0%   {background-color:#4D4DFF;}
+    16.66%  {background-color:#E0E722;}
+    33.32%  {background-color:#FFAD00;}
+    49.98%  {background-color:#D22730;}
+    66.64%  {background-color:#DB3EB1;}
+    83.31%  {background-color:#C724B1;}
+    100% {background-color:#44D62C;}
+  }
 
 
 /* Footer */
