@@ -10,10 +10,10 @@ let Timer = 0
 let Wave = 0
 let Gold = 0
 let Enemies = 0
-let LastClick = {}
+let LastClick = {} // {x: number, y: number}
 
 function generateHeaderText(timer, gold, wave, enemies, x, y) {
-    return `Timer: ${timer} | Gold: ${gold} | Wave: ${wave} | Enemy Remainings: ${enemies} | x = ${x} | y = ${y}`
+    return `Timer: ${Math.floor(timer/1000)}s | Gold: ${gold} | Wave: ${wave} | Enemy Remainings: ${enemies} | x = ${x} | y = ${y}`
 }
 
 function draw() {
