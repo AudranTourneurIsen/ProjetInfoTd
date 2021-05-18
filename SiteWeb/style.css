@@ -35,13 +35,12 @@ p{
     font-family: 'Press Start 2P', cursive;
     font-size: 50px;
     color: blue;
-    background-image: url("Pictures/banner.jpeg");
+    background-image: url("Pictures/final_banner.png");
     background-position: 50% 50%;
     background-attachment: scroll;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 3%;
-    text-shadow: 3px 3px 6px black;
 }
 
 /* Menus déroulants */
