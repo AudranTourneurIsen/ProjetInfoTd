@@ -21,13 +21,12 @@ h3{
     font-size: 35px;
 }
 
-p{
-    margin-left: 20px;
-    margin-right: 20px;
+p, li{
+    margin-left: 50px;
+    margin-right: 50px;
     text-align: justify;
     font-size: 20px;
-}
-
+} 
 
 
 #banner{
@@ -35,13 +34,12 @@ p{
     font-family: 'Press Start 2P', cursive;
     font-size: 50px;
     color: blue;
-    background-image: url("Pictures/banner.jpeg");
+    background-image: url("Pictures/final_banner.png");
     background-position: 50% 50%;
     background-attachment: scroll;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 3%;
-    text-shadow: 3px 3px 6px black;
 }
 
 /* Menus déroulants */
@@ -132,7 +130,11 @@ hr{
     66.64%  {background-color:#DB3EB1;}
     83.31%  {background-color:#C724B1;}
     100% {background-color:#44D62C;}
-  }
+}
+
+#Towers img{
+    margin-right: 50px;
+}
 
 
 /* Footer */
