@@ -32,13 +32,13 @@
             <nav>
                 <div class="menu">
                     <ul>
-                        <li><a href="website.html">Home</a></li>
+                        <li><a href="index.html">Home</a></li>
 
                         <li><a href="howtoplay.html">How To Play ▾</a>
                             <ul>
                                 <li><a href="howtoplay.html#Rules">Rules</a></li>
-                                <li><a href="howtoplay.html#Ennemies">Ennemies</a></li>
-                                <li><a href="howtoplay.html#Towers">Towers</a></li>
+                                <li><a href="howtoplay.html#EnemiesHow">Enemies</a></li>
+                                <li><a href="howtoplay.html#TowersHow">Towers</a></li>
                             </ul>
                         </li>
                         <li><a href="lore.html">Lore</a></li>
@@ -52,6 +52,7 @@
         </header>
 
         <main>
+            <br>
     <div class="Board" id="Board">
         
         <div class="Towers" id="Towers">
@@ -62,7 +63,7 @@
                 <br><br>
                 <div class="ImageGold">
                     <strong id="gold">100</strong>&nbsp;
-                    <img src="images/Gold.png" alt="Gold" width="50" height="50">
+                    <img src="Pictures/Gold.png" alt="Gold" width="50" height="50">
                 </div>
                 
                 <br><br><br>
@@ -70,37 +71,37 @@
                 <div class="Triangle">
                     
                     <div class="BlueTri">
-                        <img src="images/blueTriangle.png" alt="BlueTri" width="50" height="50">
+                        <img src="Pictures/Towers/blueTriangle.png" alt="Blue" width="50" height="50">
                         <strong>10</strong>
-                        <img src="images/Gold.png" alt="Gold" width="20" height="20">
+                        <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                         <br>
                     </div><br>
                     
                     <div class="PurpleTri">
-                        <img src="images/purpleTriangle.png" alt="PurpleTri" width="50" height="50">
+                        <img src="Pictures/Towers/purpleTriangle.png" alt="Purple" width="50" height="50">
                             <strong>10</strong>
-                            <img src="images/Gold.png" alt="Gold" width="20" height="20">
+                            <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                             <br>
                     </div><br>
 
                     <div class="GreyTri">
-                        <img src="images/greyTriangle.png" alt="GreyTri" width="50" height="50">
+                        <img src="Pictures/Towers/greyTriangle.png" alt="Grey" width="50" height="50">
                         <strong>10</strong>
-                        <img src="images/Gold.png" alt="Gold" width="20" height="20">
+                        <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                         <br>
                     </div><br>
 
                     <div class="YellowTri">
-                        <img src="images/yellowTriangle.png" alt="YellowTri" width="50" height="50">
+                        <img src="Pictures/Towers/yellowTriangle.png" alt="Yellow" width="50" height="50">
                         <strong>10</strong>
-                        <img src="images/Gold.png" alt="Gold" width="20" height="20">
+                        <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                         <br>
                     </div><br>
 
                     <div class="RedTri">
-                        <img src="images/redTriangle.png" alt="RedTri" width="50" height="50">
+                        <img src="Pictures/Towers/redTriangle.png" alt="Red" width="50" height="50">
                         <strong>10</strong>
-                        <img src="images/Gold.png" alt="Gold" width="20" height="20">
+                        <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                     </div>
 
                 </div>
@@ -110,8 +111,12 @@
                 <br>
 
                 <div class="Sell">
-                    <strong>SELL</strong> &nbsp; &nbsp; &nbsp;
-                    <img src="images/RedCross.png" alt="RedCross" width="50" height="50">
+                    <strong>SELL</strong> &nbsp;
+                    <img src="Pictures/RedCross.png" alt="RedCross" width="50" height="50">
+                </div>
+                <br>
+                <div class="Cancel">
+                    <strong>CANCEL</strong>
                 </div>
 
             </div>
@@ -138,15 +143,24 @@
                 </div>
 
                 <div class="Enemies">
-                    <img src="images/lightblue_circle.png" alt="LightBlue_Circle" width="50" height="50" class="MobHover">
+                    <div class="MobHoverLB">
+                    <img src="Pictures/Enemies/lightblue_circle.png" alt="LightBlue_Circle" width="50" height="50">
+                    <span class="TextLightB">HP : 100</span>
+                    </div>
                     &nbsp; <strong>x 10</strong>
                     <br><br>
 
-                    <img src="images/orange_circle.png" alt="Orange_Circle" width="50" height="50" class="MobHover">
+                    <div class="MobHoverO">
+                    <img src="Pictures/Enemies/orange_circle.png" alt="orange_circle" width="50" height="50">
+                    <span class="TextOrange">HP : 100</span>
+                    </div>
                     &nbsp; <strong>x 15</strong>
                     <br><br>
 
-                    <img src="images/lime_circle.png" alt="Lime_Circle" width="50" height="50" class="MobHover">
+                    <div class="MobHoverLime">
+                    <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="50" height="50">
+                    <span class="TextLime">HP : 100</span>
+                    </div>
                     &nbsp; <strong>x 25</strong>
                     <br><br>
                 </div>
@@ -155,29 +169,14 @@
                 
                 <hr>
                 
+                <button id="startwave" onclick="pressStartWave();">Start Wave</button>
 
             </div>
 
         </div>
     </div>
-            <p>
-
-            </p>
-            <p>
-
-            </p>
-            <p>
-                
-            </p>
-
-
-
-
+    <br>
         </main>
-
-
-
-
         <footer>
             <div class="foot">   
                 <ul>
@@ -193,7 +192,6 @@
             </div>
     
         </footer>
-
 
     </body>
 

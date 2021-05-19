@@ -214,14 +214,10 @@ function spawnEnemy(name) {
     if (!hp) return;
     Enemies.push({
         x: Spawn.x,
-        y: Spawn.y
+        y: Spawn.y,
+        hp: 100,
+        max: 100
     })
-    //Enemies.push({
-    //    type: name,
-    //    health: hp
-    //    x: Spawn.x,
-    //    y: Spawn.y
-    //})
 }
 
 let IsWaveStarted = false
@@ -231,4 +227,5 @@ function pressStartWave() {
         return
     IsWaveStarted = true
     spawnEnemy('normal')
+    console.log('start wave')
 }

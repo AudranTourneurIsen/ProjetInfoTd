@@ -10,7 +10,7 @@
 }
 
 .RectangleTowers {
-    height: 875px;
+    height: 863px;
     width: 250px;
     background: radial-gradient(black 50%, blue);
     border: 0.4rem solid;
@@ -55,6 +55,11 @@
     outline : 0.2rem solid red;
 }
 
+.Selected {
+    border: solid;
+    border-color: orange;
+}
+
 
 .RectangleTowers hr{
     background-color: black
@@ -75,6 +80,20 @@
     border-color: red;
 }
 
+.Cancel {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    font-size: 2.5rem;
+    color : silver;
+    text-shadow: 2px 2px black;
+}
+
+.Cancel:hover {
+    outline : 0.2rem solid silver;
+}
+
 
 
 .Mobs {
@@ -84,7 +103,7 @@
 }
 
 .RectangleMobs {
-    height: 875px;
+    height: 863px;
     width: 250px;
     background: radial-gradient(black 50%, red);
     border: 0.4rem solid;
@@ -104,11 +123,103 @@
     color: #ffae00;
 }
 
+#startwave {
+    margin: 2.2rem;
+    color: black;
+    font-size: 2rem;
+    background-color : red;
+    border: solid;
+    border-color: darkred;
+
+}
+
 .Enemies {
     margin-left: 4rem;
     font-size: 1.9rem;
     color: #ffae00;
 }
+
+.button:hover {
+    filter: contraste(50%);
+}
+
+.button:active {
+  backg
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.MobHoverLB {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.MobHoverLB .TextLightB {
+    visibility: hidden;
+    width: 300px;
+    background-color: silver;
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    border: solid;
+    border-color: darkred;
+   
+    position: absolute;
+    z-index: 1;
+}
+.MobHoverLB:hover .TextLightB {
+    visibility: visible;
+}
+
+
+.MobHoverO {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.MobHoverO .TextOrange {
+    visibility: hidden;
+    width: 300px;
+    background-color: silver;
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    border: solid;
+    border-color: darkred;
+   
+    position: absolute;
+    z-index: 1;
+}
+.MobHoverO:hover .TextOrange {
+    visibility: visible;
+}
+
+
+.MobHoverLime {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.MobHoverLime .TextLime {
+    visibility: hidden;
+    width: 300px;
+    background-color: silver;
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    border: solid;
+    border-color: darkred;
+   
+    position: absolute;
+    z-index: 1;
+}
+.MobHoverLime:hover .TextLime {
+    visibility: visible;
+}
+
 
 .Remaining {
     color: #ffae00;
