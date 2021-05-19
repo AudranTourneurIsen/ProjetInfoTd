@@ -59,8 +59,8 @@ char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]) {
 		if (j != gridSIZE - 1) {
 			string[h] = '\n';
 			h++;
-		}	}
-
+		}
+	}
 	printf("\n\n\n\n");
 	printf("%s", string);
 	
