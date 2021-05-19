@@ -10,7 +10,7 @@
 }
 
 .RectangleTowers {
-    height: 842px;
+    height: 875px;
     width: 250px;
     background: radial-gradient(black 50%, blue);
     border: 0.4rem solid;
@@ -71,7 +71,7 @@
 }
 
 .RectangleMobs {
-    height: 842px;
+    height: 875px;
     width: 250px;
     background: radial-gradient(black 50%, red);
     border: 0.4rem solid;
@@ -102,3 +102,183 @@
     text-align: center;
     font-size: 1.9rem;
 } 
+
+body{
+    font-family: 'Nova Flat', cursive;
+    line-height: 27px;
+    color: #444;
+    margin: 0;
+}
+
+h2{
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 35px;
+    text-align: center;
+}
+
+h3{
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 35px;
+}
+
+p{
+    margin-left: 75px;
+    margin-right: 75px;
+    text-align: justify;
+    font-size: 20px;
+}
+
+#Rules li{
+    margin-left: 85px;
+    margin-right: 85px;
+    text-align: justify;
+    font-size: 20px;
+}
+
+#banner{
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 50px;
+    color: blue;
+    background-image: url("Pictures/final_banner.png");
+    background-position: 50% 50%;
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 3%;
+}
+
+header{
+    font-size: 60px;
+}
+
+/* Menus déroulants */
+
+.menu ul {
+    margin:0;
+    padding:0;
+    list-style-type:none;
+    text-align:center;
+    display:flex;
+    justify-content: space-around;
+    background:#c32aff;
+    font-size: 30px;
+    padding: 1.2rem;
+}
+
+.menu li {
+    float:left;
+    margin:auto;
+    padding:0;
+    background-color:#c32aff;
+}
+
+.menu li a {
+    display:flex;
+    text-align:center;
+    border-bottom: 2px solid transparent;
+    color:white;
+    text-decoration:none;
+    padding:5px;
+}
+
+.menu li a:hover {
+    color:white;
+    border-bottom: 2px solid white
+}
+
+.menu ul li ul {
+    display:none;
+    font-size: 25px;
+}
+
+.menu ul li:hover ul {
+    display:block;
+}
+
+.menu li:hover ul li {
+    float:none;
+}
+
+.menu li ul {
+    position:absolute;
+}
+
+@media screen and (max-width: 900px) {
+    .menu li{
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .menu li{
+        font-size: 12px;
+
+    }
+}
+
+
+/* How2Play */
+
+hr{
+    width: 87.666%;
+    height: 2px;
+    margin-top: 20px;
+    background-color: blue;
+    position: relative;
+    animation-name: color;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes color {
+    0%   {background-color:#4D4DFF;}
+    16.66%  {background-color:#E0E722;}
+    33.32%  {background-color:#FFAD00;}
+    49.98%  {background-color:#D22730;}
+    66.64%  {background-color:#DB3EB1;}
+    83.31%  {background-color:#C724B1;}
+    100% {background-color:#44D62C;}
+}
+
+/* Footer */
+
+.foot{
+    color:white;
+    padding: 1rem;
+    line-height: 2em;
+    display: flex;
+    justify-content: space-around;
+    background: linear-gradient(#c32aff,#841dad);
+}
+
+.foot a{
+    color: white;
+    text-decoration:white;
+}
+
+.foot i{
+    color: white;
+    font-size:35px;
+    text-decoration:white;
+    margin-left: 10px;
+}
+
+.foot h2{
+    margin-left: 0px;
+    font-size: 25px;
+}
+
+.basdepage{
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(#841dad, black);
+    color: white;
+    font-size:15px;
+    padding: 1.2rem;
+    text-align: center;
+}

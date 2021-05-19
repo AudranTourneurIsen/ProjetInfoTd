@@ -28,7 +28,7 @@ const End = {
 }
 
 function generateHeaderText(timer, x, y) {
-    return `Timer: ${Math.floor(timer / 1000)}s | x = ${x} | y = ${y}`
+    return `Timer: ${Math.floor(timer / 1000)}s |  x = ${x} | y = ${y}`
 }
 
 function draw() {
@@ -56,7 +56,7 @@ function drawGrid() {
     ctx.beginPath()
     const offset = size
     let img = new Image();   // Create new img element
-    img.src = './img/grayTriangle.png'; // Set source path
+    img.src = './images/greyTriangle.png'; // Set source path
     for (const x in Grid) {
         for (const y in Grid) {
             if (Grid[y][x] == GRASS) {
