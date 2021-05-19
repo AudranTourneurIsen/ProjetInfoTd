@@ -130,23 +130,16 @@
     background-color : red;
     border: solid;
     border-color: darkred;
+}
 
+#startwave:active {
+    filter: saturation(50%);
 }
 
 .Enemies {
     margin-left: 4rem;
     font-size: 1.9rem;
     color: #ffae00;
-}
-
-.button:hover {
-    filter: contraste(50%);
-}
-
-.button:active {
-  backg
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
 }
 
 .MobHoverLB {
