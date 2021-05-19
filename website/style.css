@@ -34,14 +34,27 @@
 }
 
 .Triangle {
-    margin-left: 4rem;
+    text-align: center;
     color: gold;
     font-size: 1.9rem;
 }
 
-.TriangleHover:hover {
+.BlueTri:hover {
     outline : 0.2rem solid red;
 }
+.PurpleTri:hover {
+    outline : 0.2rem solid red;
+}
+.GreyTri:hover {
+    outline : 0.2rem solid red;
+}
+.YellowTri:hover {
+    outline : 0.2rem solid red;
+}
+.RedTri:hover {
+    outline : 0.2rem solid red;
+}
+
 
 .RectangleTowers hr{
     background-color: black
