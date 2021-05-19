@@ -67,9 +67,7 @@
 
 .Sell {
     display: flex;
-    align-items: flex-start;
     justify-content: center;
-    text-align: center;
     font-size: 2.5rem;
     color : red;
     text-shadow: 2px 2px black;
@@ -229,26 +227,6 @@
     display: flex;
     flex-wrap: wrap;
 }
-
-.Mob1 {
-    background-image: url(Pictures/Enemies/lightblue_circle.png);
-}
-.Mob2 {
-    background-image: url(Pictures/Enemies/lightblue_circle.png);
-}
-.Mob3 {
-    background-image: url(Pictures/Enemies/lightblue_circle.png);
-}
-.Mob4 {
-    background-image: url(Pictures/Enemies/lightblue_circle.png);
-}
-.Mob5 {
-    background-image: url(Pictures/Enemies/lightblue_circle.png);
-}
-.Mob6 {
-    background-image: url(Pictures/Enemies/lightblue_circle.png);
-}
-
 
 .EnemyAlive > div {
     margin: 10px;

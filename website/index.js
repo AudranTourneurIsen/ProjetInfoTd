@@ -153,9 +153,11 @@ function drawLasers() {
         const toPos = gridCoordsToCanvasCoords(laser.toX, laser.toY)
         //console.log(fromPos, toPos)
         ctx.strokeStyle = 'red'
+        ctx.lineWidth = 3
         ctx.moveTo(fromPos.x, fromPos.y)
         ctx.lineTo(toPos.x, toPos.y)
         ctx.stroke()
+        ctx.lineWidth = 1
     } 
 }
 
