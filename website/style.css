@@ -123,7 +123,7 @@
     color: #ffae00;
 }
 
-#startwave {
+.waveinactive {
     margin: 2.2rem;
     color: black;
     font-size: 2rem;
@@ -132,14 +132,19 @@
     border-color: darkred;
 }
 
-#startwave:active {
-    filter: saturation(50%);
-}
-
 .Enemies {
     margin-left: 4rem;
     font-size: 1.9rem;
     color: #ffae00;
+}
+
+#startwave:active, .waveactive {
+    background-color: black;
+    border: solid;
+    border-color: rgb(255, 8, 8);
+    color: red;
+    font-size: 2rem;
+    margin: 2.2rem;
 }
 
 .MobHoverLB {
@@ -220,6 +225,41 @@
     font-size: 1.9rem;
 } 
 
+.EnemyAlive {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Mob1 {
+    background-image: url(Pictures/Enemies/lightblue_circle.png);
+}
+.Mob2 {
+    background-image: url(Pictures/Enemies/lightblue_circle.png);
+}
+.Mob3 {
+    background-image: url(Pictures/Enemies/lightblue_circle.png);
+}
+.Mob4 {
+    background-image: url(Pictures/Enemies/lightblue_circle.png);
+}
+.Mob5 {
+    background-image: url(Pictures/Enemies/lightblue_circle.png);
+}
+.Mob6 {
+    background-image: url(Pictures/Enemies/lightblue_circle.png);
+}
+
+
+.EnemyAlive > div {
+    margin: 10px;
+    padding: 10px;
+}
+
+progress {
+    height: 8px;
+    width: 35px;
+}
+  
 body{
     font-family: 'Nova Flat', cursive;
     line-height: 27px;

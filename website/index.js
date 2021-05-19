@@ -38,8 +38,61 @@ function draw() {
     drawGrid()
 }
 
-function updateEnemies() {
+const EnemyTick = 5
 
+let NextEnemyUpdate = EnemyTick
+
+function updateEnemies() {
+    if (NextEnemyUpdate > 0) {
+        NextEnemyUpdate--
+        return;
+    }
+    else {
+        NextEnemyUpdate = EnemyTick
+    }
+    function getNextAvailablePosition(enemy) {
+        const x = enemy.x
+        const y = enemy.y
+        const excluding = enemy.excluding
+        for (const mode of [0, 1]) {
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    if (i == 0 && j == 0) continue;
+                    currentX = x + i
+                    currentY = y + j
+                    if (mode == 0 && (i != 0 && j != 0)) continue;
+                    if (Grid[currentY] == null) continue;
+                    if (Grid[currentY][currentX] == null) continue;
+                    currentValue = Grid[currentY][currentX]
+                    console.log(currentX, currentY, currentValue)
+                    if (currentValue == PATH) {
+                        console.log('wtf')
+                        console.log(excluding)
+                        if (excluding.some(pos => pos.x == currentX && pos.y == currentY)) {
+                            console.log(`exluding ${currentX} ${currentY}`)
+                            continue;
+                        }
+                        console.log('returing')
+                        return { x: currentX, y: currentY }
+                    }
+                }
+            }
+        }
+        console.log('Invalid getNextAvailablePosition, ', x, y)
+        return null
+    }
+
+    for (const e of Enemies) {
+        console.log(e)
+        const pos = getNextAvailablePosition(e)
+        e.excluding.push({
+            x: e.x,
+            y: e.y
+        })
+        e.x = pos.x
+        e.y = pos.y
+        console.log(pos)
+    }
 }
 
 function update() {
@@ -63,8 +116,8 @@ setInterval(mainLoop, ms)
 function drawGrid() {
     ctx.beginPath()
     const offset = size
-    let img = new Image();   // Create new img element
-    img.src = './Pictures/Towers/greyTriangle.png'; // Set source path
+    let tri = new Image();   // Create new img element
+    tri.src = './Pictures/Towers/greyTriangle.png'; // Set source path
     for (const x in Grid) {
         for (const y in Grid) {
             if (Grid[y][x] == GRASS) {
@@ -77,7 +130,7 @@ function drawGrid() {
             }
             if (Grid[y][x] == TURRET) {
                 ctx.fillStyle = 'silver'
-                ctx.drawImage(img, offset + x * size, offset + y * size, size, size)
+                ctx.drawImage(tri, offset + x * size, offset + y * size, size, size)
             }
         }
     }
@@ -108,8 +161,12 @@ function drawGrid() {
         }
     }
 
-    for (const enemy of Enemies) {
-        
+    let cir = new Image();   // Create new img element
+    cir.src = './Pictures/Enemies/orange_circle.png'; // Set source path
+
+    for (const e of Enemies) {
+        console.log(e)
+        ctx.drawImage(cir, offset + e.x * size, offset + e.y * size, size, size)
     }
 }
 
@@ -182,7 +239,6 @@ function importGridFromText() {
                 for (const line of lines) {
                     x = 0
                     for (const c of line) {
-                        console.log(`${x} ${y}`)
                         Grid[y][x] = c == '@' ? 1 : 0
                         x++
                     }
@@ -216,7 +272,8 @@ function spawnEnemy(name) {
         x: Spawn.x,
         y: Spawn.y,
         hp: 100,
-        max: 100
+        max: 100,
+        excluding: []
     })
 }
 
@@ -228,4 +285,7 @@ function pressStartWave() {
     IsWaveStarted = true
     spawnEnemy('normal')
     console.log('start wave')
+    const btn = document.getElementById('startwave')
+    btn.classList.add('waveactive')
+    btn.classList.remove('waveinactive')
 }
