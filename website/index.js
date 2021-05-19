@@ -1,14 +1,15 @@
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
-const width = 800
-const height = 800
-const size = 50
+const Width = 800
+const Height = 800
+const SquareSize = 50
 const GridSize = 14
 const ms = 100
 
 const Grid = generateGrid()
 
 const Enemies = []
+const Turrets = []
 
 const GRASS = 0
 const PATH = 1
@@ -36,20 +37,15 @@ function generateHeaderText(timer, x, y) {
 
 function draw() {
     drawGrid()
+    drawLasers()
 }
 
-const EnemyTick = 5
+const GameTick = 5
 
-let NextEnemyUpdate = EnemyTick
+let NextGameUpdate = GameTick
 
 function updateEnemies() {
-    if (NextEnemyUpdate > 0) {
-        NextEnemyUpdate--
-        return;
-    }
-    else {
-        NextEnemyUpdate = EnemyTick
-    }
+
     function getNextAvailablePosition(enemy) {
         const x = enemy.x
         const y = enemy.y
@@ -64,15 +60,10 @@ function updateEnemies() {
                     if (Grid[currentY] == null) continue;
                     if (Grid[currentY][currentX] == null) continue;
                     currentValue = Grid[currentY][currentX]
-                    console.log(currentX, currentY, currentValue)
                     if (currentValue == PATH) {
-                        console.log('wtf')
-                        console.log(excluding)
                         if (excluding.some(pos => pos.x == currentX && pos.y == currentY)) {
-                            console.log(`exluding ${currentX} ${currentY}`)
                             continue;
                         }
-                        console.log('returing')
                         return { x: currentX, y: currentY }
                     }
                 }
@@ -85,13 +76,40 @@ function updateEnemies() {
     for (const e of Enemies) {
         console.log(e)
         const pos = getNextAvailablePosition(e)
+        if (pos == null) {
+
+        }
         e.excluding.push({
             x: e.x,
             y: e.y
         })
         e.x = pos.x
         e.y = pos.y
-        console.log(pos)
+    }
+}
+
+const Lasers = []
+
+function updateTurrets() {
+    for (const turret of Turrets) {
+        //console.log(turret)
+        const x = turret.x
+        const y = turret.y
+        for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+                currentX = x + i
+                currentY = y + j
+                if (Enemies.some(e => e.x == currentX && e.y == currentY)) {
+                    console.log(`Enemy found on ${currentX}/${currentY} by ${x}/${y}`)
+                    Lasers.push({
+                        fromX: x,
+                        fromY: y,
+                        toX: currentX,
+                        toY: currentY
+                    })
+                }
+            }
+        }
     }
 }
 
@@ -102,7 +120,16 @@ function update() {
     const gold = document.getElementById("gold")
     gold.innerText = Gold
 
+    if (NextGameUpdate > 0) {
+        NextGameUpdate--
+        return;
+    }
+    else {
+        NextGameUpdate = GameTick
+    }
+
     updateEnemies()
+    updateTurrets()
 }
 
 function mainLoop() {
@@ -113,37 +140,56 @@ function mainLoop() {
 
 setInterval(mainLoop, ms)
 
+function gridCoordsToCanvasCoords(x, y) {
+    return {
+        x: Math.floor((x + 1.5) * SquareSize),
+        y: Math.floor((y + 1.5) * SquareSize),
+    }
+}
+
+function drawLasers() {
+    for (const laser of Lasers) {
+        const fromPos = gridCoordsToCanvasCoords(laser.fromX, laser.fromY)
+        const toPos = gridCoordsToCanvasCoords(laser.toX, laser.toY)
+        //console.log(fromPos, toPos)
+        ctx.strokeStyle = 'red'
+        ctx.moveTo(fromPos.x, fromPos.y)
+        ctx.lineTo(toPos.x, toPos.y)
+        ctx.stroke()
+    } 
+}
+
 function drawGrid() {
     ctx.beginPath()
-    const offset = size
+    const offset = SquareSize
     let tri = new Image();   // Create new img element
     tri.src = './Pictures/Towers/greyTriangle.png'; // Set source path
     for (const x in Grid) {
         for (const y in Grid) {
             if (Grid[y][x] == GRASS) {
                 ctx.fillStyle = 'green'
-                ctx.fillRect(offset + x * size, offset + y * size, size, size)
+                ctx.fillRect(offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
             }
             if (Grid[y][x] == PATH) {
                 ctx.fillStyle = '#e59400'
-                ctx.fillRect(offset + x * size, offset + y * size, size, size)
+                ctx.fillRect(offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
             }
             if (Grid[y][x] == TURRET) {
                 ctx.fillStyle = 'silver'
-                ctx.drawImage(tri, offset + x * size, offset + y * size, size, size)
+                ctx.drawImage(tri, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
             }
         }
     }
 
     ctx.strokeStyle = "rgba(100, 100, 100, 0.5"
-    for (let x = 0; x <= width; x += size) {
-        ctx.moveTo(x, size)
-        ctx.lineTo(x, height - size)
+    for (let x = 0; x <= Width; x += SquareSize) {
+        ctx.moveTo(x, SquareSize)
+        ctx.lineTo(x, Height - SquareSize)
         ctx.stroke()
     }
-    for (let y = 0; y <= height; y += size) {
-        ctx.moveTo(size, y)
-        ctx.lineTo(width - size, y)
+    for (let y = 0; y <= Height; y += SquareSize) {
+        ctx.moveTo(SquareSize, y)
+        ctx.lineTo(Width - SquareSize, y)
         ctx.stroke()
     }
     for (const x in Grid) {
@@ -151,11 +197,11 @@ function drawGrid() {
             if (Grid[y][x] == TURRET) {
                 ctx.strokeStyle = 'red'
                 ctx.beginPath();
-                ctx.moveTo(x * size, y * size)
-                ctx.lineTo(3 * offset + x * size, y * size)
-                ctx.lineTo(3 * offset + x * size, 3 * offset + y * size)
-                ctx.lineTo(x * size, 3 * offset + y * size)
-                ctx.lineTo(x * size, y * size)
+                ctx.moveTo(x * SquareSize, y * SquareSize)
+                ctx.lineTo(3 * offset + x * SquareSize, y * SquareSize)
+                ctx.lineTo(3 * offset + x * SquareSize, 3 * offset + y * SquareSize)
+                ctx.lineTo(x * SquareSize, 3 * offset + y * SquareSize)
+                ctx.lineTo(x * SquareSize, y * SquareSize)
                 ctx.stroke()
             }
         }
@@ -165,8 +211,8 @@ function drawGrid() {
     cir.src = './Pictures/Enemies/orange_circle.png'; // Set source path
 
     for (const e of Enemies) {
-        console.log(e)
-        ctx.drawImage(cir, offset + e.x * size, offset + e.y * size, size, size)
+        //console.log(e)
+        ctx.drawImage(cir, offset + e.x * SquareSize, offset + e.y * SquareSize, SquareSize, SquareSize)
     }
 }
 
@@ -188,8 +234,8 @@ function generateGrid() {
 
 function mousePos(x, y) {
     let obj = {
-        x: Math.floor(x / size) - 1,
-        y: Math.floor(y / size) - 1
+        x: Math.floor(x / SquareSize) - 1,
+        y: Math.floor(y / SquareSize) - 1
     }
     const MAX = 13
     if (obj.x < 0 || obj.x > MAX) return { x: undefined, y: undefined };
@@ -212,6 +258,10 @@ function getMousePosition(canvas, event) {
     if (Grid[pos.y][pos.x] == 0 && LastClick) {
         Grid[pos.y][pos.x] = 2
         Gold -= 10
+        Turrets.push({
+            x: pos.x,
+            y: pos.y
+        })
     }
 }
 
@@ -264,11 +314,17 @@ const EnemiesJson = {
 }
 
 const Selected = "grey"
+CurrentIdNumber = 0
+function generateId() {
+    CurrentIdNumber++
+    return CurrentIdNumber;
+}
 
 function spawnEnemy(name) {
     const hp = EnemiesJson[name].health
     if (!hp) return;
     Enemies.push({
+        id: generateId(),
         x: Spawn.x,
         y: Spawn.y,
         hp: 100,
