@@ -14,7 +14,7 @@ const TURRET = 2
 
 let Timer = 0
 let Wave = 0
-let Gold = 100
+let Gold = 10
 let LastClick = {} // {x: number, y: number}
 
 const Spawn = {
@@ -27,8 +27,8 @@ const End = {
     y: 12
 }
 
-function generateHeaderText(timer, gold, wave, x, y) {
-    return `Timer: ${Math.floor(timer / 1000)}s | Gold: ${gold} | Wave: ${wave} | x = ${x} | y = ${y}`
+function generateHeaderText(timer, x, y) {
+    return `Timer: ${Math.floor(timer / 1000)}s | x = ${x} | y = ${y}`
 }
 
 function draw() {
@@ -37,7 +37,10 @@ function draw() {
 
 function update() {
     const headerText = document.getElementById('headertext')
-    headerText.innerText = generateHeaderText(Timer, Gold, Wave, LastClick.x, LastClick.y)
+    headerText.innerText = generateHeaderText(Timer, LastClick.x, LastClick.y)
+
+    const gold = document.getElementById("gold")
+    gold.innerText = Gold
 
 }
 

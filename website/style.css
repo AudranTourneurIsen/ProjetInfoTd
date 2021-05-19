@@ -1,0 +1,104 @@
+.Board {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.Grid {
+    /*background-color: rgba(48,48,48, .5);*/
+    background-color: green;
+}
+
+.RectangleTowers {
+    height: 842px;
+    width: 250px;
+    background: radial-gradient(black 50%, blue);
+    border: 0.4rem solid;
+    border-color: black;
+}
+
+.RectangleTowers h1 {
+    text-align: center;
+    text-decoration: underline;
+    color : silver;
+    text-shadow: 2px 2px black;
+}
+
+.ImageGold {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    font-size: 2.5rem;
+    color: gold;
+}
+
+.Triangle {
+    margin-left: 4rem;
+    color: gold;
+    font-size: 1.9rem;
+}
+
+.TriangleHover:hover {
+    outline : 0.2rem solid red;
+}
+
+.RectangleTowers hr{
+    background-color: black
+}
+
+.Sell {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: center;
+    font-size: 2.5rem;
+    color : red;
+    text-shadow: 2px 2px black;
+}
+
+.Sell:hover {
+    border: solid;
+    border-color: red;
+}
+
+
+
+.Mobs {
+    border-left-width: medium;
+    border-left-style: none;
+    border-left-color: black;
+}
+
+.RectangleMobs {
+    height: 842px;
+    width: 250px;
+    background: radial-gradient(black 50%, red);
+    border: 0.4rem solid;
+    border-color: black;
+}
+
+.RectangleMobs h1 {
+    text-align: center;
+    text-decoration: underline;
+    color : silver;
+    text-shadow: 2px 2px black;
+}
+
+.Wave {
+    text-align: center;
+    font-size: 1.9rem;
+    color: #ffae00;
+}
+
+.Enemies {
+    margin-left: 4rem;
+    font-size: 1.9rem;
+    color: #ffae00;
+}
+
+.Remaining {
+    color: #ffae00;
+    text-align: center;
+    font-size: 1.9rem;
+} 
