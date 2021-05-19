@@ -8,13 +8,15 @@ const ms = 100
 
 const Grid = generateGrid()
 
+const Enemies = []
+
 const GRASS = 0
 const PATH = 1
 const TURRET = 2
 
 let Timer = 0
 let Wave = 0
-let Gold = 10
+let Gold = 100
 let LastClick = {} // {x: number, y: number}
 
 const Spawn = {
@@ -31,8 +33,13 @@ function generateHeaderText(timer, x, y) {
     return `Timer: ${Math.floor(timer / 1000)}s |  x = ${x} | y = ${y}`
 }
 
+
 function draw() {
     drawGrid()
+}
+
+function updateEnemies() {
+
 }
 
 function update() {
@@ -42,6 +49,7 @@ function update() {
     const gold = document.getElementById("gold")
     gold.innerText = Gold
 
+    updateEnemies()
 }
 
 function mainLoop() {
@@ -56,7 +64,7 @@ function drawGrid() {
     ctx.beginPath()
     const offset = size
     let img = new Image();   // Create new img element
-    img.src = './images/greyTriangle.png'; // Set source path
+    img.src = './Pictures/Towers/greyTriangle.png'; // Set source path
     for (const x in Grid) {
         for (const y in Grid) {
             if (Grid[y][x] == GRASS) {
@@ -99,6 +107,10 @@ function drawGrid() {
             }
         }
     }
+
+    for (const enemy of Enemies) {
+        
+    }
 }
 
 function generateGrid() {
@@ -139,8 +151,11 @@ function getMousePosition(canvas, event) {
     if (!pos.x == undefined || pos.y == undefined) return;
     LastClick = pos
     //if (GridPos[pos.y][pos.x] == 0 && LastClick)
-    if (Grid[pos.y][pos.x] == 0 && LastClick)
+    if (Gold <= 0) return;
+    if (Grid[pos.y][pos.x] == 0 && LastClick) {
         Grid[pos.y][pos.x] = 2
+        Gold -= 10
+    }
 }
 
 let canvasElem = document.querySelector("canvas");
@@ -179,3 +194,41 @@ function importGridFromText() {
 }
 
 importGridFromText()
+
+const EnemiesJson = {
+    normal: {
+        health: 5
+    },
+    tank: {
+        health: 10
+    },
+    weak: {
+        health: 3
+    }
+}
+
+const Selected = "grey"
+
+function spawnEnemy(name) {
+    const hp = EnemiesJson[name].health
+    if (!hp) return;
+    Enemies.push({
+        x: Spawn.x,
+        y: Spawn.y
+    })
+    //Enemies.push({
+    //    type: name,
+    //    health: hp
+    //    x: Spawn.x,
+    //    y: Spawn.y
+    //})
+}
+
+let IsWaveStarted = false
+
+function pressStartWave() {
+    if (IsWaveStarted)
+        return
+    IsWaveStarted = true
+    spawnEnemy('normal')
+}
