@@ -245,6 +245,10 @@ hr{
     100% {background-color:#44D62C;}
 }
 
+#TowersHow img, #EnemiesHow img{
+    margin-right: 50px;
+}
+
 /* Footer */
 
 .foot{
