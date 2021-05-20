@@ -1,7 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<string.h>
-#include<conio.h>
+#include"conio.h"
 #include<stdbool.h>
 #include<time.h>
 
