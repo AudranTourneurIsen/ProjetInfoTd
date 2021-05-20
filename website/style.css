@@ -236,6 +236,8 @@
 progress {
     height: 8px;
     width: 35px;
+    color: lime;
+    background-color: white;
 }
 
 .Mob {

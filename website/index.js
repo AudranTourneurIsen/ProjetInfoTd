@@ -4,7 +4,7 @@ const Width = 800
 const Height = 800
 const SquareSize = 50
 const GridSize = 14
-const ms = 100
+const GameTickMs = 100
 
 const Grid = generateGrid()
 
@@ -23,7 +23,7 @@ let LastClick = {} // {x: number, y: number}
 let IsGameOver = false
 
 const Spawn = {
-    x: 0,
+    x: -1,
     y: 1
 }
 
@@ -160,10 +160,10 @@ function mainLoop() {
 
     update()
     draw()
-    Timer += ms
+    Timer += GameTickMs
 }
 
-setInterval(mainLoop, ms)
+setInterval(mainLoop, GameTickMs)
 
 function gridCoordsToCanvasCoords(x, y) {
     return {
@@ -346,6 +346,7 @@ function generateId() {
 }
 
 function spawnEnemy(name) {
+    console.log(name)
     const hp = EnemiesJson[name].health
     if (!hp) return;
     Enemies.push({
@@ -361,12 +362,34 @@ function spawnEnemy(name) {
 
 let IsWaveStarted = false
 
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function sleep(fn, ...args) {
+    await timeout(3 * GameTick * GameTickMs);
+    return fn(...args);
+}
+
+const enemiesToSpawn = [
+    "normal", "normal", "weak", "tank"
+]
+
+async function spawnEnemies() {
+    for (const e of enemiesToSpawn) {
+        await sleep(() => {
+            spawnEnemy(e)
+        })
+    }
+}
+
 function pressStartWave() {
     if (IsWaveStarted)
         return
     IsWaveStarted = true
     IsGameOver = false
-    spawnEnemy('normal')
+    //spawnEnemy('normal')
+    spawnEnemies()
     console.log('start wave')
     const btn = document.getElementById('startwave')
     btn.classList.add('waveactive')
@@ -385,6 +408,9 @@ function gameOver() {
     stopWave()
     Enemies = []
     Lasers = []
-    Turrets = []
     IsGameOver = true
+}
+
+function generateMobHud() {
+    const alive = document.getElementById('EnemyAlive')
 }
