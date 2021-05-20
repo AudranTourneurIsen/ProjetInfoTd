@@ -8,8 +8,8 @@ const ms = 100
 
 const Grid = generateGrid()
 
-const Enemies = []
-const Turrets = []
+let Enemies = []
+let Turrets = []
 
 const GRASS = 0
 const PATH = 1
@@ -19,6 +19,8 @@ let Timer = 0
 let Wave = 0
 let Gold = 100
 let LastClick = {} // {x: number, y: number}
+
+let IsGameOver = false
 
 const Spawn = {
     x: 0,
@@ -36,8 +38,16 @@ function generateHeaderText(timer, x, y) {
 
 
 function draw() {
+    //console.log('draw()')
+    ctx.fillStyle = 'green'
+    ctx.fillRect(0, 0, Width, Height)
     drawGrid()
     drawLasers()
+    if (IsGameOver) {
+        ctx.fillStyle = 'red'
+        ctx.font = '125px Arial'
+        ctx.fillText('GAME  OVER', 0, 450)
+    }
 }
 
 const GameTick = 5
@@ -77,7 +87,7 @@ function updateEnemies() {
         console.log(e)
         const pos = getNextAvailablePosition(e)
         if (pos == null) {
-
+            gameOver()
         }
         e.excluding.push({
             x: e.x,
@@ -88,9 +98,15 @@ function updateEnemies() {
     }
 }
 
-const Lasers = []
+let Lasers = []
+
+function removeEnemy(enemy) {
+    console.log(`removing enemy ${enemy}`)
+    Enemies = Enemies.filter(x => x != enemy)
+}
 
 function updateTurrets() {
+    Lasers = []
     for (const turret of Turrets) {
         //console.log(turret)
         const x = turret.x
@@ -107,6 +123,14 @@ function updateTurrets() {
                         toX: currentX,
                         toY: currentY
                     })
+                    const enemy = Enemies.find(e => e.x == currentX && e.y == currentY)
+                    if (!enemy) return;
+                    enemy.hp -= 1
+                    if (enemy.hp <= 0) {
+                        enemy.dead = true
+                        removeEnemy(enemy)
+                    }
+                    
                 }
             }
         }
@@ -120,6 +144,11 @@ function update() {
     const gold = document.getElementById("gold")
     gold.innerText = Gold
 
+    updateEnemies()
+    updateTurrets()
+}
+
+function mainLoop() {
     if (NextGameUpdate > 0) {
         NextGameUpdate--
         return;
@@ -128,11 +157,7 @@ function update() {
         NextGameUpdate = GameTick
     }
 
-    updateEnemies()
-    updateTurrets()
-}
 
-function mainLoop() {
     update()
     draw()
     Timer += ms
@@ -154,11 +179,12 @@ function drawLasers() {
         //console.log(fromPos, toPos)
         ctx.strokeStyle = 'red'
         ctx.lineWidth = 3
+        ctx.beginPath()
         ctx.moveTo(fromPos.x, fromPos.y)
         ctx.lineTo(toPos.x, toPos.y)
         ctx.stroke()
         ctx.lineWidth = 1
-    } 
+    }
 }
 
 function drawGrid() {
@@ -223,10 +249,7 @@ function generateGrid() {
     for (let i = 0; i < GridSize; i++) {
         let sublist = []
         for (let j = 0; j < GridSize; j++) {
-            if (i == 8)
-                sublist.push(1)
-            else
-                sublist.push(0)
+            sublist.push(0)
         }
         list.push(sublist)
     }
@@ -251,7 +274,7 @@ function getMousePosition(canvas, event) {
     let x = event.clientX - rect.left;
     let y = event.clientY - rect.top;
     ctx.fillStyle = 'black'
-    ctx.font = '24px Arial'
+    ctx.font = 'bold 24px Arial'
     const pos = mousePos(x, y)
     if (!pos.x == undefined || pos.y == undefined) return;
     LastClick = pos
@@ -329,9 +352,10 @@ function spawnEnemy(name) {
         id: generateId(),
         x: Spawn.x,
         y: Spawn.y,
-        hp: 100,
-        max: 100,
-        excluding: []
+        hp: 3,
+        max: 3,
+        excluding: [],
+        dead: false
     })
 }
 
@@ -341,9 +365,26 @@ function pressStartWave() {
     if (IsWaveStarted)
         return
     IsWaveStarted = true
+    IsGameOver = false
     spawnEnemy('normal')
     console.log('start wave')
     const btn = document.getElementById('startwave')
     btn.classList.add('waveactive')
     btn.classList.remove('waveinactive')
+}
+
+
+function stopWave() {
+    const btn = document.getElementById('startwave')
+    btn.classList.add('waveinactive')
+    btn.classList.remove('waveactive')
+    IsWaveStarted = false
+}
+
+function gameOver() {
+    stopWave()
+    Enemies = []
+    Lasers = []
+    Turrets = []
+    IsGameOver = true
 }

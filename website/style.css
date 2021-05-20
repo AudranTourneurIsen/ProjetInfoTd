@@ -237,6 +237,15 @@ progress {
     height: 8px;
     width: 35px;
 }
+
+.Mob {
+    display: flex;
+    flex-direction: column;
+}
+
+.Mob img {
+    margin: 5px;
+}
   
 body{
     font-family: 'Nova Flat', cursive;
