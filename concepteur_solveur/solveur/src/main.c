@@ -179,7 +179,7 @@ int main(){
     {
         return -1;
     } 
-    char txt[stringSIZE+13] = {0};
+    char txt[stringSIZE] = {0};
     int l = 0;
     
     while (!feof(file))
