@@ -7,7 +7,7 @@
         #####@####@#@#
         #####@@@@@@#@#
         ############@#
-        ############@u
+        ############@#
         ############@#
         ############@#
         ############@#
@@ -200,21 +200,44 @@ int main(){
 
     int h = 0;
     char grid[gridSIZE][gridSIZE];
-    for (int i = 0; i < gridSIZE; i++)
+    
+    /*for (int i = 0; i < gridSIZE; i++)
     {
         for (int j = 0; j < gridSIZE; j++)
         {
-            grid[j][i] = txt[h];
-            h++;
+            if (txt[h] == '\n'){
+                h++;
+            }
+            else {
+                grid[j][i] = txt[h];
+                h++;
+            }
+            
         }
-    }
+    }*/
     
+    int i, j = 0;
+    
+    while (txt[h]!='\0'){
+        
+        if (txt[h] == '\n'){
+            j++;
+            i=0;
+        }
+        else{
+            grid[i][j]=txt[h];
+            i++;
+        }
+        h++;
+    }
+
     printf("\n");
 
     for (int i = 0; i < gridSIZE; i++) {
         for(int j = 0; j < gridSIZE; j++){
                  printf("%c", grid[j][i]);
             }
+        printf("\n");
     }
 
     fclose(file);
@@ -225,9 +248,10 @@ int main(){
     for (int i = 0; i < gridSIZE; i++) {
         for(int j = 0; j < gridSIZE; j++){
                  printf("%c", grid[j][i]);
-            }
+        }
+        printf("\n");
     }
 
 
-    printf("\ntest, %d %d %d", grid[1][1], grid[1][2], grid[2][1]);
+    printf("\ntest, %d %d %d", grid[0][0], grid[1][2], grid[2][1]);
 }
