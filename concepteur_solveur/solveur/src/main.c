@@ -153,7 +153,7 @@ cursor selection(char grid[gridSIZE][gridSIZE])
                     }
                 }
 
-
+                
                 printf(" x = %d | y = %d | count = %d \n", i,j,count);
 
                 if (count == k){
@@ -242,16 +242,9 @@ int main(){
 
     fclose(file);
     printf("\n");
-    //cursor pos = selection(grid);
-    //printf(" x = %d | y = %d \n",pos.x,pos.y);
+    cursor pos = selection(grid);
 
-    for (int i = 0; i < gridSIZE; i++) {
-        for(int j = 0; j < gridSIZE; j++){
-                 printf("%c", grid[j][i]);
-        }
-        printf("\n");
-    }
+    
+    printf(" x = %d | y = %d \n",pos.x,pos.y);
 
-
-    printf("\ntest, %d %d %d", grid[0][0], grid[1][2], grid[2][1]);
 }
