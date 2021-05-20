@@ -195,10 +195,11 @@ int main(){
         //printf("loop-txt %d %s", l, txt);
         l++;
     }
+    
     printf("\n\n%s\n", txt);
+
     int h = 0;
     char grid[gridSIZE][gridSIZE];
-
     for (int i = 0; i < gridSIZE; i++)
     {
         for (int j = 0; j < gridSIZE; j++)
@@ -208,6 +209,8 @@ int main(){
         }
     }
     
+    printf("\n");
+
     for (int i = 0; i < gridSIZE; i++) {
         for(int j = 0; j < gridSIZE; j++){
                  printf("%c", grid[j][i]);
@@ -215,9 +218,9 @@ int main(){
     }
 
     fclose(file);
-
-    cursor pos = selection(grid);
-    printf(" x = %d | y = %d \n",pos.x,pos.y);
+    printf("\n");
+    //cursor pos = selection(grid);
+    //printf(" x = %d | y = %d \n",pos.x,pos.y);
 
     for (int i = 0; i < gridSIZE; i++) {
         for(int j = 0; j < gridSIZE; j++){
@@ -226,5 +229,5 @@ int main(){
     }
 
 
-    printf("\ntest, %c %c %c", grid[1][1], grid[1][2], grid[2][1]);
+    printf("\ntest, %d %d %d", grid[1][1], grid[1][2], grid[2][1]);
 }
