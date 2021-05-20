@@ -130,7 +130,7 @@ function updateTurrets() {
                         enemy.dead = true
                         removeEnemy(enemy)
                     }
-                    
+
                 }
             }
         }
@@ -235,11 +235,11 @@ function drawGrid() {
         }
     }
 
-    let cir = new Image();   // Create new img element
-    cir.src = './Pictures/Enemies/orange_circle.png'; // Set source path
 
     for (const e of Enemies) {
-        //console.log(e)
+        let cir = new Image();   // Create new img element
+        //cir.src = './Pictures/Enemies/orange_circle.png'; // Set source path
+        cir.src = `./Pictures/Enemies/${EnemiesJson[e.type].img}`
         ctx.drawImage(cir, offset + e.x * SquareSize, offset + e.y * SquareSize, SquareSize, SquareSize)
     }
 }
@@ -328,13 +328,16 @@ importGridFromText()
 
 const EnemiesJson = {
     normal: {
-        health: 5
+        health: 5,
+        img: "orange_circle.png"
     },
     tank: {
-        health: 10
+        health: 10,
+        img: "red_circle.png"
     },
     weak: {
-        health: 3
+        health: 3,
+        img: "lime_circle.png"
     }
 }
 
@@ -351,10 +354,11 @@ function spawnEnemy(name) {
     if (!hp) return;
     Enemies.push({
         id: generateId(),
+        type: name,
         x: Spawn.x,
         y: Spawn.y,
-        hp: 3,
-        max: 3,
+        hp: EnemiesJson[name].health,
+        max: EnemiesJson[name].health,
         excluding: [],
         dead: false
     })
@@ -367,7 +371,7 @@ function timeout(ms) {
 }
 
 async function sleep(fn, ...args) {
-    await timeout(3 * GameTick * GameTickMs);
+    await timeout(2 * GameTick * GameTickMs);
     return fn(...args);
 }
 
