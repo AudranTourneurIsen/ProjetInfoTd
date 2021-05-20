@@ -67,27 +67,37 @@
                     </div>
 
                     <br><br><br>
+                    
+                    <div class="TurretText">
+                        <strong> Select Your Towers </strong>
+                    </div>
+                    <br>
 
                     <div class="Triangle">
                         <div id="ClassicTurret" class="GreyTri">
                             <img src="Pictures/Towers/greyTriangle.png" alt="Grey" width="50" height="50">
+                            <span class="TextGrey">Attack Speed : 2 <br> Damage : 2</span>
                             <strong>10</strong>
                             <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                             <br>
-                        </div><br>
+                        </div><br><br>  
 
                         <div id="FastTurret" class="YellowTri">
                             <img src="Pictures/Towers/yellowTriangle.png" alt="Yellow" width="50" height="50">
+                            <span class="TextYellow">Attack Speed : 1 <br> Damage : 1</span>
                             <strong>10</strong>
                             <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                             <br>
-                        </div><br>
+                        </div><br><br>
 
                         <div id="HeavyTurret" class="RedTri">
                             <img src="Pictures/Towers/redTriangle.png" alt="Red" width="50" height="50">
+                            <span class="TextRed">Attack Speed : 10 <br> Damage : 10</span>
                             <strong>10</strong>
                             <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                         </div><br>
+
+                        <!--
 
                         <div class="BlueTri">
                             <img src="Pictures/Towers/blueTriangle.png" alt="Blue" width="50" height="50">
@@ -103,7 +113,7 @@
                             <br>
                         </div><br>
 
-
+                        -->
 
                     </div>
 
@@ -111,12 +121,12 @@
                     <hr>
                     <br>
 
-                    <div class="Sell">
+                    <div id="Sell" class="Sell">
                         <strong>SELL</strong> &nbsp;
                         <img src="Pictures/RedCross.png" alt="RedCross" width="50" height="50">
                     </div>
                     <br>
-                    <div class="Cancel">
+                    <div id="Cancel" class="Cancel">
                         <strong>CANCEL</strong>
                     </div>
 
@@ -146,27 +156,27 @@
                     <div class="Enemies">
                         <div class="MobHoverLB">
                             <img src="Pictures/Enemies/red_circle.png" alt="LightBlue_Circle" width="50" height="50">
-                            <span class="TextLightB">HP : 2</span>
+                            <span class="TextLightB">HP : 10</span>
                         </div>
-                        &nbsp; <strong>x 2</strong>
+                        &nbsp; <strong id="TankEnemyNumber">x 0</strong>
                         <br><br>
 
                         <div class="MobHoverO">
                             <img src="Pictures/Enemies/orange_circle.png" alt="orange_circle" width="50" height="50">
                             <span class="TextOrange">HP : 5</span>
                         </div>
-                        &nbsp; <strong>x 5</strong>
+                        &nbsp; <strong id="NormalEnemyNumber">x 0</strong>
                         <br><br>
 
                         <div class="MobHoverLime">
                             <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="50" height="50">
-                            <span class="TextLime">HP : 10</span>
+                            <span class="TextLime">HP : 3</span>
                         </div>
-                        &nbsp; <strong>x 2</strong>
+                        &nbsp; <strong id="WeakEnemyNumber">x 0</strong>
                         <br><br>
                     </div>
 
-                    <div class="Remaining"><strong>Remaining : 9</strong></div>
+                    <div class="Remaining"><strong id="EnemyRemaining">Remaining : 0</strong></div>
 
                     <hr>
 
@@ -180,47 +190,47 @@
 
                         <div class="Mob">
                             <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="25" height="25">
-                            <progress value="1" max="5">
+                            <progress value="5" max="5"></progress>
                         </div>
 
                         <div class="Mob">
                             <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="25" height="25">
-                            <progress value="1" max="5">
+                            <progress value="5" max="5">
                         </div>
 
                         <div class="Mob">
                             <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="25" height="25">
-                            <progress value="1" max="5">
+                            <progress value="5" max="5">
                         </div>
 
                         <div class="Mob">
                             <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="25" height="25">
-                            <progress value="1" max="5">
+                            <progress value="5" max="5">
                         </div>
 
                         <div class="Mob">
                             <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="25" height="25">
-                            <progress value="1" max="5">
+                            <progress value="5" max="5">
                         </div>
 
                         <div class="Mob">
                             <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="25" height="25">
-                            <progress value="1" max="5">
+                            <progress value="5" max="5">
                         </div>
 
                         <div class="Mob">
                             <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="25" height="25">
-                            <progress value="1" max="5">
+                            <progress value="5" max="5">
                         </div>
 
                         <div class="Mob">
                             <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="25" height="25">
-                            <progress value="1" max="5">
+                            <progress value="5" max="5">
                         </div>
 
                         <div class="Mob">
                             <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="25" height="25">
-                            <progress value="1" max="5">
+                            <progress value="5" max="5">
                         </div>
 
                     </div>

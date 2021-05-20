@@ -33,24 +33,93 @@
     color: gold;
 }
 
+.TurretText {
+    text-align: center;
+    color: gold;
+    font-size: 2rem;
+    line-height: 2.6rem;
+}
+
 .Triangle {
     text-align: center;
     color: gold;
     font-size: 1.9rem;
 }
 
-.BlueTri:hover {
-    outline : 0.2rem solid red;
+.GreyTri {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
 }
-.PurpleTri:hover {
-    outline : 0.2rem solid red;
+.GreyTri .TextGrey {
+    visibility: hidden;
+    width: 300px;
+    background-color: silver;
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: -320px;
+    border: solid;
+    border-color: darkred;
+    position: absolute;
 }
+.GreyTri:hover .TextGrey {
+    visibility: visible;
+}
+
+.YellowTri {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.YellowTri .TextYellow {
+    visibility: hidden;
+    width: 300px;
+    background-color: silver;
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: -320px;
+    border: solid;
+    border-color: darkred;
+    position: absolute;
+}
+.YellowTri:hover .TextYellow {
+    visibility: visible;
+}
+
+.RedTri {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.RedTri .TextRed {
+    visibility: hidden;
+    width: 300px;
+    background-color: silver;
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: -320px;
+    border: solid;
+    border-color: darkred;
+    position: absolute;
+}
+.RedTri:hover .TextRed {
+    visibility: visible;
+}
+
 .GreyTri:hover {
     outline : 0.2rem solid red;
 }
+
 .YellowTri:hover {
     outline : 0.2rem solid red;
 }
+
 .RedTri:hover {
     outline : 0.2rem solid red;
 }

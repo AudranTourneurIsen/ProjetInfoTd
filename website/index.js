@@ -37,10 +37,15 @@ const End = {
 
 let RemainingEnemiesToSpawn = []
 
+let EnemiesCounts = {
+    tank: 0,
+    weak: 0,
+    normal: 0
+}
+
 function generateHeaderText(timer, x, y) {
     return `Timer: ${Math.floor(timer / 1000)}s |  x = ${x} | y = ${y}`
 }
-
 
 function draw() {
     //console.log('draw()')
@@ -107,6 +112,7 @@ let Lasers = []
 function removeEnemy(enemy) {
     console.log(`removing enemy ${enemy}`)
     Enemies = Enemies.filter(x => x != enemy)
+    EnemiesCounts[enemy.type]--
 }
 
 function updateTurrets() {
@@ -120,16 +126,19 @@ function updateTurrets() {
             for (let j = -1; j <= 1; j++) {
                 currentX = x + i
                 currentY = y + j
-                if (Enemies.some(e => e.x == currentX && e.y == currentY)) {
+                if (Enemies.some(e => e.x == currentX && e.y == currentY && e.dead == false)) {
                     console.log(`Enemy found on ${currentX}/${currentY} by ${x}/${y}`)
-                    const enemy = Enemies.find(e => e.x == currentX && e.y == currentY)
+                    const enemy = Enemies.find(e => e.x == currentX && e.y == currentY && e.dead == false)
                     enemiesInRange.push(enemy)
-
-
                 }
             }
         }
         if (enemiesInRange.length == 0) continue;
+        if (turret.cooldown > 0) {
+            turret.cooldown--
+            continue
+        }
+        turret.cooldown = TurretsJson[turret.type].attack_speed - 1
         let minEnemy = enemiesInRange[0]
         for (const enemy of enemiesInRange) {
             if (enemy.id < minEnemy.id) {
@@ -142,10 +151,10 @@ function updateTurrets() {
             toX: minEnemy.x,
             toY: minEnemy.y
         })
-        minEnemy.hp -= 1
+        minEnemy.hp -= TurretsJson[turret.type].damage
         if (minEnemy.hp <= 0) {
             minEnemy.dead = true
-            removeEnemy(minEnemy)
+            //removeEnemy(minEnemy)
         }
     }
 }
@@ -153,11 +162,29 @@ function updateTurrets() {
 let spawnSpace = false
 
 function update() {
+    for (const e of Enemies) {
+        if (e.dead) {
+            removeEnemy(e)
+        }
+    }
     const headerText = document.getElementById('headertext')
     headerText.innerText = generateHeaderText(Timer, LastClick.x, LastClick.y)
 
     const gold = document.getElementById("gold")
     gold.innerText = Gold
+
+    const normal = document.getElementById("NormalEnemyNumber")
+    const weak = document.getElementById("WeakEnemyNumber")
+    const tank = document.getElementById("TankEnemyNumber")
+
+    console.log(EnemiesCounts)
+    console.log(EnemiesCounts.normal)
+    if (normal) normal.innerText = `x ${EnemiesCounts.normal}`
+    if (weak) weak.innerText = `x ${EnemiesCounts.weak}`
+    if (tank) tank.innerText = `x ${EnemiesCounts.tank}`
+
+    const remaining = document.getElementById('EnemyRemaining')
+    if (remaining) remaining.innerText = 'Remaining : ' + (EnemiesCounts.normal + EnemiesCounts.tank + EnemiesCounts.weak)
 
     if (RemainingEnemiesToSpawn.length > 0) {
         spawnSpace = !spawnSpace
@@ -256,7 +283,7 @@ function drawGrid() {
     }
     for (const x in Grid) {
         for (const y in Grid) {
-            if (Grid[y][x] == TURRET_CLASSIC || Grid[y][x] == TURRET_FAST || Grid[y][x] ==TURRET_HEAVY) {
+            if (Grid[y][x] == TURRET_CLASSIC || Grid[y][x] == TURRET_FAST || Grid[y][x] == TURRET_HEAVY) {
                 ctx.strokeStyle = 'red'
                 ctx.beginPath();
                 ctx.moveTo(x * SquareSize, y * SquareSize)
@@ -313,15 +340,30 @@ function getMousePosition(canvas, event) {
     if (!pos.x == undefined || pos.y == undefined) return;
     LastClick = pos
     //if (GridPos[pos.y][pos.x] == 0 && LastClick)
-    if (Gold <= 0) return;
-    if (Grid[pos.y][pos.x] == 0 && LastClick) {
-        Grid[pos.y][pos.x] = TurretsJson[SelectedTurret].id
-        Gold -= 10
-        Turrets.push({
-            x: pos.x,
-            y: pos.y,
-            type: SelectedTurret
-        })
+    if (!SelectedTurret) return;
+
+    if (SelectedTurret != 'sell') {
+        if (Gold <= 0) return;
+        if (Grid[pos.y][pos.x] == GRASS && LastClick) {
+            Grid[pos.y][pos.x] = TurretsJson[SelectedTurret].id
+            Gold -= 10
+            Turrets.push({
+                x: pos.x,
+                y: pos.y,
+                type: SelectedTurret,
+                cooldown: 0
+            })
+        }
+    }
+    else {
+        if (SelectedTurret == 'sell') {
+            console.log('sell')
+            if ([TURRET_CLASSIC, TURRET_FAST, TURRET_HEAVY].includes(Grid[pos.y][pos.x])) {
+                Grid[pos.y][pos.x] = GRASS
+                Gold += 10
+                Turrets = Turrets.filter(t => t.x != pos.x && t.y != pos.y)
+            }
+        }
     }
 }
 
@@ -362,6 +404,10 @@ function importGridFromText() {
 importGridFromText()
 
 const EnemiesJson = {
+    weak: {
+        health: 3,
+        img: "lime_circle.png"
+    },
     normal: {
         health: 5,
         img: "orange_circle.png"
@@ -369,10 +415,6 @@ const EnemiesJson = {
     tank: {
         health: 10,
         img: "red_circle.png"
-    },
-    weak: {
-        health: 3,
-        img: "lime_circle.png"
     }
 }
 
@@ -399,7 +441,7 @@ const TurretsJson = {
     },
 }
 
-let SelectedTurret = "classic"
+let SelectedTurret = null
 CurrentIdNumber = 0
 function generateId() {
     CurrentIdNumber++
@@ -428,9 +470,11 @@ const enemiesToSpawn = [
     "normal", "normal", "weak", "tank"
 ]
 
-
 async function spawnEnemies() {
     RemainingEnemiesToSpawn = enemiesToSpawn.map(x => x)
+    for (const type of RemainingEnemiesToSpawn) {
+        EnemiesCounts[type]++
+    }
 }
 
 function pressStartWave() {
@@ -459,10 +503,20 @@ function gameOver() {
     Enemies = []
     Lasers = []
     IsGameOver = true
+    for (const turret of Turrets) {
+        turret.cooldown = 0
+    }
 }
 
 function generateMobHud() {
     const alive = document.getElementById('EnemyAlive')
+}
+
+function unselectAll() {
+    for (const id of ['Sell', 'ClassicTurret', 'FastTurret', 'HeavyTurret']) {
+        const elem = document.getElementById(id)
+        elem.classList.remove('Selected')
+    }
 }
 
 function manageTurretSelection() {
@@ -470,20 +524,38 @@ function manageTurretSelection() {
     classic.addEventListener('mousedown', () => {
         console.log('classic')
         SelectedTurret = 'classic'
+        unselectAll()
+        classic.classList.add('Selected')
     })
 
     const fast = document.getElementById('FastTurret')
     fast.addEventListener('mousedown', () => {
         console.log('fast')
         SelectedTurret = 'fast'
+        unselectAll()
+        fast.classList.add('Selected')
     })
 
     const heavy = document.getElementById('HeavyTurret')
     heavy.addEventListener('mousedown', () => {
         console.log('heavy')
         SelectedTurret = 'heavy'
+        unselectAll()
+        heavy.classList.add('Selected')
     })
 
+    const cancel = document.getElementById('Cancel')
+    cancel.addEventListener('mousedown', () => {
+        SelectedTurret = null
+        unselectAll()
+    })
+
+    const sell = document.getElementById('Sell')
+    sell.addEventListener('mousedown', () => {
+        SelectedTurret = 'sell'
+        unselectAll()
+        sell.classList.add('Selected')
+    })
 }
 
 manageTurretSelection()
