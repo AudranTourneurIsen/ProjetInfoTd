@@ -192,7 +192,6 @@ int main(){
             fprintf(stderr, "Reading error with code %d\n");
             break;
         }
-        //printf("loop-txt %d %s", l, txt);
         l++;
     }
     
@@ -201,20 +200,6 @@ int main(){
     int h = 0;
     char grid[gridSIZE][gridSIZE];
     
-    /*for (int i = 0; i < gridSIZE; i++)
-    {
-        for (int j = 0; j < gridSIZE; j++)
-        {
-            if (txt[h] == '\n'){
-                h++;
-            }
-            else {
-                grid[j][i] = txt[h];
-                h++;
-            }
-            
-        }
-    }*/
     
     int i, j = 0;
     
