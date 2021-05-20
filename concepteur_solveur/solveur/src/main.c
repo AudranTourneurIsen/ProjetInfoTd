@@ -153,7 +153,7 @@ cursor selection(char grid[gridSIZE][gridSIZE])
                     }
                 }
 
-
+                
                 printf(" x = %d | y = %d | count = %d \n", i,j,count);
 
                 if (count == k){
@@ -192,7 +192,6 @@ int main(){
             fprintf(stderr, "Reading error with code %d\n");
             break;
         }
-        //printf("loop-txt %d %s", l, txt);
         l++;
     }
     
@@ -201,20 +200,6 @@ int main(){
     int h = 0;
     char grid[gridSIZE][gridSIZE];
     
-    /*for (int i = 0; i < gridSIZE; i++)
-    {
-        for (int j = 0; j < gridSIZE; j++)
-        {
-            if (txt[h] == '\n'){
-                h++;
-            }
-            else {
-                grid[j][i] = txt[h];
-                h++;
-            }
-            
-        }
-    }*/
     
     int i, j = 0;
     
@@ -242,16 +227,9 @@ int main(){
 
     fclose(file);
     printf("\n");
-    //cursor pos = selection(grid);
-    //printf(" x = %d | y = %d \n",pos.x,pos.y);
+    cursor pos = selection(grid);
 
-    for (int i = 0; i < gridSIZE; i++) {
-        for(int j = 0; j < gridSIZE; j++){
-                 printf("%c", grid[j][i]);
-        }
-        printf("\n");
-    }
+    
+    printf(" x = %d | y = %d \n",pos.x,pos.y);
 
-
-    printf("\ntest, %d %d %d", grid[0][0], grid[1][2], grid[2][1]);
 }
