@@ -4,7 +4,8 @@ const Width = 800
 const Height = 800
 const SquareSize = 50
 const GridSize = 14
-const GameTickMs = 100
+const GameTickMs = 500
+//const GameTick = 5
 
 const Grid = generateGrid()
 
@@ -13,7 +14,9 @@ let Turrets = []
 
 const GRASS = 0
 const PATH = 1
-const TURRET = 2
+const TURRET_CLASSIC = 2
+const TURRET_FAST = 3
+const TURRET_HEAVY = 4
 
 let Timer = 0
 let Wave = 0
@@ -31,6 +34,8 @@ const End = {
     x: 13,
     y: 12
 }
+
+let RemainingEnemiesToSpawn = []
 
 function generateHeaderText(timer, x, y) {
     return `Timer: ${Math.floor(timer / 1000)}s |  x = ${x} | y = ${y}`
@@ -50,9 +55,8 @@ function draw() {
     }
 }
 
-const GameTick = 5
 
-let NextGameUpdate = GameTick
+//let NextGameUpdate = GameTick
 
 function updateEnemies() {
 
@@ -111,31 +115,42 @@ function updateTurrets() {
         //console.log(turret)
         const x = turret.x
         const y = turret.y
+        const enemiesInRange = []
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
                 currentX = x + i
                 currentY = y + j
                 if (Enemies.some(e => e.x == currentX && e.y == currentY)) {
                     console.log(`Enemy found on ${currentX}/${currentY} by ${x}/${y}`)
-                    Lasers.push({
-                        fromX: x,
-                        fromY: y,
-                        toX: currentX,
-                        toY: currentY
-                    })
                     const enemy = Enemies.find(e => e.x == currentX && e.y == currentY)
-                    if (!enemy) return;
-                    enemy.hp -= 1
-                    if (enemy.hp <= 0) {
-                        enemy.dead = true
-                        removeEnemy(enemy)
-                    }
+                    enemiesInRange.push(enemy)
+
 
                 }
             }
         }
+        if (enemiesInRange.length == 0) continue;
+        let minEnemy = enemiesInRange[0]
+        for (const enemy of enemiesInRange) {
+            if (enemy.id < minEnemy.id) {
+                minEnemy = enemy
+            }
+        }
+        Lasers.push({
+            fromX: turret.x,
+            fromY: turret.y,
+            toX: minEnemy.x,
+            toY: minEnemy.y
+        })
+        minEnemy.hp -= 1
+        if (minEnemy.hp <= 0) {
+            minEnemy.dead = true
+            removeEnemy(minEnemy)
+        }
     }
 }
+
+let spawnSpace = false
 
 function update() {
     const headerText = document.getElementById('headertext')
@@ -144,11 +159,20 @@ function update() {
     const gold = document.getElementById("gold")
     gold.innerText = Gold
 
+    if (RemainingEnemiesToSpawn.length > 0) {
+        spawnSpace = !spawnSpace
+        if (spawnSpace) {
+            spawnEnemy(RemainingEnemiesToSpawn[0])
+            RemainingEnemiesToSpawn.shift()
+        }
+    }
+
     updateEnemies()
     updateTurrets()
 }
 
 function mainLoop() {
+    /*
     if (NextGameUpdate > 0) {
         NextGameUpdate--
         return;
@@ -156,6 +180,7 @@ function mainLoop() {
     else {
         NextGameUpdate = GameTick
     }
+    */
 
 
     update()
@@ -190,8 +215,6 @@ function drawLasers() {
 function drawGrid() {
     ctx.beginPath()
     const offset = SquareSize
-    let tri = new Image();   // Create new img element
-    tri.src = './Pictures/Towers/greyTriangle.png'; // Set source path
     for (const x in Grid) {
         for (const y in Grid) {
             if (Grid[y][x] == GRASS) {
@@ -202,8 +225,19 @@ function drawGrid() {
                 ctx.fillStyle = '#e59400'
                 ctx.fillRect(offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
             }
-            if (Grid[y][x] == TURRET) {
-                ctx.fillStyle = 'silver'
+            if (Grid[y][x] == TURRET_CLASSIC) {
+                let tri = new Image();   // Create new img element
+                tri.src = './Pictures/Towers/greyTriangle.png'; // Set source path
+                ctx.drawImage(tri, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
+            }
+            if (Grid[y][x] == TURRET_FAST) {
+                tri = new Image();   // Create new img element
+                tri.src = './Pictures/Towers/yellowTriangle.png'; // Set source path
+                ctx.drawImage(tri, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
+            }
+            if (Grid[y][x] == TURRET_HEAVY) {
+                tri = new Image();   // Create new img element
+                tri.src = './Pictures/Towers/redTriangle.png'; // Set source path
                 ctx.drawImage(tri, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
             }
         }
@@ -222,7 +256,7 @@ function drawGrid() {
     }
     for (const x in Grid) {
         for (const y in Grid) {
-            if (Grid[y][x] == TURRET) {
+            if (Grid[y][x] == TURRET_CLASSIC || Grid[y][x] == TURRET_FAST || Grid[y][x] ==TURRET_HEAVY) {
                 ctx.strokeStyle = 'red'
                 ctx.beginPath();
                 ctx.moveTo(x * SquareSize, y * SquareSize)
@@ -281,11 +315,12 @@ function getMousePosition(canvas, event) {
     //if (GridPos[pos.y][pos.x] == 0 && LastClick)
     if (Gold <= 0) return;
     if (Grid[pos.y][pos.x] == 0 && LastClick) {
-        Grid[pos.y][pos.x] = 2
+        Grid[pos.y][pos.x] = TurretsJson[SelectedTurret].id
         Gold -= 10
         Turrets.push({
             x: pos.x,
-            y: pos.y
+            y: pos.y,
+            type: SelectedTurret
         })
     }
 }
@@ -341,7 +376,30 @@ const EnemiesJson = {
     }
 }
 
-const Selected = "grey"
+const TurretsJson = {
+    classic: {
+        attack_speed: 2,
+        damage: 2,
+        img: "grey_Triangle.png",
+        id: TURRET_CLASSIC,
+    },
+
+    fast: {
+        attack_speed: 1,
+        damage: 1,
+        img: "yellow_Triangle.png",
+        id: TURRET_FAST,
+    },
+
+    heavy: {
+        attack_speed: 9,
+        damage: 10,
+        img: "red_Triangle.png",
+        id: TURRET_HEAVY,
+    },
+}
+
+let SelectedTurret = "classic"
 CurrentIdNumber = 0
 function generateId() {
     CurrentIdNumber++
@@ -366,25 +424,13 @@ function spawnEnemy(name) {
 
 let IsWaveStarted = false
 
-function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function sleep(fn, ...args) {
-    await timeout(2 * GameTick * GameTickMs);
-    return fn(...args);
-}
-
 const enemiesToSpawn = [
     "normal", "normal", "weak", "tank"
 ]
 
+
 async function spawnEnemies() {
-    for (const e of enemiesToSpawn) {
-        await sleep(() => {
-            spawnEnemy(e)
-        })
-    }
+    RemainingEnemiesToSpawn = enemiesToSpawn.map(x => x)
 }
 
 function pressStartWave() {
@@ -418,3 +464,26 @@ function gameOver() {
 function generateMobHud() {
     const alive = document.getElementById('EnemyAlive')
 }
+
+function manageTurretSelection() {
+    const classic = document.getElementById('ClassicTurret')
+    classic.addEventListener('mousedown', () => {
+        console.log('classic')
+        SelectedTurret = 'classic'
+    })
+
+    const fast = document.getElementById('FastTurret')
+    fast.addEventListener('mousedown', () => {
+        console.log('fast')
+        SelectedTurret = 'fast'
+    })
+
+    const heavy = document.getElementById('HeavyTurret')
+    heavy.addEventListener('mousedown', () => {
+        console.log('heavy')
+        SelectedTurret = 'heavy'
+    })
+
+}
+
+manageTurretSelection()
