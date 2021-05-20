@@ -36,9 +36,9 @@
             "command": "/usr/bin/gcc",
             "args": [
                 "-g",
-                "src/*.c",
+                "*.c",
                 "-o",
-                "exe"
+                "${fileDirname}/../debug.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"

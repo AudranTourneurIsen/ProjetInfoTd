@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             //"program": "${fileDirname}/${fileBasenameNoExtension}",
-            "program": "exe",
+            "program": "${fileDirname}/../debug.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
