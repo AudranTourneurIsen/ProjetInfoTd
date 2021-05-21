@@ -318,10 +318,12 @@ progress {
     margin: 5px;
 }
   
+
 body{
     font-family: 'Nova Flat', cursive;
     line-height: 27px;
-    color: #444;
+    color: white;
+    background-color: #262626;
     margin: 0;
 }
 
