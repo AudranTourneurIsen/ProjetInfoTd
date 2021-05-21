@@ -147,7 +147,7 @@ int main() {
 						
 				// on avance vers le haut
 					for (int i = 0; i < avancement; i++) {
-						if ((grid[path.x][path.y - 1] == 1)||(grid[path.x+1][path.y-1]==1)||(grid[path.x-1][path.y-1]==1)){
+						if ((grid[path.x][path.y - 2] == 1)||(grid[path.x+1][path.y-1]==1)||(grid[path.x-1][path.y-1]==1)){
 							break;
 						}
 						path.y-=1;
@@ -183,7 +183,7 @@ int main() {
 				// on avance vers la gauche
 				
 					for (int i = 0; i < avancement; i++) {
-						if ((grid[path.x - 1][path.y] == 1)||(grid[path.x-1][path.y-1]==1)||(grid[path.x-1][path.y+1]==1)){
+						if ((grid[path.x - 2][path.y] == 1)||(grid[path.x-1][path.y-1]==1)||(grid[path.x-1][path.y+1]==1)){
 							break;
 						}
 						path.x -=1;
@@ -213,7 +213,7 @@ int main() {
 					}
 	
 					for (int i = 0; i < avancement; i++) {
-							if ((grid[path.x][path.y + 1] == 1)||(grid[path.x + 1][path.y + 1] == 1) || (grid[path.x - 1][path.y + 1] == 1)){
+							if ((grid[path.x][path.y + 2] == 1)||(grid[path.x + 1][path.y + 1] == 1) || (grid[path.x - 1][path.y + 1] == 1)){
 							break;
 							}
 							path.y=path.y+1;
@@ -244,7 +244,7 @@ int main() {
 					}
 					// on avance vers la droite
 					for (int i = 0; i < avancement; i++) {
-						if ((grid[path.x + 1][path.y] == 1) || (grid[path.x +1][path.y+1] == 1) || (grid[path.x + 1][path.y-1] == 1)){
+						if ((grid[path.x + 2][path.y] == 1) || (grid[path.x +1][path.y+1] == 1) || (grid[path.x + 1][path.y-1] == 1)){
 							break;
 						}
 						path.x=path.x+1;
