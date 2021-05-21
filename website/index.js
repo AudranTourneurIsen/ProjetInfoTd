@@ -494,7 +494,7 @@ const EnemiesJson = {
     },
     tank: {
         health: 15,
-        img: "red_circle.png"
+        img: "purple_circle.png"
     }
 }
 
@@ -531,7 +531,7 @@ function generateId() {
 function enemyToImg(name) {
     if (name == 'weak') return 'Pictures/Enemies/lime_circle.png'
     if (name == 'normal') return 'Pictures/Enemies/orange_circle.png'
-    if (name == 'tank') return 'Pictures/Enemies/red_circle.png'
+    if (name == 'tank') return 'Pictures/Enemies/purple_circle.png'
 }
 
 function spawnEnemy(enemy) {
