@@ -259,7 +259,7 @@ int main() {
 
 		step++;
 
-		if (step == 100){
+		if (step >= 100){
 
 			for(int i = 0; i < gridSIZE ; i++){
 				for(int j = 0; j < gridSIZE; j++){
@@ -273,6 +273,7 @@ int main() {
 			grid[13][12] = 2;
 			path.x = 1;
 			path.y = 1;
+			step = 0;
 
 		}
 
