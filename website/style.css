@@ -503,3 +503,7 @@ hr{
     padding: 1.2rem;
     text-align: center;
 }
+
+.disabled {
+    display: none;
+}

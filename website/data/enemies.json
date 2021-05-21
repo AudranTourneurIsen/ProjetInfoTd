@@ -3,7 +3,7 @@
         "health": 5
     },
     "tank": {
-        "health": 10
+        "health": 15
     },
     "weak": {
         "health": 3
