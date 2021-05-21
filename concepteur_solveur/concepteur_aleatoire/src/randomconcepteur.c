@@ -22,11 +22,11 @@ void print_tab(int tab[gridSIZE][gridSIZE]) {
 	}
 }*/
 
-/* char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]) {
+ char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]) {
 	char tab2[gridSIZE][gridSIZE];
 	char* string = malloc(stringSIZE);
-	if (string == NULL) return EXIT_FAILURE;
-
+	if (string == NULL) return NULL;
+	puts("Affichage cleanTab 1");
 	// on transforme le tableau de signe en tableau de caract�re
 	for (int i = 0; i < gridSIZE; i++) {
 		for (int j = 0; j < gridSIZE; j++) {
@@ -51,7 +51,7 @@ void print_tab(int tab[gridSIZE][gridSIZE]) {
 	int h = 0;
 	int j = 0;
 	for (int i = 0; i < gridSIZE; i++) {
-		for (j = 0; j < gridSIZE; j++) {
+		for ( j = 0; j < gridSIZE; j++) {
 			printf("%c", tab2[j][i]);
 			string[h] = tab2[j][i];
 			h++;
@@ -60,21 +60,17 @@ void print_tab(int tab[gridSIZE][gridSIZE]) {
 			string[h] = '\n';
 			h++;
 		}
-		if (string[h] == 0) break;
-
-	} 
-
-
-
+	}
 	printf("\n\n\n\n");
 	printf("%s", string);
-
+	
 	// on printf la chaine
 
+	puts("Affichage cleanTab 2");
 
 	// on renvoit la chaine de caractère
 	return(string);
-}*/
+}
 
 
 
@@ -286,5 +282,18 @@ int main() {
 	printf("step = %d\n",step);
 	print_tab(grid);
 
+	char* string = cleanTab_tostring(grid);
+
+	FILE* f = fopen("grid.txt", "w+");
+
+	if (f == NULL) {
+		printf("Erreur lors de l'ouverture d'un fichier");
+		exit(1);
+	}
+
+	fputs(string, f);
+
+	fclose(f);
+	
 	return EXIT_SUCCESS;
 }
