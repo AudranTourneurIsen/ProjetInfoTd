@@ -253,17 +253,6 @@ function update() {
 }
 
 function mainLoop() {
-    /*
-    if (NextGameUpdate > 0) {
-        NextGameUpdate--
-        return;
-    }
-    else {
-        NextGameUpdate = GameTick
-    }
-    */
-
-
     update()
     draw()
     Timer += GameTickMs
