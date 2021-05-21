@@ -4,7 +4,7 @@ const Width = 800
 const Height = 800
 const SquareSize = 50
 const GridSize = 14
-const GameTickMs = 500
+const GameTickMs = 250
 //const GameTick = 5
 
 const Grid = generateGrid()
@@ -19,11 +19,30 @@ const TURRET_FAST = 3
 const TURRET_HEAVY = 4
 
 let Timer = 0
-let Wave = 0
-let Gold = 100
+let Wave = 1
+
+const Levels = {
+    1: {
+        enemies: ["weak", "normal", "tank"],
+        gold: 25
+    },
+    2: {
+        enemies: ["weak", "weak", "normal", "normal", "tank"],
+        gold: 30
+    },
+    3: {
+        enemies: ["tank", "weak", "weak", "normal", "normal", "weak", "weak", "tank"],
+        gold: 30
+    }
+}
+
+let MaxWave = Object.keys(Levels).length
+let Gold = 20
 let LastClick = {} // {x: number, y: number}
 
 let IsGameOver = false
+let IsWaveClear = false
+let ShowWaveClear = 0
 
 const Spawn = {
     x: -1,
@@ -43,20 +62,40 @@ let EnemiesCounts = {
     normal: 0
 }
 
+
+function resetEnemiesCount() {
+    EnemiesCounts = {
+        tank: 0,
+        weak: 0,
+        normal: 0
+    }
+}
+
+let IsWaveStarted = false
+
 function generateHeaderText(timer, x, y) {
     return `Timer: ${Math.floor(timer / 1000)}s |  x = ${x} | y = ${y}`
 }
 
+let ShowGameOver = 0
+
 function draw() {
-    //console.log('draw()')
     ctx.fillStyle = 'green'
     ctx.fillRect(0, 0, Width, Height)
     drawGrid()
     drawLasers()
-    if (IsGameOver) {
+    drawEnemies()
+    if (IsGameOver && ShowGameOver > 0) {
         ctx.fillStyle = 'red'
         ctx.font = '125px Arial'
         ctx.fillText('GAME  OVER', 0, 450)
+        ShowGameOver--
+    }
+    if (IsWaveClear && ShowWaveClear > 0) {
+        ctx.fillStyle = 'black'
+        ctx.font = '100px Arial'
+        ctx.fillText('WAVE  CLEAR', 65, 450)
+        ShowWaveClear--
     }
 }
 
@@ -64,6 +103,7 @@ function draw() {
 //let NextGameUpdate = GameTick
 
 function updateEnemies() {
+    if (!IsWaveStarted) return;
 
     function getNextAvailablePosition(enemy) {
         const x = enemy.x
@@ -88,12 +128,11 @@ function updateEnemies() {
                 }
             }
         }
-        console.log('Invalid getNextAvailablePosition, ', x, y)
         return null
     }
 
     for (const e of Enemies) {
-        console.log(e)
+        if (e.x == null || e.y == null) continue;
         const pos = getNextAvailablePosition(e)
         if (pos == null) {
             gameOver()
@@ -113,12 +152,12 @@ function removeEnemy(enemy) {
     console.log(`removing enemy ${enemy}`)
     Enemies = Enemies.filter(x => x != enemy)
     EnemiesCounts[enemy.type]--
+    enemy.htmlElement.remove()
 }
 
 function updateTurrets() {
     Lasers = []
     for (const turret of Turrets) {
-        //console.log(turret)
         const x = turret.x
         const y = turret.y
         const enemiesInRange = []
@@ -151,7 +190,10 @@ function updateTurrets() {
             toX: minEnemy.x,
             toY: minEnemy.y
         })
-        minEnemy.hp -= TurretsJson[turret.type].damage
+        const dmg = TurretsJson[turret.type].damage
+        minEnemy.hp -= dmg
+        const progress = minEnemy.htmlElement.children[1]
+        progress.value -= dmg
         if (minEnemy.hp <= 0) {
             minEnemy.dead = true
             //removeEnemy(minEnemy)
@@ -161,7 +203,10 @@ function updateTurrets() {
 
 let spawnSpace = false
 
+let CurrentTick = 0
+
 function update() {
+    CurrentTick++
     for (const e of Enemies) {
         if (e.dead) {
             removeEnemy(e)
@@ -173,12 +218,13 @@ function update() {
     const gold = document.getElementById("gold")
     gold.innerText = Gold
 
+    const waveCounter = document.getElementById('WaveCounter')
+    waveCounter.innerText = `${Wave} / ${MaxWave}`
+
     const normal = document.getElementById("NormalEnemyNumber")
     const weak = document.getElementById("WeakEnemyNumber")
     const tank = document.getElementById("TankEnemyNumber")
 
-    console.log(EnemiesCounts)
-    console.log(EnemiesCounts.normal)
     if (normal) normal.innerText = `x ${EnemiesCounts.normal}`
     if (weak) weak.innerText = `x ${EnemiesCounts.weak}`
     if (tank) tank.innerText = `x ${EnemiesCounts.tank}`
@@ -186,16 +232,24 @@ function update() {
     const remaining = document.getElementById('EnemyRemaining')
     if (remaining) remaining.innerText = 'Remaining : ' + (EnemiesCounts.normal + EnemiesCounts.tank + EnemiesCounts.weak)
 
-    if (RemainingEnemiesToSpawn.length > 0) {
-        spawnSpace = !spawnSpace
-        if (spawnSpace) {
-            spawnEnemy(RemainingEnemiesToSpawn[0])
-            RemainingEnemiesToSpawn.shift()
+    if (!IsWaveStarted) return
+
+    for (const e of Enemies.filter(x => !x.ready)) {
+        //spawnSpace = !spawnSpace
+        //if (spawnSpace) {
+        if (CurrentTick % 2 == 0) {
+            console.log(CurrentTick, 'spawning')
+            spawnEnemy(e)
+            break
         }
     }
 
     updateEnemies()
     updateTurrets()
+
+    if (Enemies.length == 0) {
+        waveClear()
+    }
 }
 
 function mainLoop() {
@@ -228,7 +282,6 @@ function drawLasers() {
     for (const laser of Lasers) {
         const fromPos = gridCoordsToCanvasCoords(laser.fromX, laser.fromY)
         const toPos = gridCoordsToCanvasCoords(laser.toX, laser.toY)
-        //console.log(fromPos, toPos)
         ctx.strokeStyle = 'red'
         ctx.lineWidth = 3
         ctx.beginPath()
@@ -295,9 +348,14 @@ function drawGrid() {
             }
         }
     }
+}
 
 
+function drawEnemies() {
+    if (!IsWaveStarted) return
+    const offset = SquareSize
     for (const e of Enemies) {
+        if (e.x == null || e.y == null) continue;
         let cir = new Image();   // Create new img element
         //cir.src = './Pictures/Enemies/orange_circle.png'; // Set source path
         cir.src = `./Pictures/Enemies/${EnemiesJson[e.type].img}`
@@ -341,12 +399,25 @@ function getMousePosition(canvas, event) {
     LastClick = pos
     //if (GridPos[pos.y][pos.x] == 0 && LastClick)
     if (!SelectedTurret) return;
+    function getPricePerTurret(name) {
+        if (name == 'heavy') return 15
+        if (name == 'fast') return 10
+        if (name == 'classic') return 5
+    }
+
+    function idToName(id) {
+        if (id == TURRET_CLASSIC) return 'classic'
+        if (id == TURRET_HEAVY) return 'heavy'
+        if (id == TURRET_FAST) return 'fast'
+    }
 
     if (SelectedTurret != 'sell') {
-        if (Gold <= 0) return;
+        const price = getPricePerTurret(SelectedTurret)
+        if ((Gold - price) < 0) return;
+        Gold -= price
         if (Grid[pos.y][pos.x] == GRASS && LastClick) {
             Grid[pos.y][pos.x] = TurretsJson[SelectedTurret].id
-            Gold -= 10
+
             Turrets.push({
                 x: pos.x,
                 y: pos.y,
@@ -357,10 +428,12 @@ function getMousePosition(canvas, event) {
     }
     else {
         if (SelectedTurret == 'sell') {
-            console.log('sell')
             if ([TURRET_CLASSIC, TURRET_FAST, TURRET_HEAVY].includes(Grid[pos.y][pos.x])) {
+                const id = Grid[pos.y][pos.x] 
+                console.log(id, idToName(id), getPricePerTurret(idToName(id)))
+                const price = getPricePerTurret(idToName(id))
                 Grid[pos.y][pos.x] = GRASS
-                Gold += 10
+                Gold += price
                 Turrets = Turrets.filter(t => t.x != pos.x && t.y != pos.y)
             }
         }
@@ -375,6 +448,8 @@ canvasElem.addEventListener("mousedown", function (e) {
 
 mainLoop()
 
+let GlobalTxt = null
+
 function importGridFromText() {
     const request = new XMLHttpRequest();
     request.open('GET', 'data/arena.txt', true);
@@ -385,23 +460,28 @@ function importGridFromText() {
             if (type.indexOf("text") !== 1) {
                 const txt = request.responseText
                 console.log(txt);
-                const lines = txt.split('\n')
-                let x = 0
-                let y = 0
-                for (const line of lines) {
-                    x = 0
-                    for (const c of line) {
-                        Grid[y][x] = c == '@' ? 1 : 0
-                        x++
-                    }
-                    y++
-                }
+                GlobalTxt = txt
+                resetGrid(txt)
             }
         }
     }
 }
 
 importGridFromText()
+
+function resetGrid(txt) {
+    const lines = txt.split('\n')
+    let x = 0
+    let y = 0
+    for (const line of lines) {
+        x = 0
+        for (const c of line) {
+            Grid[y][x] = c == '@' ? 1 : 0
+            x++
+        }
+        y++
+    }
+}
 
 const EnemiesJson = {
     weak: {
@@ -413,7 +493,7 @@ const EnemiesJson = {
         img: "orange_circle.png"
     },
     tank: {
-        health: 10,
+        health: 15,
         img: "red_circle.png"
     }
 }
@@ -421,7 +501,7 @@ const EnemiesJson = {
 const TurretsJson = {
     classic: {
         attack_speed: 2,
-        damage: 2,
+        damage: 1,
         img: "grey_Triangle.png",
         id: TURRET_CLASSIC,
     },
@@ -434,8 +514,8 @@ const TurretsJson = {
     },
 
     heavy: {
-        attack_speed: 9,
-        damage: 10,
+        attack_speed: 15,
+        damage: 15,
         img: "red_Triangle.png",
         id: TURRET_HEAVY,
     },
@@ -448,32 +528,55 @@ function generateId() {
     return CurrentIdNumber;
 }
 
-function spawnEnemy(name) {
+function enemyToImg(name) {
+    if (name == 'weak') return 'Pictures/Enemies/lime_circle.png'
+    if (name == 'normal') return 'Pictures/Enemies/orange_circle.png'
+    if (name == 'tank') return 'Pictures/Enemies/red_circle.png'
+}
+
+function spawnEnemy(enemy) {
+    enemy.x = Spawn.x
+    enemy.y = Spawn.y
+    enemy.ready = true
+}
+
+function instanciateEnemy(name) {
     console.log(name)
     const hp = EnemiesJson[name].health
     if (!hp) return;
+    const htmlElem = cloneHtmlEnemyElement()
+    const img = htmlElem.firstElementChild
+    const progress = htmlElem.children[1]
+    progress.max = hp
+    progress.value = hp
+    console.log(progress)
+
+    img.src = enemyToImg(name)
     Enemies.push({
         id: generateId(),
         type: name,
-        x: Spawn.x,
-        y: Spawn.y,
-        hp: EnemiesJson[name].health,
-        max: EnemiesJson[name].health,
+        //x: Spawn.x,
+        //y: Spawn.y,
+        x: null,
+        y: null,
+        hp: hp,
+        max: hp,
         excluding: [],
-        dead: false
+        dead: false,
+        htmlElement: htmlElem,
+        ready: false
     })
 }
 
-let IsWaveStarted = false
+function instanciateEnemies() {
+    //RemainingEnemiesToSpawn = enemiesToSpawn.map(x => x) 
+    Turrets = []
 
-const enemiesToSpawn = [
-    "normal", "normal", "weak", "tank"
-]
-
-async function spawnEnemies() {
-    RemainingEnemiesToSpawn = enemiesToSpawn.map(x => x)
-    for (const type of RemainingEnemiesToSpawn) {
+    const remaining = Levels[Wave].enemies.map(x => x)
+    Gold = Levels[Wave].gold
+    for (const type of remaining) {
         EnemiesCounts[type]++
+        instanciateEnemy(type)
     }
 }
 
@@ -482,8 +585,7 @@ function pressStartWave() {
         return
     IsWaveStarted = true
     IsGameOver = false
-    //spawnEnemy('normal')
-    spawnEnemies()
+    ShowGameOver = 10
     console.log('start wave')
     const btn = document.getElementById('startwave')
     btn.classList.add('waveactive')
@@ -498,14 +600,40 @@ function stopWave() {
     IsWaveStarted = false
 }
 
+function waveClear() {
+    IsWaveClear = true
+    ShowWaveClear = 10
+    IsWaveStarted = false
+    const btn = document.getElementById('startwave')
+    btn.classList.add('waveinactive')
+    btn.classList.remove('waveactive')
+    const waveCounter = document.getElementById('WaveCounter')
+    Wave++
+    waveCounter.innerText = `${Wave} / ${MaxWave}`
+
+    Turrets = []
+
+    resetGrid(GlobalTxt)
+    resetEnemiesCount()
+    instanciateEnemies()
+}
+
 function gameOver() {
     stopWave()
-    Enemies = []
     Lasers = []
     IsGameOver = true
+    for (const enemy of Enemies) {
+        enemy.htmlElement.remove()
+    }
+    Enemies = []
     for (const turret of Turrets) {
         turret.cooldown = 0
     }
+
+    Turrets = []
+    resetGrid(GlobalTxt)
+    resetEnemiesCount()
+    instanciateEnemies()
 }
 
 function generateMobHud() {
@@ -522,7 +650,6 @@ function unselectAll() {
 function manageTurretSelection() {
     const classic = document.getElementById('ClassicTurret')
     classic.addEventListener('mousedown', () => {
-        console.log('classic')
         SelectedTurret = 'classic'
         unselectAll()
         classic.classList.add('Selected')
@@ -530,7 +657,6 @@ function manageTurretSelection() {
 
     const fast = document.getElementById('FastTurret')
     fast.addEventListener('mousedown', () => {
-        console.log('fast')
         SelectedTurret = 'fast'
         unselectAll()
         fast.classList.add('Selected')
@@ -538,7 +664,6 @@ function manageTurretSelection() {
 
     const heavy = document.getElementById('HeavyTurret')
     heavy.addEventListener('mousedown', () => {
-        console.log('heavy')
         SelectedTurret = 'heavy'
         unselectAll()
         heavy.classList.add('Selected')
@@ -559,3 +684,27 @@ function manageTurretSelection() {
 }
 
 manageTurretSelection()
+
+function cloneHtmlEnemyElement() {
+    const ref = document.getElementById('MobReference')
+    const parent = ref.parentElement
+    const cloned = ref.cloneNode(true)
+    cloned.classList.remove('disabled')
+    parent.append(cloned)
+    return cloned
+}
+
+instanciateEnemies()
+
+function setWave(x) {
+    Wave = x
+    Lasers = []
+    for (const enemy of Enemies) {
+        enemy.htmlElement.remove()
+    }
+    Enemies = []
+    Turrets = []
+    resetGrid(GlobalTxt)
+    resetEnemiesCount()
+    instanciateEnemies()
+}
