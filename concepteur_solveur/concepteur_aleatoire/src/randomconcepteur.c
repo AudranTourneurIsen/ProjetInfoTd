@@ -103,6 +103,7 @@ int main() {
 	print_tab(grid);
 	int avancement = 0;
 	int direction = 0;
+	int step = 0;
 
 	while (arrivee == false) {
 
@@ -121,11 +122,14 @@ int main() {
 
 		direction = rand() % 4;
 		avancement = rand() % 3 + 1;
+
 		/* penser aux virages trop serrés*/
 
 		switch (direction) {
 			case(0):
 				
+				
+
 				// cas ou il ne faut pas aller vers le haut : 
 					// quand on est sur les lignes 1 ou moins
 					// si en se déplaçant de 2 cases vers le haut on retombe sur le chemin
@@ -143,14 +147,21 @@ int main() {
 						
 				// on avance vers le haut
 					for (int i = 0; i < avancement; i++) {
+						if ((grid[path.x][path.y - 1] == 1)||(grid[path.x+1][path.y-1]==1)||(grid[path.x-1][path.y-1]==1)){
+							break;
+						}
 						path.y-=1;
 						grid[path.x][path.y] =1;
+						printf("\nhaut \n");
 					}
 				}
 				break;
 			
 			
 			case(1):
+
+				
+
 				// cas où il ne faut pas tourner à gauche : 
 					// quand on est sur la colonne la plus à gauche,
 					// si en se déplaçant de 2 cases vers la gauche on retombe sur le chemin
@@ -158,6 +169,7 @@ int main() {
 					// en remontant si l'on est sur les lignes 2,1 ou 0
 					// si la position précédente est à gauche
 					// quand le virage est trop serré
+
 				if ((path.x <2) || (grid[path.x - 2][path.y] == 1) || (path.y > 10) || (path.y < 3) || (grid[path.x - 1][path.y] == 1)||(grid[path.x-1][path.y-1]==1)||(grid[path.x-1][path.y+1]==1)) {
 					break;
 				}
@@ -171,13 +183,20 @@ int main() {
 				// on avance vers la gauche
 				
 					for (int i = 0; i < avancement; i++) {
+						if ((grid[path.x - 1][path.y] == 1)||(grid[path.x-1][path.y-1]==1)||(grid[path.x-1][path.y+1]==1)){
+							break;
+						}
 						path.x -=1;
 						grid[path.x][path.y] = 1;
+						printf("\ngauche \n");
 					}
 				}
 				break;
 
 			case(2):
+
+				
+
 				// cas où il ne faut pas aller vers le bas :
 				// si on est sur les lignes 12 ou 13
 				// si en se déplaçant de 2 cases vers le bas on retombe sur le chemin
@@ -191,15 +210,23 @@ int main() {
 
 					while (path.y + avancement > 12) {
 						avancement--;
+					}
 	
-						for (int i = 0; i < avancement; i++) {
+					for (int i = 0; i < avancement; i++) {
+							if ((grid[path.x][path.y + 1] == 1)||(grid[path.x + 1][path.y + 1] == 1) || (grid[path.x - 1][path.y + 1] == 1)){
+							break;
+							}
 							path.y=path.y+1;
 							grid[path.x][path.y] = 1;
-						}
+							printf("\nbas \n");
 					}
+				
 				}
 				break;
 			case(3):
+
+				
+
 				// cas où il ne faut pas tourner à droite:
 				// quand on est sur la dernière colonne (path.x>11)
 				// si en se déplaçant de 2 cases vers la droite on retombe sur le chemin
@@ -217,15 +244,37 @@ int main() {
 					}
 					// on avance vers la droite
 					for (int i = 0; i < avancement; i++) {
+						if ((grid[path.x + 1][path.y] == 1) || (grid[path.x +1][path.y+1] == 1) || (grid[path.x + 1][path.y-1] == 1)){
+							break;
+						}
 						path.x=path.x+1;
 						grid[path.x][path.y] = 1;
+						printf("\ndroite \n");
 					}
 				}
 				break;
 			
 
 		}
-	
+
+		step++;
+
+		if (step == 100){
+
+			for(int i = 0; i < gridSIZE ; i++){
+				for(int j = 0; j < gridSIZE; j++){
+					grid[i][j] = 0;
+
+				}
+			}
+
+			grid[0][1] = 2;
+			grid[1][1] = 1;
+			grid[13][12] = 2;
+			path.x = 1;
+			path.y = 1;
+
+		}
 
 		if (((path.x) == gridSIZE - 2) && ((path.y) == gridSIZE - 2)) {
 			arrivee = true;
@@ -233,6 +282,7 @@ int main() {
 	}
 
 	printf("\n");
+	printf("step = %d\n",step);
 	print_tab(grid);
 
 	return EXIT_SUCCESS;
