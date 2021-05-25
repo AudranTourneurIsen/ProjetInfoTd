@@ -7,27 +7,37 @@
 #define gridSIZE 14
 #define stringSIZE 2000
 
-typedef struct Cursor {
-	int x;
-	int y;
-} Cursor;
-
-void print_tab(int tab[gridSIZE][gridSIZE]);
-char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]);
-// char* tabtostring(char tab[gridSIZE][gridSIZE]);
-void nettoyagefinstring(char* string, int size);
-
 #define NOTHING '.'
 #define PATH 'x'
 #define TURRET '$'
 
-typedef struct Enemy {
-	int health;
-} Enemy;
+typedef struct Cursor {
+	int x;
+	int y;
+	int reach;
+} Cursor;
 
+typedef struct Enemy {
+	int index;
+	int hp;
+	int property;  // 0 = none | 1 = fire | 2 =  ice
+} Enemy;
 
 typedef struct Turret {
 	char name[32];
 	int damage;
 	int range;
+	int property;  // 0 = none | 1 = fire | 2 =  ice
 } Turret;
+
+typedef struct Wave {
+	int index;
+	int gold;
+	char enemies[256];
+	//Enemy* enemies;
+	//char* enemies;
+} Wave;
+
+void print_tab(int tab[gridSIZE][gridSIZE]);
+char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]);
+void nettoyagefinstring(char* string, int size);

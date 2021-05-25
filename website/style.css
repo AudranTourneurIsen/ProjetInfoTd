@@ -1,4 +1,4 @@
-.Board {
+ .Board {
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -34,7 +34,7 @@
 }
 
 .TurretText {
-    text-align: center;
+   text-align: center;
     color: gold;
     font-size: 2rem;
     line-height: 2.6rem;
@@ -107,7 +107,7 @@
     border: solid;
     border-color: darkred;
     position: absolute;
-}
+}r
 .RedTri:hover .TextRed {
     visibility: visible;
 }
@@ -378,7 +378,6 @@ progress {
     border-bottom: 0.4rem solid;
     border-color: black;
     color: #ffae00;
-    line-height: 15;
 }
 
 .MobsStats h1{
@@ -389,7 +388,10 @@ progress {
 }
 
 .MobsStats p{
+    line-height: 2;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .MobsStats img {
@@ -403,11 +405,6 @@ progress {
     display: flex;
     flex-direction: column;
 }
-
-.Mob img {
-    margin: 5px;
-}
-  
 
 body{
     font-family: 'Nova Flat', cursive;
@@ -552,9 +549,10 @@ hr{
     100% {background-color:#44D62C;}
 }
 
-#TowersHow img, #EnemiesHow img{
+#TowersHow img, #EnemiesHow img {
     margin-right: 50px;
 }
+
 
 /* Footer */
 

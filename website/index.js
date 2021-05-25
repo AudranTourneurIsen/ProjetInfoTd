@@ -14,18 +14,17 @@ let Turrets = []
 
 const GRASS = 0
 const PATH = 1
-//const TURRET_CLASSIC = 2
-const TURRET_FAST = 3
-const TURRET_HEAVY = 4
-const TURRET_FIRE = 5
-const TURRET_ICE = 6
+const TURRET_FAST = 2
+const TURRET_HEAVY = 3
+const TURRET_FIRE = 4
+const TURRET_ICE = 5
 
 let Timer = 0
 let Wave = 1
 
 const Levels = {
     1: {
-        enemies: ["weak", "normal", "tank"],
+        enemies: ["fire", "ice", "tank"],
         gold: 30
     },
     2: {
@@ -161,6 +160,16 @@ function removeEnemy(enemy) {
     enemy.htmlElement.remove()
 }
 
+function pushLasers(turret, enemy, color) {
+    Lasers.push({
+        fromX: turret.x,
+        fromY: turret.y,
+        toX: enemy.x,
+        toY: enemy.y,
+        color: color
+    })
+}
+
 function updateTurrets() {
     Lasers = []
     for (const turret of Turrets) {
@@ -190,20 +199,49 @@ function updateTurrets() {
                 minEnemy = enemy
             }
         }
-        Lasers.push({
-            fromX: turret.x,
-            fromY: turret.y,
-            toX: minEnemy.x,
-            toY: minEnemy.y
-        })
+
         const dmg = TurretsJson[turret.type].damage
-        minEnemy.hp -= dmg
         const progress = minEnemy.htmlElement.children[1]
-        progress.value -= dmg
-        if (minEnemy.hp <= 0) {
-            minEnemy.dead = true
-            //removeEnemy(minEnemy)
+
+        if (minEnemy.type == 'fire') {
+            if (turret.type == 'ice') {
+                minEnemy.hp -= dmg
+                progress.value -= dmg
+                if (minEnemy.hp <= 0) {
+                    minEnemy.dead = true
+                }
+                pushLasers(turret, minEnemy, 'red')
+            }
+            else {
+            minEnemy.hp = minEnemy.hp - 0
+            pushLasers(turret, minEnemy, 'black')
+            }
         }
+
+        if (minEnemy.type == 'ice') {
+            if (turret.type == 'fire') {
+                minEnemy.hp -= dmg
+                progress.value -= dmg
+                if (minEnemy.hp <= 0) {
+                    minEnemy.dead = true
+                }
+                pushLasers(turret, minEnemy, 'red')
+            }
+            else {
+            minEnemy.hp = minEnemy.hp - 0
+            pushLasers(turret, minEnemy, 'black')
+            }
+        }
+
+        if (minEnemy.type == 'weak' || minEnemy.type == 'normal' || minEnemy.type == 'tank') {
+            minEnemy.hp -= dmg
+            progress.value -= dmg
+            if (minEnemy.hp <= 0) {
+                minEnemy.dead = true
+            }
+            pushLasers(turret, minEnemy, 'red')
+        }
+
     }
 }
 
@@ -238,9 +276,6 @@ function update() {
     if (normal) normal.innerText = `x ${EnemiesCounts.normal}`
     if (weak) weak.innerText = `x ${EnemiesCounts.weak}`
     if (tank) tank.innerText = `x ${EnemiesCounts.tank}`
-
-    /*const remaining = document.getElementById('EnemyRemaining')
-    if (remaining) remaining.innerText = 'Remaining : ' + (EnemiesCounts.normal + EnemiesCounts.tank + EnemiesCounts.weak)*/
 
     if (!IsWaveStarted) return
 
@@ -281,7 +316,8 @@ function drawLasers() {
     for (const laser of Lasers) {
         const fromPos = gridCoordsToCanvasCoords(laser.fromX, laser.fromY)
         const toPos = gridCoordsToCanvasCoords(laser.toX, laser.toY)
-        ctx.strokeStyle = 'red'
+        //ctx.strokeStyle = 'red'
+        ctx.strokeStyle = laser.color
         ctx.lineWidth = 3
         ctx.beginPath()
         ctx.moveTo(fromPos.x, fromPos.y)
@@ -304,11 +340,6 @@ function drawGrid() {
                 ctx.fillStyle = '#e59400'
                 ctx.fillRect(offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
             }
-            /*if (Grid[y][x] == TURRET_CLASSIC) {
-                let tri = new Image();   // Create new img element
-                tri.src = './Pictures/Towers/greyTriangle.png'; // Set source path
-                ctx.drawImage(tri, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
-            }*/
             if (Grid[y][x] == TURRET_FAST) {
                 tri = new Image();   // Create new img element
                 tri.src = './Pictures/Towers/yellowTriangle.png'; // Set source path
@@ -345,7 +376,7 @@ function drawGrid() {
     }
     for (const x in Grid) {
         for (const y in Grid) {
-            if (/*Grid[y][x] == TURRET_CLASSIC || */Grid[y][x] == TURRET_FAST || Grid[y][x] == TURRET_HEAVY || Grid[y][x] == TURRET_FIRE || Grid[y][x] == TURRET_ICE) {
+            if (Grid[y][x] == TURRET_FAST || Grid[y][x] == TURRET_HEAVY || Grid[y][x] == TURRET_FIRE || Grid[y][x] == TURRET_ICE) {
                 ctx.strokeStyle = 'red'
                 ctx.beginPath();
                 ctx.moveTo(x * SquareSize, y * SquareSize)
@@ -413,11 +444,9 @@ function getMousePosition(canvas, event) {
         if (name == 'fast') return 10
         if (name == 'fire') return 10
         if (name == 'ice') return 10
-        //if (name == 'classic') return 5
     }
 
     function idToName(id) {
-        //if (id == TURRET_CLASSIC) return 'classic'
         if (id == TURRET_HEAVY) return 'heavy'
         if (id == TURRET_FAST) return 'fast'
         if (id == TURRET_FIRE) return 'fire'
@@ -428,6 +457,11 @@ function getMousePosition(canvas, event) {
         const price = getPricePerTurret(SelectedTurret)
         if ((Gold - price) < 0) return;
         Gold -= price
+
+        if (Grid[pos.y][pos.x] == PATH && LastClick) {
+            Gold += price
+        }
+
         if (Grid[pos.y][pos.x] == GRASS && LastClick) {
             Grid[pos.y][pos.x] = TurretsJson[SelectedTurret].id
 
@@ -441,7 +475,7 @@ function getMousePosition(canvas, event) {
     }
     else {
         if (SelectedTurret == 'sell') {
-            if ([/*TURRET_CLASSIC,*/TURRET_FAST, TURRET_HEAVY, TURRET_FIRE,TURRET_ICE].includes(Grid[pos.y][pos.x])) {
+            if ([TURRET_FAST, TURRET_HEAVY, TURRET_FIRE,TURRET_ICE].includes(Grid[pos.y][pos.x])) {
                 const id = Grid[pos.y][pos.x] 
                 console.log(id, idToName(id), getPricePerTurret(idToName(id)))
                 const price = getPricePerTurret(idToName(id))
@@ -510,22 +544,16 @@ const EnemiesJson = {
         img: "purple_circle.png"
     },
     fire: {
-        health: 5,
+        health: 2,
         img: "red_circle.png"
     },
     ice: {
-        health: 5,
+        health: 2,
         img: "blue_circle.png"
     },
 }
 
 const TurretsJson = {
-    /*classic: {
-        attack_speed: 2,
-        damage: 1,
-        img: "grey_Triangle.png",
-        id: TURRET_CLASSIC,
-    },*/
 
     fast: {
         attack_speed: 1,
@@ -594,8 +622,6 @@ function instanciateEnemy(name) {
     Enemies.push({
         id: generateId(),
         type: name,
-        //x: Spawn.x,
-        //y: Spawn.y,
         x: null,
         y: null,
         hp: hp,
@@ -676,19 +702,13 @@ function gameOver() {
 }
 
 function unselectAll() {
-    for (const id of ['Sell'/*, 'ClassicTurret'*/, 'FastTurret', 'HeavyTurret', 'FireTurret', 'IceTurret']) {
+    for (const id of ['Sell', 'FastTurret', 'HeavyTurret', 'FireTurret', 'IceTurret']) {
         const elem = document.getElementById(id)
         elem.classList.remove('Selected')
     }
 }
 
 function manageTurretSelection() {
-    /*const classic = document.getElementById('ClassicTurret')
-    classic.addEventListener('mousedown', () => {
-        SelectedTurret = 'classic'
-        unselectAll()
-        classic.classList.add('Selected')
-    })*/
 
     const fast = document.getElementById('FastTurret')
     fast.addEventListener('mousedown', () => {

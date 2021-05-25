@@ -10,10 +10,10 @@
         "health": 3
     },
     "fire": {
-        "health": 5
+        "health": 2
     },
     "ice": {
-        "health": 5
+        "health": 2
     }
 
 }

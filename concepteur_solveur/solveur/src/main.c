@@ -1,6 +1,9 @@
 #include "fonctions.h"
 #include "TerminalUtils.h"
 
+#define WaveAmount 64
+Wave Waves[WaveAmount] = {};
+
 Cursor *getOptimalTurretPositions(char grid[gridSIZE][gridSIZE], int gold)
 {
     const int turretsTotal = gold / 10;
@@ -47,6 +50,7 @@ Cursor *getOptimalTurretPositions(char grid[gridSIZE][gridSIZE], int gold)
                     Cursor c;
                     c.x = i;
                     c.y = j;
+                    c.reach = k;
                     grid[c.x][c.y] = TURRET;
 
                     turretPositions[turretIndex] = c;
@@ -85,53 +89,33 @@ Cursor *TurretPositionInOrder(char grid[gridSIZE][gridSIZE], int gold)
     {
         for (int i = pos.x - 1; i <= pos.x + 1; i++)
         {
-            if (grid[i][pos.y] == grid[pos.x][pos.y] || grid[i][pos.y] == grid[previousPos.x][previousPos.y]) // Check for current or previous position
-            {
-                continue;
-            }
-            if (grid[i][pos.y] == PATH)
-            {
-                previousPos.x = pos.x;
-                previousPos.y = pos.y;
-                pos.x = i;
-            }
-        }
-
-        for (int j = pos.y - 1; j <= pos.y + 1; j++)
-        {
-            if (grid[pos.x][j] == grid[pos.x][pos.y] || grid[pos.x][j] == grid[previousPos.x][previousPos.y]) // Check for current or previous position
-            {
-                continue;
-            }
-            if (grid[pos.x][j] == PATH)
-            {
-                previousPos.x = pos.x;
-                previousPos.y = pos.y;
-                pos.y = j;
-            }
-        }
-
-        for (int i = pos.x - 1; i <= pos.x + 1; i++)
-        {
             for (int j = pos.y - 1; j <= pos.y + 1; j++)
             {
                 if (grid[i][j] == grid[pos.x][pos.y] || grid[i][j] == grid[previousPos.x][previousPos.y]) // Check for current or previous position
                 {
-                continue;
-                }
-                if (grid[i][j]== TURRET){   // Check for nearby turret position and put it in array
-                    turretPos.x=i;
-                    turretPos.y=j;
-                    turretOrder[turretIndex]=turretPos;
-                }
-                if (i != pos.x && j != pos.y){
                     continue;
                 }
-                if (grid[i][j] == PATH){
+                if (grid[i][j] == TURRET)
+                { // Check for nearby turret position and put it in array
+                    turretPos.x = i;
+                    turretPos.y = j;
+                    turretOrder[turretIndex] = turretPos;
+                }
+                if (i != pos.x && j != pos.y)
+                {
+                    continue;
+                }
+                if (grid[i][j] == PATH)
+                {
                     previousPos.x = pos.x;
                     previousPos.y = pos.y;
                     pos.x = i;
                     pos.y = j;
+                }
+
+                if (turretIndex = turretTotalNumber - 1)
+                {
+                    return turretOrder;
                 }
             }
         }
@@ -156,7 +140,8 @@ void getTurretTypes()
 {
 }
 
-void simulate() {
+void simulate()
+{
     Init();
     for (size_t i = 0; i < 10; i++)
     {
@@ -184,6 +169,81 @@ void updateGrid(char grid[gridSIZE][gridSIZE])
     }
 }
 
+void initWaves()
+{
+    FILE *file;
+    file = fopen("waves.txt", "r");
+
+    if (file == NULL)
+    {
+        return;
+    }
+
+    char txt[stringSIZE] = {0};
+
+    int waveIndex = 0;
+    while (!feof(file))
+    {
+        char lineBuffer[stringSIZE] = {0};
+        fgets(lineBuffer, stringSIZE, file);
+        strcat(txt, lineBuffer);
+        if (ferror(file))
+        {
+            fprintf(stderr, "Reading error\n");
+            break;
+        }
+        //printf(lineBuffer);
+
+        bool goldParsed = false;
+        char goldStr[8] = {0};
+        int i = 0;
+        char tmpEnemies[256] = {0};
+        int enemyIndex = 0;
+        while (*(lineBuffer + i) != 0)
+        {
+            if (lineBuffer[i] == ',')
+            {
+                if (!goldParsed)
+                {
+                    goldParsed = true;
+                }
+                i++;
+                continue;
+            }
+            if (!goldParsed)
+            {
+                goldStr[i] = lineBuffer[i];
+            }
+            else if (lineBuffer[i] != '\n' && lineBuffer[i] != '\r')
+            {
+                tmpEnemies[enemyIndex] = lineBuffer[i];
+                enemyIndex++;
+            }
+            i++;
+        }
+        int goldValue = atoi(goldStr);
+        //Wave w = {waveIndex, goldValue, tmpEnemies};
+        //printf("%s", tmpEnemies);
+        Waves[waveIndex].index = waveIndex;
+        Waves[waveIndex].gold = goldValue;
+        strcpy(Waves[waveIndex].enemies, tmpEnemies);
+        waveIndex++;
+        //printf("g %d\n", goldValue);
+    }
+    //printf(txt);
+}
+
+void displayWaves()
+{
+    for (size_t i = 0; i < WaveAmount; i++)
+    {
+        const Wave w = Waves[i];
+        if (w.gold == 0) break;
+        printf("Wave %d | Gold = %d | Enemies = %s\n", w.index, w.gold, w.enemies);
+    }
+    
+}
+
 int main()
 {
     FILE *file;
@@ -194,7 +254,6 @@ int main()
         return -1;
     }
     char txt[stringSIZE] = {0};
-    int l = 0;
 
     while (!feof(file))
     {
@@ -206,7 +265,6 @@ int main()
             fprintf(stderr, "Reading error\n");
             break;
         }
-        l++;
     }
 
     printf("\n\n%s\n", txt);
@@ -244,7 +302,9 @@ int main()
     displayGrid(grid);
     displayPositions(cursors, gold / 10);
 
-    simulate();
+    //simulate();
 
+    initWaves();
+    displayWaves();
     //printf(" x = %d | y = %d \n", pos.x, pos.y);
 }
