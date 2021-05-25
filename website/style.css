@@ -362,6 +362,13 @@ progress {
     background-color: white;
 }
 
+/*
+::-moz-progress-bar {
+    color: lime;
+    background-color: white;
+}
+*/
+
 .MobsStats {
     height: 863px;
     width: 250px;

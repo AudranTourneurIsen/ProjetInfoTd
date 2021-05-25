@@ -26,7 +26,7 @@ let Wave = 1
 const Levels = {
     1: {
         enemies: ["weak", "normal", "tank"],
-        gold: 20
+        gold: 30
     },
     2: {
         enemies: ["weak", "weak", "normal", "normal", "tank"],
