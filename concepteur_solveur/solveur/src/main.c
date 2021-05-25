@@ -128,7 +128,10 @@ Cursor *TurretPositionInOrder(char grid[gridSIZE][gridSIZE], int gold)
                     continue;
                 }
                 if (grid[i][j] == PATH){
-                    
+                    previousPos.x = pos.x;
+                    previousPos.y = pos.y;
+                    pos.x = i;
+                    pos.y = j;
                 }
             }
         }

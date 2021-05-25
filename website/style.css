@@ -371,7 +371,7 @@ progress {
     border-bottom: 0.4rem solid;
     border-color: black;
     color: #ffae00;
-    line-height: 300;
+    line-height: 15;
 }
 
 .MobsStats h1{
