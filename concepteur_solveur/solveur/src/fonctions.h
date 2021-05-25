@@ -7,10 +7,10 @@
 #define gridSIZE 14
 #define stringSIZE 2000
 
-typedef struct cursor {
+typedef struct Cursor {
 	int x;
 	int y;
-}cursor;
+} Cursor;
 
 void print_tab(int tab[gridSIZE][gridSIZE]);
 char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]);
