@@ -25,6 +25,7 @@ void print_tab(int tab[gridSIZE][gridSIZE]) {
  char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]) {
 	char tab2[gridSIZE][gridSIZE];
 	char* string = malloc(stringSIZE);
+
 	if (string == NULL) return NULL;
 	puts("Affichage cleanTab 1");
 	// on transforme le tableau de signe en tableau de caract�re
@@ -50,6 +51,7 @@ void print_tab(int tab[gridSIZE][gridSIZE]) {
 	// on le transcrit en chaine de caractère
 	int h = 0;
 	int j = 0;
+	
 	for (int i = 0; i < gridSIZE; i++) {
 		for ( j = 0; j < gridSIZE; j++) {
 			printf("%c", tab2[j][i]);
@@ -71,9 +73,6 @@ void print_tab(int tab[gridSIZE][gridSIZE]) {
 	// on renvoit la chaine de caractère
 	return(string);
 }
-
-
-
 
 // conception random
 int main() {

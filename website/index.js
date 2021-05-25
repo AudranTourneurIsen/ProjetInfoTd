@@ -14,7 +14,7 @@ let Turrets = []
 
 const GRASS = 0
 const PATH = 1
-const TURRET_CLASSIC = 2
+//const TURRET_CLASSIC = 2
 const TURRET_FAST = 3
 const TURRET_HEAVY = 4
 
@@ -294,11 +294,11 @@ function drawGrid() {
                 ctx.fillStyle = '#e59400'
                 ctx.fillRect(offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
             }
-            if (Grid[y][x] == TURRET_CLASSIC) {
+            /*if (Grid[y][x] == TURRET_CLASSIC) {
                 let tri = new Image();   // Create new img element
                 tri.src = './Pictures/Towers/greyTriangle.png'; // Set source path
                 ctx.drawImage(tri, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
-            }
+            }*/
             if (Grid[y][x] == TURRET_FAST) {
                 tri = new Image();   // Create new img element
                 tri.src = './Pictures/Towers/yellowTriangle.png'; // Set source path
@@ -325,7 +325,7 @@ function drawGrid() {
     }
     for (const x in Grid) {
         for (const y in Grid) {
-            if (Grid[y][x] == TURRET_CLASSIC || Grid[y][x] == TURRET_FAST || Grid[y][x] == TURRET_HEAVY) {
+            if (/*Grid[y][x] == TURRET_CLASSIC || */Grid[y][x] == TURRET_FAST || Grid[y][x] == TURRET_HEAVY) {
                 ctx.strokeStyle = 'red'
                 ctx.beginPath();
                 ctx.moveTo(x * SquareSize, y * SquareSize)
@@ -389,13 +389,13 @@ function getMousePosition(canvas, event) {
     //if (GridPos[pos.y][pos.x] == 0 && LastClick)
     if (!SelectedTurret) return;
     function getPricePerTurret(name) {
-        if (name == 'heavy') return 15
+        if (name == 'heavy') return 10
         if (name == 'fast') return 10
-        if (name == 'classic') return 5
+        //if (name == 'classic') return 5
     }
 
     function idToName(id) {
-        if (id == TURRET_CLASSIC) return 'classic'
+        //if (id == TURRET_CLASSIC) return 'classic'
         if (id == TURRET_HEAVY) return 'heavy'
         if (id == TURRET_FAST) return 'fast'
     }
@@ -417,7 +417,7 @@ function getMousePosition(canvas, event) {
     }
     else {
         if (SelectedTurret == 'sell') {
-            if ([TURRET_CLASSIC, TURRET_FAST, TURRET_HEAVY].includes(Grid[pos.y][pos.x])) {
+            if ([/*TURRET_CLASSIC,*/TURRET_FAST, TURRET_HEAVY].includes(Grid[pos.y][pos.x])) {
                 const id = Grid[pos.y][pos.x] 
                 console.log(id, idToName(id), getPricePerTurret(idToName(id)))
                 const price = getPricePerTurret(idToName(id))
@@ -488,12 +488,12 @@ const EnemiesJson = {
 }
 
 const TurretsJson = {
-    classic: {
+    /*classic: {
         attack_speed: 2,
         damage: 1,
         img: "grey_Triangle.png",
         id: TURRET_CLASSIC,
-    },
+    },*/
 
     fast: {
         attack_speed: 1,
@@ -630,19 +630,19 @@ function generateMobHud() {
 }
 
 function unselectAll() {
-    for (const id of ['Sell', 'ClassicTurret', 'FastTurret', 'HeavyTurret']) {
+    for (const id of ['Sell'/*, 'ClassicTurret'*/, 'FastTurret', 'HeavyTurret']) {
         const elem = document.getElementById(id)
         elem.classList.remove('Selected')
     }
 }
 
 function manageTurretSelection() {
-    const classic = document.getElementById('ClassicTurret')
+    /*const classic = document.getElementById('ClassicTurret')
     classic.addEventListener('mousedown', () => {
         SelectedTurret = 'classic'
         unselectAll()
         classic.classList.add('Selected')
-    })
+    })*/
 
     const fast = document.getElementById('FastTurret')
     fast.addEventListener('mousedown', () => {

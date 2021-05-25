@@ -15,8 +15,10 @@
         ############@@
         ##############  */
 
-cursor selection(char grid[gridSIZE][gridSIZE])
+Cursor* getOptimalTurretPositions(char grid[gridSIZE][gridSIZE], int gold)
 {
+    const int turrets = gold/10;
+    Cursor* alreadyPlaced = malloc(sizeof(Cursor) * turrets);
     int count = 0;
 
     for (int k = 7; k > 0; k--)
@@ -157,7 +159,7 @@ cursor selection(char grid[gridSIZE][gridSIZE])
                 printf(" x = %d | y = %d | count = %d \n", i,j,count);
 
                 if (count == k){
-                    cursor curseur;
+                    Cursor curseur;
                     curseur.x = i;
                     curseur.y = j;
 
@@ -227,7 +229,8 @@ int main(){
 
     fclose(file);
     printf("\n");
-    cursor pos = selection(grid);
+    int gold = 30;
+    Cursor* pos = getOptimalTurretPositions(grid, gold);
 
     
     printf(" x = %d | y = %d \n",pos.x,pos.y);
