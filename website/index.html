@@ -68,7 +68,7 @@
                         <img src="Pictures/Gold.png" alt="Gold" width="50" height="50">
                     </div>
 
-                    <br><br><br>
+                    <br><br>
 
                     <div class="TurretText">
                         <strong> Select Your Towers </strong>
@@ -82,8 +82,8 @@
                             <strong>5</strong>
                             <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                             <br>
-                        </div> <br><br> -->
-
+                        </div> <br><br> -->                        
+                        
                         <div id="FastTurret" class="YellowTri">
                             <img src="Pictures/Towers/yellowTriangle.png" alt="Yellow" width="50" height="50">
                             <span class="TextYellow">Attack Speed : 1 <br> Damage : 1</span>
@@ -92,12 +92,28 @@
                             <br>
                         </div><br><br>
 
-                        <div id="HeavyTurret" class="RedTri">
-                            <img src="Pictures/Towers/redTriangle.png" alt="Red" width="50" height="50">
-                            <span class="TextRed">Attack Speed : 15 <br> Damage : 15</span>
+                        <div id="HeavyTurret" class="PurpleTri">
+                            <img src="Pictures/Towers/purpleTriangle.png" alt="Purple" width="50" height="50">
+                            <span class="TextPurple">Attack Speed : 15 <br> Damage : 15</span>
                             <strong>10</strong>
                             <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
-                        </div><br>
+                        </div><br><br>
+
+                        <div id="FireTurret" class="RedTri">
+                            <img src="Pictures/Towers/redTriangle.png" alt="Red" width="50" height="50">
+                            <span class="TextRed">Attack Speed : 2 <br> Damage : 1 <br> Fire Damage</span>
+                            <strong>10</strong>
+                            <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
+                            <br>
+                        </div><br><br>
+
+                        <div id="IceTurret" class="BlueTri">
+                            <img src="Pictures/Towers/blueTriangle.png" alt="Blue" width="50" height="50">
+                            <span class="TextBlue">Attack Speed : 2 <br> Damage : 1 <br> Ice Damage</span>
+                            <strong>10</strong>
+                            <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
+                            <br>
+                        </div>
 
                         <!--
 
@@ -154,6 +170,7 @@
                         <hr>
                     </div>
 
+                    <!--
                     <div class="Enemies">
                         <div class="MobHoverLB">
                             <img src="Pictures/Enemies/purple_circle.png" alt="LightBlue_Circle" width="50" height="50">
@@ -175,9 +192,25 @@
                         </div>
                         &nbsp; <strong id="WeakEnemyNumber">x 0</strong>
                         <br><br>
+
+                        <div class="MobHoverLime">
+                            <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="50" height="50">
+                            <span class="TextLime">HP : 3</span>
+                        </div>
+                        &nbsp; <strong id="WeakEnemyNumber">x 0</strong>
+                        <br><br>
+
+                        <div class="MobHoverLime">
+                            <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="50" height="50">
+                            <span class="TextLime">HP : 3</span>
+                        </div>
+                        &nbsp; <strong id="WeakEnemyNumber">x 0</strong>
+                        <br><br>
+
                     </div>
+                
                     <div class="Remaining"><strong id="EnemyRemaining">Remaining : 0</strong></div>
-                    <hr>
+                    <hr> -->
                     <div class="StartButton">
                         <button id="startwave" class="waveinactive" onclick="pressStartWave();">Start Wave</button>
                     </div>
@@ -189,7 +222,31 @@
                         </div> 
                     </div>
                 </div>
+            </div>    
+            
+            <div class="MobsStats">
+
+                <h1>STATISTICS</h1>
+                
+                <br>
+                
+                <p><img src="Pictures/Enemies/blue_circle.png" alt="blue_circle" width="50" height="50">
+                HP : 10<br>Weakness : Fire<br><br></p>
+                
+                <p><img src="Pictures/Enemies/red_circle.png" alt="red_circle" width="50" height="50">
+                HP : 10<br>Weakness : Ice<br><br></p>
+                
+                <p><img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="50" height="50">
+                HP : 5<br><br></p>
+                
+                <p><img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="50" height="50">
+                HP : 5 <br><br></p>
+
+                <p><img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="50" height="50">
+                HP : 5 <br><br></p>
+                    
             </div>
+
         </div>
         <br>
     </main>

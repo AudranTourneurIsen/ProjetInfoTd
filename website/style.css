@@ -112,6 +112,50 @@
     visibility: visible;
 }
 
+.PurpleTri {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.PurpleTri .TextPurple {
+    visibility: hidden;
+    width: 300px;
+    background-color: silver;
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: -320px;
+    border: solid;
+    border-color: darkred;
+    position: absolute;
+}
+.PurpleTri:hover .TextPurple {
+    visibility: visible;
+}
+
+.BlueTri {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.BlueTri .TextBlue {
+    visibility: hidden;
+    width: 300px;
+    background-color: silver;
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: -320px;
+    border: solid;
+    border-color: darkred;
+    position: absolute;
+}
+.BlueTri:hover .TextBlue {
+    visibility: visible;
+}
+
 .GreyTri:hover {
     outline : 0.2rem solid red;
 }
@@ -121,6 +165,14 @@
 }
 
 .RedTri:hover {
+    outline : 0.2rem solid red;
+}
+
+.PurpleTri:hover {
+    outline : 0.2rem solid red;
+}
+
+.BlueTri:hover {
     outline : 0.2rem solid red;
 }
 
@@ -214,12 +266,13 @@
     margin: 2.2rem;
 }
 
-.MobHoverLB {
+/*
+.tank {
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black;
 }
-.MobHoverLB .TextLightB {
+.tank .TextPurple {
     visibility: hidden;
     width: 300px;
     background-color: silver;
@@ -233,17 +286,17 @@
     position: absolute;
     z-index: 1;
 }
-.MobHoverLB:hover .TextLightB {
+.tank:hover .TextPurple {
     visibility: visible;
 }
 
 
-.MobHoverO {
+.normal {
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black;
 }
-.MobHoverO .TextOrange {
+.normal .TextOrange {
     visibility: hidden;
     width: 300px;
     background-color: silver;
@@ -257,17 +310,17 @@
     position: absolute;
     z-index: 1;
 }
-.MobHoverO:hover .TextOrange {
+.normal:hover .TextOrange {
     visibility: visible;
 }
 
 
-.MobHoverLime {
+.weak {
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black;
 }
-.MobHoverLime .TextLime {
+.weak .TextLime {
     visibility: hidden;
     width: 300px;
     background-color: silver;
@@ -281,10 +334,10 @@
     position: absolute;
     z-index: 1;
 }
-.MobHoverLime:hover .TextLime {
+.weak:hover .TextLime {
     visibility: visible;
 }
-
+*/
 
 .Remaining {
     color: #ffae00;
@@ -308,6 +361,36 @@ progress {
     color: lime;
     background-color: white;
 }
+
+.MobsStats {
+    height: 863px;
+    width: 250px;
+    background: radial-gradient(black 50%, red);
+    border-right: 0.4rem solid;
+    border-top: 0.4rem solid;
+    border-bottom: 0.4rem solid;
+    border-color: black;
+    color: #ffae00;
+    line-height: 300;
+}
+
+.MobsStats h1{
+    text-decoration: underline;
+    color : silver;
+    text-shadow: 2px 2px black;
+    text-align: center;
+}
+
+.MobsStats p{
+    text-align: center;
+}
+
+.MobsStats img {
+    display: flex;
+    flex-direction: column;
+    margin-right: auto;
+    margin-left: auto;
+}    
 
 .Mob {
     display: flex;

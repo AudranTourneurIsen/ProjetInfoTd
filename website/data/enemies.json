@@ -1,3 +1,4 @@
+
 {
     "normal": {
         "health": 5
@@ -7,5 +8,12 @@
     },
     "weak": {
         "health": 3
+    },
+    "fire": {
+        "health": 5
+    },
+    "ice": {
+        "health": 5
     }
+
 }

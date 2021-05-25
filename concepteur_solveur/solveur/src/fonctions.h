@@ -16,3 +16,18 @@ void print_tab(int tab[gridSIZE][gridSIZE]);
 char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]);
 // char* tabtostring(char tab[gridSIZE][gridSIZE]);
 void nettoyagefinstring(char* string, int size);
+
+#define NOTHING '.'
+#define PATH 'x'
+#define TURRET '$'
+
+typedef struct Enemy {
+	int health;
+} Enemy;
+
+
+typedef struct Turret {
+	char name[32];
+	int damage;
+	int range;
+} Turret;

@@ -17,6 +17,8 @@ const PATH = 1
 //const TURRET_CLASSIC = 2
 const TURRET_FAST = 3
 const TURRET_HEAVY = 4
+const TURRET_FIRE = 5
+const TURRET_ICE = 6
 
 let Timer = 0
 let Wave = 1
@@ -59,7 +61,9 @@ let RemainingEnemiesToSpawn = []
 let EnemiesCounts = {
     tank: 0,
     weak: 0,
-    normal: 0
+    normal: 0,
+    fire: 0,
+    ice: 0,
 }
 
 
@@ -67,7 +71,9 @@ function resetEnemiesCount() {
     EnemiesCounts = {
         tank: 0,
         weak: 0,
-        normal: 0
+        normal: 0,
+        fire: 0, 
+        ice: 0,
     }
 }
 
@@ -224,13 +230,17 @@ function update() {
     const normal = document.getElementById("NormalEnemyNumber")
     const weak = document.getElementById("WeakEnemyNumber")
     const tank = document.getElementById("TankEnemyNumber")
+    const fire = document.getElementById("FireEnemyNumber")
+    const ice = document.getElementById("IceEnemyNumber")
 
+    if (fire) fire.innerText = `x ${EnemiesCounts.fire}`
+    if (ice) ice.innerText = `x ${EnemiesCounts.ice}`
     if (normal) normal.innerText = `x ${EnemiesCounts.normal}`
     if (weak) weak.innerText = `x ${EnemiesCounts.weak}`
     if (tank) tank.innerText = `x ${EnemiesCounts.tank}`
 
-    const remaining = document.getElementById('EnemyRemaining')
-    if (remaining) remaining.innerText = 'Remaining : ' + (EnemiesCounts.normal + EnemiesCounts.tank + EnemiesCounts.weak)
+    /*const remaining = document.getElementById('EnemyRemaining')
+    if (remaining) remaining.innerText = 'Remaining : ' + (EnemiesCounts.normal + EnemiesCounts.tank + EnemiesCounts.weak)*/
 
     if (!IsWaveStarted) return
 
@@ -306,7 +316,17 @@ function drawGrid() {
             }
             if (Grid[y][x] == TURRET_HEAVY) {
                 tri = new Image();   // Create new img element
+                tri.src = './Pictures/Towers/purpleTriangle.png'; // Set source path
+                ctx.drawImage(tri, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
+            }
+            if (Grid[y][x] == TURRET_FIRE) {
+                tri = new Image();   // Create new img element
                 tri.src = './Pictures/Towers/redTriangle.png'; // Set source path
+                ctx.drawImage(tri, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
+            }
+            if (Grid[y][x] == TURRET_ICE) {
+                tri = new Image();   // Create new img element
+                tri.src = './Pictures/Towers/blueTriangle.png'; // Set source path
                 ctx.drawImage(tri, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
             }
         }
@@ -325,7 +345,7 @@ function drawGrid() {
     }
     for (const x in Grid) {
         for (const y in Grid) {
-            if (/*Grid[y][x] == TURRET_CLASSIC || */Grid[y][x] == TURRET_FAST || Grid[y][x] == TURRET_HEAVY) {
+            if (/*Grid[y][x] == TURRET_CLASSIC || */Grid[y][x] == TURRET_FAST || Grid[y][x] == TURRET_HEAVY || Grid[y][x] == TURRET_FIRE || Grid[y][x] == TURRET_ICE) {
                 ctx.strokeStyle = 'red'
                 ctx.beginPath();
                 ctx.moveTo(x * SquareSize, y * SquareSize)
@@ -391,6 +411,8 @@ function getMousePosition(canvas, event) {
     function getPricePerTurret(name) {
         if (name == 'heavy') return 10
         if (name == 'fast') return 10
+        if (name == 'fire') return 10
+        if (name == 'ice') return 10
         //if (name == 'classic') return 5
     }
 
@@ -398,6 +420,8 @@ function getMousePosition(canvas, event) {
         //if (id == TURRET_CLASSIC) return 'classic'
         if (id == TURRET_HEAVY) return 'heavy'
         if (id == TURRET_FAST) return 'fast'
+        if (id == TURRET_FIRE) return 'fire'
+        if (id == TURRET_ICE) return 'ice'
     }
 
     if (SelectedTurret != 'sell') {
@@ -417,7 +441,7 @@ function getMousePosition(canvas, event) {
     }
     else {
         if (SelectedTurret == 'sell') {
-            if ([/*TURRET_CLASSIC,*/TURRET_FAST, TURRET_HEAVY].includes(Grid[pos.y][pos.x])) {
+            if ([/*TURRET_CLASSIC,*/TURRET_FAST, TURRET_HEAVY, TURRET_FIRE,TURRET_ICE].includes(Grid[pos.y][pos.x])) {
                 const id = Grid[pos.y][pos.x] 
                 console.log(id, idToName(id), getPricePerTurret(idToName(id)))
                 const price = getPricePerTurret(idToName(id))
@@ -484,7 +508,15 @@ const EnemiesJson = {
     tank: {
         health: 15,
         img: "purple_circle.png"
-    }
+    },
+    fire: {
+        health: 5,
+        img: "red_circle.png"
+    },
+    ice: {
+        health: 5,
+        img: "blue_circle.png"
+    },
 }
 
 const TurretsJson = {
@@ -505,9 +537,23 @@ const TurretsJson = {
     heavy: {
         attack_speed: 15,
         damage: 15,
-        img: "red_Triangle.png",
+        img: "purple_Triangle.png",
         id: TURRET_HEAVY,
     },
+
+    fire: {
+        attack_speed: 2,
+        damage: 1,
+        img: "red_Triangle.png",
+        id: TURRET_FIRE,
+    },
+
+    ice: {
+        attack_speed: 2,
+        damage: 1,
+        img: "blue_Triangle.png",
+        id: TURRET_ICE,
+    }
 }
 
 let SelectedTurret = null
@@ -521,6 +567,8 @@ function enemyToImg(name) {
     if (name == 'weak') return 'Pictures/Enemies/lime_circle.png'
     if (name == 'normal') return 'Pictures/Enemies/orange_circle.png'
     if (name == 'tank') return 'Pictures/Enemies/purple_circle.png'
+    if (name == 'fire') return 'Pictures/Enemies/red_circle.png'
+    if (name == 'ice') return 'Pictures/Enemies/blue_circle.png'
 }
 
 function spawnEnemy(enemy) {
@@ -534,6 +582,8 @@ function instanciateEnemy(name) {
     const hp = EnemiesJson[name].health
     if (!hp) return;
     const htmlElem = cloneHtmlEnemyElement()
+    htmlElem.classList.add(name)
+    console.log(htmlElem.classList)
     const img = htmlElem.firstElementChild
     const progress = htmlElem.children[1]
     progress.max = hp
@@ -625,12 +675,8 @@ function gameOver() {
     instanciateEnemies()
 }
 
-function generateMobHud() {
-    const alive = document.getElementById('EnemyAlive')
-}
-
 function unselectAll() {
-    for (const id of ['Sell'/*, 'ClassicTurret'*/, 'FastTurret', 'HeavyTurret']) {
+    for (const id of ['Sell'/*, 'ClassicTurret'*/, 'FastTurret', 'HeavyTurret', 'FireTurret', 'IceTurret']) {
         const elem = document.getElementById(id)
         elem.classList.remove('Selected')
     }
@@ -656,6 +702,20 @@ function manageTurretSelection() {
         SelectedTurret = 'heavy'
         unselectAll()
         heavy.classList.add('Selected')
+    })
+
+    const fire = document.getElementById('FireTurret')
+    fire.addEventListener('mousedown', () => {
+        SelectedTurret = 'fire'
+        unselectAll()
+        fire.classList.add('Selected')
+    })
+
+    const ice = document.getElementById('IceTurret')
+    ice.addEventListener('mousedown', () => {
+        SelectedTurret = 'ice'
+        unselectAll()
+        ice.classList.add('Selected')
     })
 
     const cancel = document.getElementById('Cancel')
