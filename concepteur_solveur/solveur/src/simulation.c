@@ -1,36 +1,49 @@
 #include "fonctions.h"
 #include "TerminalUtils.h"
+#include "stack.h"
+#include "queue.h"
 
-int GameTick = 0;
+typedef struct Position {
+    int x;
+    int y;
+} Position;
+
+typedef struct SimulationData {
+    bool isFinished;
+    int gameTick;
+    Queue enemiesRemainingToSpawn;
+} SimulationData;
 
 char enemiesRemainingToSpawn[] = {};
 
-//Cursor getNextAvailablePosition(Cursor currentPosition, char grid[gridSIZE][gridSIZE]) {
-//    return NULL;
-//}
+Position* getNextAvailablePosition(Position currentPosition, char grid[gridSIZE][gridSIZE]) {
+    return NULL;
+}
 
-void spawnEnemy(Enemy enemy, Cursor position) {
+void spawnEnemy(Enemy enemy, Position position) {
 
 }
 
-void updateSimulation(char grid[gridSIZE][gridSIZE], Wave wave) {
-    Cursor spawn = {0, 1};
-    Cursor end = {13, 12};
+void updateSimulation(char grid[gridSIZE][gridSIZE], Wave wave, SimulationData* simultationData) {
+    Position spawn = {0, 1};
+    Position end = {13, 12};
+
+    while (simultationData->gameTick % 2 == 0 && isQueueEmpty(simultationData->enemiesRemainingToSpawn)) {
+
+    }
 
     GameTick++;
 }
 
-void drawSimulation(char grid[gridSIZE][gridSIZE], Wave wave)
-{
+void drawSimulation(char grid[gridSIZE][gridSIZE], Wave wave) {
     Init();
 
-    for (int i = 0; i < gridSIZE; i++)
-    {
-        for (int j = 0; j < gridSIZE; j++)
-        {
+    for (int i = 0; i < gridSIZE; i++) {
+        for (int j = 0; j < gridSIZE; j++) {
             Draw(i, j, grid[j][i]);
         }
     }
+    Write(0, 14, "TEST");
     Refresh();
     Wait(1000);
 
@@ -39,10 +52,20 @@ void drawSimulation(char grid[gridSIZE][gridSIZE], Wave wave)
 
 bool isFinished = false;
 
-void simulate(char grid[gridSIZE][gridSIZE], Wave wave)
-{
+// Returns true if the simulation is successful, false otherwise
+bool simulate(char grid[gridSIZE][gridSIZE], Wave wave) {
+    SimulationData sim = {false, 0};
+    //strcpy(sim.enemiesRemainingToSpawn, wave.enemies);
+    int index = 0;
+    while (wave.enemies[index] != 0) {
+
+        index++;
+    }
+    Queue *enemiesRemaining = NULL;
+    NewQueue(&enemiesRemaining, 256);
     while (!isFinished) {
-        updateSimulation(grid, wave);
+        updateSimulation(grid, wave, &sim);
         drawSimulation(grid, wave);
     }
+    return false;
 }

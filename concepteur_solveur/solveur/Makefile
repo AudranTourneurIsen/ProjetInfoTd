@@ -77,8 +77,8 @@ CMAKE_BINARY_DIR = /home/audran/Code/projet-cir/concepteur_solveur/solveur
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/home/audran/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/bin/cmake/linux/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/home/audran/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -196,6 +196,33 @@ src/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/solveur.dir/build.make CMakeFiles/solveur.dir/src/main.c.s
 .PHONY : src/main.c.s
 
+src/queue.o: src/queue.c.o
+
+.PHONY : src/queue.o
+
+# target to build an object file
+src/queue.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/solveur.dir/build.make CMakeFiles/solveur.dir/src/queue.c.o
+.PHONY : src/queue.c.o
+
+src/queue.i: src/queue.c.i
+
+.PHONY : src/queue.i
+
+# target to preprocess a source file
+src/queue.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/solveur.dir/build.make CMakeFiles/solveur.dir/src/queue.c.i
+.PHONY : src/queue.c.i
+
+src/queue.s: src/queue.c.s
+
+.PHONY : src/queue.s
+
+# target to generate assembly for a file
+src/queue.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/solveur.dir/build.make CMakeFiles/solveur.dir/src/queue.c.s
+.PHONY : src/queue.c.s
+
 src/simulation.o: src/simulation.c.o
 
 .PHONY : src/simulation.o
@@ -223,6 +250,33 @@ src/simulation.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/solveur.dir/build.make CMakeFiles/solveur.dir/src/simulation.c.s
 .PHONY : src/simulation.c.s
 
+src/stack.o: src/stack.c.o
+
+.PHONY : src/stack.o
+
+# target to build an object file
+src/stack.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/solveur.dir/build.make CMakeFiles/solveur.dir/src/stack.c.o
+.PHONY : src/stack.c.o
+
+src/stack.i: src/stack.c.i
+
+.PHONY : src/stack.i
+
+# target to preprocess a source file
+src/stack.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/solveur.dir/build.make CMakeFiles/solveur.dir/src/stack.c.i
+.PHONY : src/stack.c.i
+
+src/stack.s: src/stack.c.s
+
+.PHONY : src/stack.s
+
+# target to generate assembly for a file
+src/stack.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/solveur.dir/build.make CMakeFiles/solveur.dir/src/stack.c.s
+.PHONY : src/stack.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -238,9 +292,15 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/queue.o"
+	@echo "... src/queue.i"
+	@echo "... src/queue.s"
 	@echo "... src/simulation.o"
 	@echo "... src/simulation.i"
 	@echo "... src/simulation.s"
+	@echo "... src/stack.o"
+	@echo "... src/stack.i"
+	@echo "... src/stack.s"
 .PHONY : help
 
 

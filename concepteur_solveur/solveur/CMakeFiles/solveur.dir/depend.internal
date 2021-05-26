@@ -9,8 +9,16 @@ CMakeFiles/solveur.dir/src/main.c.o
  /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/fonctions.h
  /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/main.c
  /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.h
+CMakeFiles/solveur.dir/src/queue.c.o
+ /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/queue.c
+ /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/queue.h
 CMakeFiles/solveur.dir/src/simulation.c.o
  /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/TerminalUtils.h
  /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/conio.h
  /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/fonctions.h
+ /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/queue.h
  /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.c
+ /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/stack.h
+CMakeFiles/solveur.dir/src/stack.c.o
+ /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/stack.c
+ /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/stack.h
