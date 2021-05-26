@@ -456,13 +456,9 @@ function getMousePosition(canvas, event) {
     if (SelectedTurret != 'sell') {
         const price = getPricePerTurret(SelectedTurret)
         if ((Gold - price) < 0) return;
-        Gold -= price
-
-        if (Grid[pos.y][pos.x] == PATH && LastClick) {
-            Gold += price
-        }
 
         if (Grid[pos.y][pos.x] == GRASS && LastClick) {
+            Gold -= price
             Grid[pos.y][pos.x] = TurretsJson[SelectedTurret].id
 
             Turrets.push({

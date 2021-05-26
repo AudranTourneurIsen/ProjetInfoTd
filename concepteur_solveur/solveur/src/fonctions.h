@@ -18,9 +18,12 @@ typedef struct Cursor {
 } Cursor;
 
 typedef struct Enemy {
+	char name;
 	int index;
 	int hp;
 	int property;  // 0 = none | 1 = fire | 2 =  ice
+	int x;
+	int y;
 } Enemy;
 
 typedef struct Turret {

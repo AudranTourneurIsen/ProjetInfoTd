@@ -1,0 +1,131 @@
+        -:    0:Source:/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/TerminalUtils.c
+        -:    0:Graph:/home/audran/Code/projet-cir/concepteur_solveur/solveur/cmake-build-debug-coverage/CMakeFiles/solveur.dir/src/TerminalUtils.c.gcno
+        -:    0:Data:/home/audran/Code/projet-cir/concepteur_solveur/solveur/cmake-build-debug-coverage/CMakeFiles/solveur.dir/src/TerminalUtils.c.gcda
+        -:    0:Runs:1
+        -:    1:#include <ncurses.h>
+        -:    2:#include <stdlib.h>
+        -:    3:
+function Init called 0 returned 0% blocks executed 0%
+    #####:    4:void Init() {
+    #####:    5:   initscr();
+    %%%%%:    5-block  0
+call    0 never executed
+    #####:    6:   cbreak();
+call    0 never executed
+    #####:    7:   noecho();
+call    0 never executed
+    #####:    8:   timeout(1000);
+call    0 never executed
+    #####:    9:   start_color();
+call    0 never executed
+    #####:   10:}
+        -:   11:
+function Move called 0 returned 0% blocks executed 0%
+    #####:   12:void Move(int x, int y) {
+    #####:   13:    move(y, x);
+    %%%%%:   13-block  0
+call    0 never executed
+    #####:   14:}
+        -:   15:
+function Draw called 0 returned 0% blocks executed 0%
+    #####:   16:void Draw(int x, int y, char ch) {
+    #####:   17:    mvaddch(y, x, ch);
+    %%%%%:   17-block  0
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    %%%%%:   17-block  1
+call    3 never executed
+    %%%%%:   17-block  2
+    #####:   18:}
+        -:   19:
+function Write called 0 returned 0% blocks executed 0%
+    #####:   20:void Write(int x, int y, char* str) {
+    #####:   21:    mvaddstr(y, x, str);
+    %%%%%:   21-block  0
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    %%%%%:   21-block  1
+call    3 never executed
+    %%%%%:   21-block  2
+    #####:   22:}
+        -:   23:
+function Refresh called 0 returned 0% blocks executed 0%
+    #####:   24:void Refresh() {
+    #####:   25:    refresh();
+    %%%%%:   25-block  0
+call    0 never executed
+    #####:   26:}
+        -:   27:
+function Clear called 0 returned 0% blocks executed 0%
+    #####:   28:void Clear() {
+    #####:   29:    clear();
+    %%%%%:   29-block  0
+call    0 never executed
+    #####:   30:}
+        -:   31:
+function SetTimeout called 0 returned 0% blocks executed 0%
+    #####:   32:void SetTimeout(int ms) {
+    #####:   33:    timeout(ms);
+    %%%%%:   33-block  0
+call    0 never executed
+    #####:   34:}
+        -:   35:
+function End called 0 returned 0% blocks executed 0%
+    #####:   36:void End() {
+    #####:   37:   clear();
+    %%%%%:   37-block  0
+call    0 never executed
+    #####:   38:   refresh();
+call    0 never executed
+    #####:   39:   endwin();
+call    0 never executed
+    #####:   40:}
+        -:   41:
+function UseColorPair called 0 returned 0% blocks executed 0%
+    #####:   42:void UseColorPair(short index) {
+    #####:   43:    attron(COLOR_PAIR(index));
+    %%%%%:   43-block  0
+call    0 never executed
+    #####:   44:}
+        -:   45:
+function StopColorPair called 0 returned 0% blocks executed 0%
+    #####:   46:void StopColorPair(short index) {
+    #####:   47:    attroff(COLOR_PAIR(index));
+    %%%%%:   47-block  0
+call    0 never executed
+    #####:   48:}
+        -:   49:
+function InitColorPair called 0 returned 0% blocks executed 0%
+    #####:   50:void InitColorPair(short index, short foreground, short background) {
+    #####:   51:    init_pair(index, foreground, background);
+    %%%%%:   51-block  0
+call    0 never executed
+    #####:   52:}
+        -:   53:
+function IsColorSupported called 0 returned 0% blocks executed 0%
+    #####:   54:bool IsColorSupported() {
+    #####:   55:    return has_colors();
+    %%%%%:   55-block  0
+call    0 never executed
+        -:   56:}
+        -:   57:
+        -:   58:#ifdef __linux__
+        -:   59:#include <unistd.h>
+        -:   60:#endif
+        -:   61:#ifdef _WIN32
+        -:   62:#include <windows.h>
+        -:   63:#endif
+        -:   64:
+function Wait called 0 returned 0% blocks executed 0%
+    #####:   65:void Wait(int ms) {
+        -:   66:    #ifdef __linux__
+    #####:   67:        usleep(ms * 1000);
+    %%%%%:   67-block  0
+call    0 never executed
+        -:   68:    #endif
+        -:   69:    #ifdef _WIN32
+        -:   70:        Sleep(ms);
+        -:   71:    #endif
+    #####:   72:}

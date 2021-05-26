@@ -1,0 +1,1 @@
+/usr/bin/cc --coverage -g CMakeFiles/test.dir/src/test.c.o -o test  -lcurses /usr/lib/x86_64-linux-gnu/libform.so 

@@ -1,5 +1,6 @@
 #include "fonctions.h"
 #include "TerminalUtils.h"
+#include "simulation.h"
 
 #define WaveAmount 64
 Wave Waves[WaveAmount] = {};
@@ -16,7 +17,6 @@ Cursor *getOptimalTurretPositions(char grid[gridSIZE][gridSIZE], int gold)
         {
             for (int j = 0; j < gridSIZE; j++)
             {
-                count = 0;
                 if (grid[i][j] == PATH)
                 { // Ne pas prendre en compte les cases du chemin
                     //printf(" x = %d | y = %d | count = %d \n", i, j, count);
@@ -113,7 +113,7 @@ Cursor *TurretPositionInOrder(char grid[gridSIZE][gridSIZE], int gold)
                     pos.y = j;
                 }
 
-                if (turretIndex = turretTotalNumber - 1)
+                if (turretIndex == turretTotalNumber - 1)
                 {
                     return turretOrder;
                 }
@@ -136,22 +136,6 @@ void displayGrid(char grid[gridSIZE][gridSIZE])
     puts("bye");
 }
 
-void getTurretTypes()
-{
-}
-
-void simulate()
-{
-    Init();
-    for (size_t i = 0; i < 10; i++)
-    {
-        Wait(200);
-        Draw(i, i, 'A');
-        Refresh();
-    }
-    Refresh();
-    End();
-}
 
 void updateGrid(char grid[gridSIZE][gridSIZE])
 {
@@ -238,19 +222,21 @@ void displayWaves()
     for (size_t i = 0; i < WaveAmount; i++)
     {
         const Wave w = Waves[i];
-        if (w.gold == 0) break;
+        if (w.gold == 0)
+            break;
         printf("Wave %d | Gold = %d | Enemies = %s\n", w.index, w.gold, w.enemies);
     }
-    
 }
 
 int main()
 {
+    puts("Starting solver");
     FILE *file;
     file = fopen("grid.txt", "r");
 
     if (file == NULL)
     {
+        puts("Fatal error, grid.txt not found, returning...");
         return -1;
     }
     char txt[stringSIZE] = {0};
@@ -302,9 +288,9 @@ int main()
     displayGrid(grid);
     displayPositions(cursors, gold / 10);
 
-    //simulate();
-
     initWaves();
     displayWaves();
     //printf(" x = %d | y = %d \n", pos.x, pos.y);
+
+    simulate(grid, Waves[0]);
 }
