@@ -78,12 +78,6 @@
 		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/main.c">
 			<Option target="solveur"/>
 		</Unit>
-		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/queue.c">
-			<Option target="solveur"/>
-		</Unit>
-		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/queue.h">
-			<Option target="solveur"/>
-		</Unit>
 		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.c">
 			<Option target="solveur"/>
 		</Unit>

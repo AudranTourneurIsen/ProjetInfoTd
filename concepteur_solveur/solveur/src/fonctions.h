@@ -4,7 +4,7 @@
 #include "conio.h"
 #include <stdbool.h>
 
-#define gridSIZE 14
+#define GridSize 14
 #define stringSIZE 2000
 
 #define NOTHING '.'
@@ -17,14 +17,6 @@ typedef struct Cursor {
 	int reach;
 } Cursor;
 
-typedef struct Enemy {
-	char name;
-	int index;
-	int hp;
-	int property;  // 0 = none | 1 = fire | 2 =  ice
-	int x;
-	int y;
-} Enemy;
 
 typedef struct Turret {
 	char name[32];
@@ -41,6 +33,6 @@ typedef struct Wave {
 	//char* enemies;
 } Wave;
 
-void print_tab(int tab[gridSIZE][gridSIZE]);
-char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]);
+void print_tab(int tab[GridSize][GridSize]);
+char* cleanTab_tostring(int tab[GridSize][GridSize]);
 void nettoyagefinstring(char* string, int size);

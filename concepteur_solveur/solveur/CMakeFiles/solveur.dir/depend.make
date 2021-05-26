@@ -9,15 +9,11 @@ CMakeFiles/solveur.dir/src/main.c.o: src/fonctions.h
 CMakeFiles/solveur.dir/src/main.c.o: src/main.c
 CMakeFiles/solveur.dir/src/main.c.o: src/simulation.h
 
-CMakeFiles/solveur.dir/src/queue.c.o: src/queue.c
-CMakeFiles/solveur.dir/src/queue.c.o: src/queue.h
-
 CMakeFiles/solveur.dir/src/simulation.c.o: src/TerminalUtils.h
 CMakeFiles/solveur.dir/src/simulation.c.o: src/conio.h
 CMakeFiles/solveur.dir/src/simulation.c.o: src/fonctions.h
-CMakeFiles/solveur.dir/src/simulation.c.o: src/queue.h
 CMakeFiles/solveur.dir/src/simulation.c.o: src/simulation.c
-CMakeFiles/solveur.dir/src/simulation.c.o: src/stack.h
+CMakeFiles/solveur.dir/src/simulation.c.o: src/simulation.h
 
 CMakeFiles/solveur.dir/src/stack.c.o: src/stack.c
 CMakeFiles/solveur.dir/src/stack.c.o: src/stack.h
