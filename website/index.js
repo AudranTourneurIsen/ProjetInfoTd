@@ -708,6 +708,32 @@ function gameOver() {
     GameoverSound.play()
 }
 
+let IsSoundOn = true
+
+function PressSound() {
+    const Sbtn = document.getElementById('sound_button')
+    IsSoundOn = !IsSoundOn
+
+    if (IsSoundOn == false) {
+        WavestartSound.setVolume(1)
+        WaveclearSound.setVolume(1)
+        GameoverSound.setVolume(1)
+        DeathSound.setVolume(1)
+        LaserSound.setVolume(0.2)
+        IsSoundOn = true
+        console.log('Toggle')
+    }
+    if (IsSoundOn == true) {
+        WavestartSound.setVolume(0)
+        WaveclearSound.setVolume(0)
+        GameoverSound.setVolume(0)
+        DeathSound.setVolume(0)
+        LaserSound.muted = true
+        IsSoundOn = false
+        console.log('Mute')
+    }
+}
+
 function unselectAll() {
     for (const id of ['Sell', 'FastTurret', 'HeavyTurret', 'FireTurret', 'IceTurret']) {
         const elem = document.getElementById(id)
