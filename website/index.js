@@ -78,8 +78,8 @@ function resetEnemiesCount() {
 
 let IsWaveStarted = false
 
-function generateHeaderText(timer, x, y) {
-    return `Timer: ${Math.floor(timer / 1000)}s |  x = ${x} | y = ${y}`
+function generateHeaderText(timer) {
+    return `Timer: ${Math.floor(timer / 1000)}s`
 }
 
 let ShowGameOver = 0
@@ -153,9 +153,10 @@ function updateEnemies() {
 
 let Lasers = []
 
+const DeathSound = new Audio('./Sounds/death.mp3')
 function removeEnemy(enemy) {
     console.log(`removing enemy ${enemy}`)
-    const DeathSound = new Audio('./Sounds/death.mp3')
+    //const DeathSound = new Audio('./Sounds/death.mp3')
     DeathSound.play()
     Enemies = Enemies.filter(x => x != enemy)
     EnemiesCounts[enemy.type]--
@@ -259,7 +260,7 @@ function update() {
         }
     }
     const headerText = document.getElementById('headertext')
-    headerText.innerText = generateHeaderText(Timer, LastClick.x, LastClick.y)
+    headerText.innerText = generateHeaderText(Timer)
 
     const gold = document.getElementById("gold")
     gold.innerText = Gold
@@ -314,9 +315,10 @@ function gridCoordsToCanvasCoords(x, y) {
     }
 }
 
+const LaserSound = new Audio('./Sounds/shot.mp3')
 function drawLasers() {
     for (const laser of Lasers) {
-        const LaserSound = new Audio('./Sounds/shot.mp3')
+        //const LaserSound = new Audio('./Sounds/shot.mp3')
         const fromPos = gridCoordsToCanvasCoords(laser.fromX, laser.fromY)
         const toPos = gridCoordsToCanvasCoords(laser.toX, laser.toY)
         //ctx.strokeStyle = 'red'
@@ -328,7 +330,6 @@ function drawLasers() {
         ctx.stroke()
         ctx.lineWidth = 1
         LaserSound.play()
-        LaserSound.volume = 0.2
     }
 }
 
@@ -645,14 +646,14 @@ function instanciateEnemies() {
         instanciateEnemy(type)
     }
 }
-
+const WavestartSound = new Audio('./Sounds/wavestart.mp3')
 function pressStartWave() {
     if (IsWaveStarted)
         return
     IsWaveStarted = true
     IsGameOver = false
     ShowGameOver = 10
-    const WavestartSound = new Audio('./Sounds/wavestart.mp3')
+    //const WavestartSound = new Audio('./Sounds/wavestart.mp3')
     WavestartSound.play()
     console.log('start wave')
     const btn = document.getElementById('startwave')
@@ -668,8 +669,9 @@ function stopWave() {
     IsWaveStarted = false
 }
 
+const WaveclearSound = new Audio('Sounds/victory.mp3')
 function waveClear() {
-    const WaveclearSound = new Audio('Sounds/victory.mp3')
+    //const WaveclearSound = new Audio('Sounds/victory.mp3')
     IsWaveClear = true
     ShowWaveClear = 10
     IsWaveStarted = false
@@ -688,8 +690,9 @@ function waveClear() {
     WaveclearSound.play()
 }
 
+const GameoverSound = new Audio('Sounds/gameover.mp3')
 function gameOver() {
-    const GameoverSound = new Audio('Sounds/gameover.mp3')
+    //const GameoverSound = new Audio('Sounds/gameover.mp3')
     stopWave()
     Lasers = []
     IsGameOver = true
@@ -706,32 +709,6 @@ function gameOver() {
     resetEnemiesCount()
     instanciateEnemies()
     GameoverSound.play()
-}
-
-let IsSoundOn = true
-
-function PressSound() {
-    const Sbtn = document.getElementById('sound_button')
-    IsSoundOn = !IsSoundOn
-
-    if (IsSoundOn == false) {
-        WavestartSound.setVolume(1)
-        WaveclearSound.setVolume(1)
-        GameoverSound.setVolume(1)
-        DeathSound.setVolume(1)
-        LaserSound.setVolume(0.2)
-        IsSoundOn = true
-        console.log('Toggle')
-    }
-    if (IsSoundOn == true) {
-        WavestartSound.setVolume(0)
-        WaveclearSound.setVolume(0)
-        GameoverSound.setVolume(0)
-        DeathSound.setVolume(0)
-        LaserSound.muted = true
-        IsSoundOn = false
-        console.log('Mute')
-    }
 }
 
 function unselectAll() {
@@ -809,4 +786,32 @@ function setWave(x) {
     resetGrid(GlobalTxt)
     resetEnemiesCount()
     instanciateEnemies()
+}
+
+let IsSoundOn = true
+
+function PressSound() {
+    const Sbtn = document.getElementById('change_sound')
+    IsSoundOn = !IsSoundOn
+
+    if (IsSoundOn == false) {
+        WavestartSound.volume = 1
+        WaveclearSound.volume = 1
+        GameoverSound.volume = 1
+        DeathSound.volume = 1
+        LaserSound.volume = 0.2
+        Sbtn.classList.remove('sound_off')
+        Sbtn.classList.add('sound_on')
+        console.log('Sound On')
+    }
+    if (IsSoundOn == true) {
+        WavestartSound.volume = 0
+        WaveclearSound.volume = 0
+        GameoverSound.volume = 0
+        DeathSound.volume = 0
+        LaserSound.volume = 0
+        Sbtn.classList.remove('sound_on')
+        Sbtn.classList.add('sound_off')
+        console.log('Sound Muted')
+    }
 }

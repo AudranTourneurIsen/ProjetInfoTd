@@ -7,6 +7,31 @@
 .Grid {
     /*background-color: rgba(48,48,48, .5);*/
     background-color: green;
+    height: 54.715rem;
+}
+
+#headertext {
+    color: silver;
+    margin-left: 65px;
+    font-size: 1.5rem;
+}
+
+.sound_on {
+    background-color: white;
+    border: solid;
+    border-color: darkgrey;
+    color: black;
+    font-size: 1.4rem;
+    margin-left: 4.8rem;
+}
+
+#change_sound:active, .sound_off {
+    background-color: black;
+    border: solid;
+    border-color: silver;
+    color: white;
+    font-size: 1.4rem;
+    margin-left: 4.8rem;
 }
 
 .RectangleTowers {
@@ -46,7 +71,7 @@
     font-size: 1.9rem;
 }
 
-.GreyTri {
+/*.GreyTri {
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black;
@@ -66,7 +91,7 @@
 }
 .GreyTri:hover .TextGrey {
     visibility: visible;
-}
+}*/
 
 .YellowTri {
     position: relative;
@@ -97,7 +122,7 @@
 }
 .RedTri .TextRed {
     visibility: hidden;
-    width: 300px;
+    width: 320px;
     background-color: silver;
     color: black;
     text-align: center;
@@ -107,7 +132,7 @@
     border: solid;
     border-color: darkred;
     position: absolute;
-}r
+}
 .RedTri:hover .TextRed {
     visibility: visible;
 }
@@ -119,7 +144,7 @@
 }
 .PurpleTri .TextPurple {
     visibility: hidden;
-    width: 300px;
+    width: 320px;
     background-color: silver;
     color: black;
     text-align: center;
@@ -141,7 +166,7 @@
 }
 .BlueTri .TextBlue {
     visibility: hidden;
-    width: 300px;
+    width: 310px;
     background-color: silver;
     color: black;
     text-align: center;
@@ -351,8 +376,13 @@
 }
 
 .EnemyAlive > div {
-    margin: 10px;
+    margin: 13px;
     padding: 10px;
+}
+
+.CircleImage {
+    margin-left: 5px;
+    margin-bottom: 8px;
 }
 
 progress {
@@ -372,7 +402,7 @@ progress {
 .MobsStats {
     height: 863px;
     width: 250px;
-    background: radial-gradient(black 50%, red);
+    background: radial-gradient(black 50%, rgb(170, 51, 134));
     border-right: 0.4rem solid;
     border-top: 0.4rem solid;
     border-bottom: 0.4rem solid;
@@ -457,6 +487,7 @@ p{
 header{
     font-size: 60px;
 }
+
 
 /* Menus déroulants */
 
