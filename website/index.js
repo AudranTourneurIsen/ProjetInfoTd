@@ -155,6 +155,8 @@ let Lasers = []
 
 function removeEnemy(enemy) {
     console.log(`removing enemy ${enemy}`)
+    const DeathSound = new Audio('./Sounds/death.mp3')
+    DeathSound.play()
     Enemies = Enemies.filter(x => x != enemy)
     EnemiesCounts[enemy.type]--
     enemy.htmlElement.remove()
@@ -314,6 +316,7 @@ function gridCoordsToCanvasCoords(x, y) {
 
 function drawLasers() {
     for (const laser of Lasers) {
+        const LaserSound = new Audio('./Sounds/shot.mp3')
         const fromPos = gridCoordsToCanvasCoords(laser.fromX, laser.fromY)
         const toPos = gridCoordsToCanvasCoords(laser.toX, laser.toY)
         //ctx.strokeStyle = 'red'
@@ -324,6 +327,8 @@ function drawLasers() {
         ctx.lineTo(toPos.x, toPos.y)
         ctx.stroke()
         ctx.lineWidth = 1
+        LaserSound.play()
+        LaserSound.volume = 0.2
     }
 }
 
@@ -647,6 +652,8 @@ function pressStartWave() {
     IsWaveStarted = true
     IsGameOver = false
     ShowGameOver = 10
+    const WavestartSound = new Audio('./Sounds/wavestart.mp3')
+    WavestartSound.play()
     console.log('start wave')
     const btn = document.getElementById('startwave')
     btn.classList.add('waveactive')
@@ -662,6 +669,7 @@ function stopWave() {
 }
 
 function waveClear() {
+    const WaveclearSound = new Audio('Sounds/victory.mp3')
     IsWaveClear = true
     ShowWaveClear = 10
     IsWaveStarted = false
@@ -677,9 +685,11 @@ function waveClear() {
     resetGrid(GlobalTxt)
     resetEnemiesCount()
     instanciateEnemies()
+    WaveclearSound.play()
 }
 
 function gameOver() {
+    const GameoverSound = new Audio('Sounds/gameover.mp3')
     stopWave()
     Lasers = []
     IsGameOver = true
@@ -695,6 +705,7 @@ function gameOver() {
     resetGrid(GlobalTxt)
     resetEnemiesCount()
     instanciateEnemies()
+    GameoverSound.play()
 }
 
 function unselectAll() {
