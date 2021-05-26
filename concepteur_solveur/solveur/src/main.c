@@ -5,7 +5,7 @@
 #define WaveAmount 64
 Wave Waves[WaveAmount] = {};
 
-Cursor *getOptimalTurretPositions(char grid[gridSIZE][gridSIZE], int gold)
+Cursor *getOptimalTurretPositions(char grid[GridSize][GridSize], int gold)
 {
     const int turretsTotal = gold / 10;
     int turretIndex = 0;
@@ -13,9 +13,9 @@ Cursor *getOptimalTurretPositions(char grid[gridSIZE][gridSIZE], int gold)
     int count = 0;
     for (int k = 7; k > 0; k--)
     {
-        for (int i = 0; i < gridSIZE; i++)
+        for (int i = 0; i < GridSize; i++)
         {
-            for (int j = 0; j < gridSIZE; j++)
+            for (int j = 0; j < GridSize; j++)
             {
                 if (grid[i][j] == PATH)
                 { // Ne pas prendre en compte les cases du chemin
@@ -27,11 +27,11 @@ Cursor *getOptimalTurretPositions(char grid[gridSIZE][gridSIZE], int gold)
                 {
                     for (int y = j - 1; y <= j + 1; y++)
                     {
-                        if (x > gridSIZE - 1)
+                        if (x > GridSize - 1)
                             continue;
                         if (x < 0)
                             continue;
-                        if (y > gridSIZE - 1)
+                        if (y > GridSize - 1)
                             continue;
                         if (y < 0)
                             continue;
@@ -73,7 +73,7 @@ void displayPositions(Cursor *cursors, int size)
     }
 }
 
-Cursor *TurretPositionInOrder(char grid[gridSIZE][gridSIZE], int gold)
+Cursor *TurretPositionInOrder(char grid[GridSize][GridSize], int gold)
 {
     int turretTotalNumber = gold / 10;
     int turretIndex = 0;
@@ -85,13 +85,13 @@ Cursor *TurretPositionInOrder(char grid[gridSIZE][gridSIZE], int gold)
     previousPos.x = 0;
     previousPos.y = 1;
     Cursor turretPos;
-    while (pos.x != gridSIZE - 1 && pos.y != gridSIZE - 1)
+    while (pos.x != GridSize - 1 && pos.y != GridSize - 1)
     {
         for (int i = pos.x - 1; i <= pos.x + 1; i++)
         {
             for (int j = pos.y - 1; j <= pos.y + 1; j++)
             {
-                if (grid[i][j] == grid[pos.x][pos.y] || grid[i][j] == grid[previousPos.x][previousPos.y]) // Check for current or previous position
+                if (grid[i][j] == grid[pos.x][pos.y] || grid[i][j] == grid[previousPos.x][previousPos.y]) // Check for currentPosition or previous position
                 {
                     continue;
                 }
@@ -122,12 +122,12 @@ Cursor *TurretPositionInOrder(char grid[gridSIZE][gridSIZE], int gold)
     }
 }
 
-void displayGrid(char grid[gridSIZE][gridSIZE])
+void displayGrid(char grid[GridSize][GridSize])
 {
     puts("hi");
-    for (int i = 0; i < gridSIZE; i++)
+    for (int i = 0; i < GridSize; i++)
     {
-        for (int j = 0; j < gridSIZE; j++)
+        for (int j = 0; j < GridSize; j++)
         {
             printf("%c", grid[j][i]);
         }
@@ -137,11 +137,11 @@ void displayGrid(char grid[gridSIZE][gridSIZE])
 }
 
 
-void updateGrid(char grid[gridSIZE][gridSIZE])
+void updateGrid(char grid[GridSize][GridSize])
 {
-    for (int i = 0; i < gridSIZE; i++)
+    for (int i = 0; i < GridSize; i++)
     {
-        for (int j = 0; j < gridSIZE; j++)
+        for (int j = 0; j < GridSize; j++)
         {
             if (grid[j][i] == '#')
                 grid[j][i] = NOTHING;
@@ -256,7 +256,7 @@ int main()
     printf("\n\n%s\n", txt);
 
     int h = 0;
-    char grid[gridSIZE][gridSIZE];
+    char grid[GridSize][GridSize];
 
     int i, j = 0;
 
