@@ -33,9 +33,17 @@ Position spawn = {0, 1};
 Position end = {13, 12};
 
 Position getNextAvailablePosition(char grid[GridSize][GridSize], Position currentPosition, Position lastPosition) {
-    for (int i = currentPosition.x-1; i<=currentPosition.x+1;i++){
-        for (int j = currentPosition.y-1; i<=currentPosition.y+1;i++){
-            if (grid[i][j] == grid[currentPosition.x][currentPosition.y] || grid[i][j] == grid[lastPosition.x][lastPosition.y] || (i != currentPosition.x && j != currentPosition.y)) // Check for currentPosition or previous position or corners
+    for (int i = currentPosition.x - 1; i <= currentPosition.x + 1; i++) {
+        for (int j = currentPosition.y - 1; j <= currentPosition.y + 1; j++) {
+            if (i < 0) continue;
+            if (i >= GridSize) continue;
+            if (j < 0) continue;
+            if (j >= GridSize) continue;
+            /*
+             if (grid[i][j] == grid[currentPosition.x][currentPosition.y]
+                || grid[i][j] == grid[lastPosition.x][lastPosition.y]
+                //|| (i != currentPosition.x && j != currentPosition.y)
+                ) // Check for currentPosition or previous position or corners
             {
              */
             if (
