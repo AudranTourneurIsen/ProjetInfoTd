@@ -1,4 +1,4 @@
-50,w
+40,w,n,n,n,t
 20,w,w,w,w,w,w,w,w
 20,w,n,t
 40,w,n,n,n,t
