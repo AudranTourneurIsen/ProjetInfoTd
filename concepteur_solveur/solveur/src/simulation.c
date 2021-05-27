@@ -58,7 +58,7 @@ Position getNextAvailablePosition(char grid[GridSize][GridSize], Position curren
             }
             if (grid[i][j] == PATH) {
                 Position newPosition;
-                newPosition.x= i;
+                newPosition.x = i;
                 newPosition.y = j;
                 return newPosition;
             }
