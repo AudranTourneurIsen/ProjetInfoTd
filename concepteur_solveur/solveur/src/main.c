@@ -23,15 +23,16 @@ Cursor *getOptimalTurretPositions(char grid[GridSize][GridSize], int gold)
                     continue;
                 }
 
+                count = 0;
                 for (int x = i - 1; x <= i + 1; x++)
                 {
                     for (int y = j - 1; y <= j + 1; y++)
                     {
-                        if (x > GridSize - 1)
+                        if (x >= GridSize)
                             continue;
                         if (x < 0)
                             continue;
-                        if (y > GridSize - 1)
+                        if (y >= GridSize)
                             continue;
                         if (y < 0)
                             continue;
@@ -69,7 +70,7 @@ void displayPositions(Cursor *cursors, int size)
     for (size_t i = 0; i < size; i++)
     {
         Cursor cursor = cursors[i];
-        printf("[%d/%d] -> ", cursor.x, cursor.y);
+        printf("Position %d - [%d/%d]\n", i, cursor.x, cursor.y);
     }
 }
 
@@ -292,5 +293,7 @@ int main()
     displayWaves();
     //printf(" x = %d | y = %d \n", pos.x, pos.y);
 
-    simulate(grid, Waves[0]);
+    displayGrid(grid);
+
+    //simulate(grid, Waves[0]);
 }
