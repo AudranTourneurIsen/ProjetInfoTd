@@ -11,23 +11,12 @@ void print_tab(int tab[gridSIZE][gridSIZE]) {
 }
 
 
-
-/*void nettoyagefinstring(char* string, int size) {
-	for (int i = 0; i < size; i++) {
-		if ((string[i] != '#') && (string[i] != '@') && (string[i] != '\n')) {
-			string[i] = 0;
-
-		}
-		printf("%c", string[i]);
-	}
-}*/
-
  char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]) {
 	char tab2[gridSIZE][gridSIZE];
 	char* string = malloc(stringSIZE);
 
 	if (string == NULL) return NULL;
-	puts("Affichage cleanTab 1");
+	//puts("Affichage cleanTab 1");
 	// on transforme le tableau de signe en tableau de caract�re
 	for (int i = 0; i < gridSIZE; i++) {
 		for (int j = 0; j < gridSIZE; j++) {
@@ -40,12 +29,12 @@ void print_tab(int tab[gridSIZE][gridSIZE]) {
 		}
 	}
 	// on affiche le tableau de caractère
-	for (int i = 0; i < gridSIZE; i++) {
+	/*for (int i = 0; i < gridSIZE; i++) {
 		for (int j = 0; j < gridSIZE; j++) {
 			printf("%c", tab2[j][i]);
 		}
 		printf("\n");
-	}
+	}*/
 
 
 	// on le transcrit en chaine de caractère
@@ -54,7 +43,7 @@ void print_tab(int tab[gridSIZE][gridSIZE]) {
 	
 	for (int i = 0; i < gridSIZE; i++) {
 		for ( j = 0; j < gridSIZE; j++) {
-			printf("%c", tab2[j][i]);
+			//printf("%c", tab2[j][i]);
 			string[h] = tab2[j][i];
 			h++;
 		}
@@ -63,12 +52,12 @@ void print_tab(int tab[gridSIZE][gridSIZE]) {
 			h++;
 		}
 	}
-	printf("\n\n\n\n");
+	//printf("\n\n\n\n");
 	printf("%s", string);
 	
 	// on printf la chaine
 
-	puts("Affichage cleanTab 2");
+	//puts("Affichage cleanTab 2");
 
 	// on renvoit la chaine de caractère
 	return(string);
@@ -95,7 +84,7 @@ int main() {
 
 
 	srand(time(NULL));
-	print_tab(grid);
+	//print_tab(grid);
 	int avancement = 0;
 	int direction = 0;
 	int step = 0;
@@ -147,7 +136,6 @@ int main() {
 						}
 						path.y-=1;
 						grid[path.x][path.y] =1;
-						printf("\nhaut \n");
 					}
 				}
 				break;
@@ -183,7 +171,6 @@ int main() {
 						}
 						path.x -=1;
 						grid[path.x][path.y] = 1;
-						printf("\ngauche \n");
 					}
 				}
 				break;
@@ -213,7 +200,6 @@ int main() {
 							}
 							path.y=path.y+1;
 							grid[path.x][path.y] = 1;
-							printf("\nbas \n");
 					}
 				
 				}
@@ -244,7 +230,6 @@ int main() {
 						}
 						path.x=path.x+1;
 						grid[path.x][path.y] = 1;
-						printf("\ndroite \n");
 					}
 				}
 				break;
@@ -278,8 +263,6 @@ int main() {
 	}
 
 	printf("\n");
-	printf("step = %d\n",step);
-	print_tab(grid);
 
 	char* string = cleanTab_tostring(grid);
 
