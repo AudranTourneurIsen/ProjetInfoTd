@@ -86,7 +86,7 @@
                         
                         <div id="FastTurret" class="YellowTri">
                             <img src="Pictures/Towers/yellowTriangle.png" alt="Yellow" width="50" height="50">
-                            <span class="TextYellow">Attack Speed : 1 <br> Damage : 1</span>
+                            <span class="TextYellow">Attack Cooldown : 1 <br> Damage : 1</span>
                             <strong>10</strong>
                             <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                             <br>
@@ -94,14 +94,14 @@
 
                         <div id="HeavyTurret" class="PurpleTri">
                             <img src="Pictures/Towers/purpleTriangle.png" alt="Purple" width="50" height="50">
-                            <span class="TextPurple">Attack Speed : 15 <br> Damage : 15</span>
+                            <span class="TextPurple">Attack Cooldown : 15 <br> Damage : 15</span>
                             <strong>10</strong>
                             <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                         </div><br><br>
 
                         <div id="FireTurret" class="RedTri">
                             <img src="Pictures/Towers/redTriangle.png" alt="Red" width="50" height="50">
-                            <span class="TextRed">Attack Speed : 2 <br> Damage : 1 <br> Fire Damage</span>
+                            <span class="TextRed">Attack Cooldown : 2 <br> Damage : 1 <br> Fire Damage</span>
                             <strong>10</strong>
                             <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                             <br>
@@ -109,7 +109,7 @@
 
                         <div id="IceTurret" class="BlueTri">
                             <img src="Pictures/Towers/blueTriangle.png" alt="Blue" width="50" height="50">
-                            <span class="TextBlue">Attack Speed : 2 <br> Damage : 1 <br> Ice Damage</span>
+                            <span class="TextBlue">Attack Cooldown : 2 <br> Damage : 1 <br> Ice Damage</span>
                             <strong>10</strong>
                             <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                             <br>
@@ -153,11 +153,6 @@
             </div>
 
             <div class="Grid" id="Grid">
-                <div class ="SoundButton">
-                    <button id="sound_button" class="change_sound" onclick="PressSound();">
-                        
-                </div>
-                <p id="headertext">/</p>
                 <canvas id="canvas" width="800" height="800"></canvas>
             </div>
 
@@ -173,54 +168,18 @@
                         <hr>
                     </div>
 
-                    <!--
-                    <div class="Enemies">
-                        <div class="MobHoverLB">
-                            <img src="Pictures/Enemies/purple_circle.png" alt="LightBlue_Circle" width="50" height="50">
-                            <span class="TextLightB">HP : 15</span>
-                        </div>
-                        &nbsp; <strong id="TankEnemyNumber">x 0</strong>
-                        <br><br>
-
-                        <div class="MobHoverO">
-                            <img src="Pictures/Enemies/orange_circle.png" alt="orange_circle" width="50" height="50">
-                            <span class="TextOrange">HP : 5</span>
-                        </div>
-                        &nbsp; <strong id="NormalEnemyNumber">x 0</strong>
-                        <br><br>
-
-                        <div class="MobHoverLime">
-                            <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="50" height="50">
-                            <span class="TextLime">HP : 3</span>
-                        </div>
-                        &nbsp; <strong id="WeakEnemyNumber">x 0</strong>
-                        <br><br>
-
-                        <div class="MobHoverLime">
-                            <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="50" height="50">
-                            <span class="TextLime">HP : 3</span>
-                        </div>
-                        &nbsp; <strong id="WeakEnemyNumber">x 0</strong>
-                        <br><br>
-
-                        <div class="MobHoverLime">
-                            <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="50" height="50">
-                            <span class="TextLime">HP : 3</span>
-                        </div>
-                        &nbsp; <strong id="WeakEnemyNumber">x 0</strong>
-                        <br><br>
-
-                    </div>
-                
-                    <div class="Remaining"><strong id="EnemyRemaining">Remaining : 0</strong></div>
-                    <hr> -->
                     <div class="StartButton">
                         <button id="startwave" class="waveinactive" onclick="pressStartWave();">Start Wave</button>
                     </div>
-                    <hr>
+                    <strong id="headertext">/</strong>
+                    <br><br>
+                    <div class ="SoundButton">
+                        <button id="change_sound" class="sound_on" onclick="PressSound();"><strong>Sound</strong></button>
+                    </div>
+                    <br><hr>
                     <div id="EnemyAlive" class="EnemyAlive">
                        <div id="MobReference" class="Mob disabled">
-                            <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="25" height="25">
+                            <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="25" height="25" class="CircleImage">
                             <progress value="5" max="5"></progress>
                         </div> 
                     </div>
