@@ -8,89 +8,105 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/audran/Code/projet-cir/concepteur_solveur/solveur"/>
+				<Option working_dir="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/audran/Code/projet-cir/concepteur_solveur/solveur"/>
+				<Option working_dir="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/audran/Code/projet-cir/concepteur_solveur/solveur"/>
+				<Option working_dir="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="solveur">
-				<Option output="/home/audran/Code/projet-cir/concepteur_solveur/solveur/solveur" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/audran/Code/projet-cir/concepteur_solveur/solveur"/>
+				<Option output="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/solveur" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
-				<Compiler/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 solveur"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 solveur"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="solveur/fast">
-				<Option output="/home/audran/Code/projet-cir/concepteur_solveur/solveur/solveur" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/audran/Code/projet-cir/concepteur_solveur/solveur"/>
+				<Option output="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/solveur" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
-				<Compiler/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 solveur/fast"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/audran/Code/projet-cir/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 solveur/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/TerminalUtils.c">
+		<Unit filename="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/TerminalUtils.c">
 			<Option target="solveur"/>
 		</Unit>
-		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/TerminalUtils.h">
+		<Unit filename="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/TerminalUtils.h">
 			<Option target="solveur"/>
 		</Unit>
-		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/fonctions.h">
+		<Unit filename="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/fonctions.h">
 			<Option target="solveur"/>
 		</Unit>
-		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/main.c">
+		<Unit filename="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/main.c">
 			<Option target="solveur"/>
 		</Unit>
-		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.c">
+		<Unit filename="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/simulation.c">
 			<Option target="solveur"/>
 		</Unit>
-		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.h">
+		<Unit filename="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/simulation.h">
 			<Option target="solveur"/>
 		</Unit>
-		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/stack.c">
+		<Unit filename="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/stack.c">
 			<Option target="solveur"/>
 		</Unit>
-		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/stack.h">
+		<Unit filename="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/stack.h">
 			<Option target="solveur"/>
 		</Unit>
-		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/CMakeLists.txt">
+		<Unit filename="/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

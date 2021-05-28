@@ -1,3 +1,3 @@
 #pragma once
 
-bool simulate(char grid[GridSize][GridSize], Wave wave);
+bool simulate(char grid[GridSize][GridSize], Wave wave, bool graphics);

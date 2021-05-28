@@ -8,7 +8,7 @@
 #define stringSIZE 2000
 
 #define NOTHING '.'
-#define PATH 'x'
+#define PATH '+'
 #define TURRET '$'
 
 typedef struct Cursor {
@@ -18,12 +18,6 @@ typedef struct Cursor {
 } Cursor;
 
 
-typedef struct Turret {
-	char name[32];
-	int damage;
-	int range;
-	int property;  // 0 = none | 1 = fire | 2 =  ice
-} Turret;
 
 typedef struct Wave {
 	int index;

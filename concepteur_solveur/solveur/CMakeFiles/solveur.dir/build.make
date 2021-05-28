@@ -53,19 +53,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/audran/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /opt/clion/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/audran/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/bin/cmake/linux/bin/cmake -E rm -f
+RM = /opt/clion/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/audran/Code/projet-cir/concepteur_solveur/solveur
+CMAKE_SOURCE_DIR = /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/audran/Code/projet-cir/concepteur_solveur/solveur
+CMAKE_BINARY_DIR = /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur
 
 # Include any dependencies generated for this target.
 include CMakeFiles/solveur.dir/depend.make
@@ -78,55 +78,55 @@ include CMakeFiles/solveur.dir/flags.make
 
 CMakeFiles/solveur.dir/src/main.c.o: CMakeFiles/solveur.dir/flags.make
 CMakeFiles/solveur.dir/src/main.c.o: src/main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/audran/Code/projet-cir/concepteur_solveur/solveur/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/solveur.dir/src/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/solveur.dir/src/main.c.o -c /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/solveur.dir/src/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/solveur.dir/src/main.c.o -c /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/main.c
 
 CMakeFiles/solveur.dir/src/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/solveur.dir/src/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/main.c > CMakeFiles/solveur.dir/src/main.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/main.c > CMakeFiles/solveur.dir/src/main.c.i
 
 CMakeFiles/solveur.dir/src/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/solveur.dir/src/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/main.c -o CMakeFiles/solveur.dir/src/main.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/main.c -o CMakeFiles/solveur.dir/src/main.c.s
 
 CMakeFiles/solveur.dir/src/TerminalUtils.c.o: CMakeFiles/solveur.dir/flags.make
 CMakeFiles/solveur.dir/src/TerminalUtils.c.o: src/TerminalUtils.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/audran/Code/projet-cir/concepteur_solveur/solveur/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/solveur.dir/src/TerminalUtils.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/solveur.dir/src/TerminalUtils.c.o -c /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/TerminalUtils.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/solveur.dir/src/TerminalUtils.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/solveur.dir/src/TerminalUtils.c.o -c /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/TerminalUtils.c
 
 CMakeFiles/solveur.dir/src/TerminalUtils.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/solveur.dir/src/TerminalUtils.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/TerminalUtils.c > CMakeFiles/solveur.dir/src/TerminalUtils.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/TerminalUtils.c > CMakeFiles/solveur.dir/src/TerminalUtils.c.i
 
 CMakeFiles/solveur.dir/src/TerminalUtils.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/solveur.dir/src/TerminalUtils.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/TerminalUtils.c -o CMakeFiles/solveur.dir/src/TerminalUtils.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/TerminalUtils.c -o CMakeFiles/solveur.dir/src/TerminalUtils.c.s
 
 CMakeFiles/solveur.dir/src/simulation.c.o: CMakeFiles/solveur.dir/flags.make
 CMakeFiles/solveur.dir/src/simulation.c.o: src/simulation.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/audran/Code/projet-cir/concepteur_solveur/solveur/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/solveur.dir/src/simulation.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/solveur.dir/src/simulation.c.o -c /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/solveur.dir/src/simulation.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/solveur.dir/src/simulation.c.o -c /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/simulation.c
 
 CMakeFiles/solveur.dir/src/simulation.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/solveur.dir/src/simulation.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.c > CMakeFiles/solveur.dir/src/simulation.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/simulation.c > CMakeFiles/solveur.dir/src/simulation.c.i
 
 CMakeFiles/solveur.dir/src/simulation.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/solveur.dir/src/simulation.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.c -o CMakeFiles/solveur.dir/src/simulation.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/simulation.c -o CMakeFiles/solveur.dir/src/simulation.c.s
 
 CMakeFiles/solveur.dir/src/stack.c.o: CMakeFiles/solveur.dir/flags.make
 CMakeFiles/solveur.dir/src/stack.c.o: src/stack.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/audran/Code/projet-cir/concepteur_solveur/solveur/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/solveur.dir/src/stack.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/solveur.dir/src/stack.c.o -c /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/stack.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/solveur.dir/src/stack.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/solveur.dir/src/stack.c.o -c /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/stack.c
 
 CMakeFiles/solveur.dir/src/stack.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/solveur.dir/src/stack.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/stack.c > CMakeFiles/solveur.dir/src/stack.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/stack.c > CMakeFiles/solveur.dir/src/stack.c.i
 
 CMakeFiles/solveur.dir/src/stack.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/solveur.dir/src/stack.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/stack.c -o CMakeFiles/solveur.dir/src/stack.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/stack.c -o CMakeFiles/solveur.dir/src/stack.c.s
 
 # Object files for target solveur
 solveur_OBJECTS = \
@@ -143,10 +143,10 @@ solveur: CMakeFiles/solveur.dir/src/TerminalUtils.c.o
 solveur: CMakeFiles/solveur.dir/src/simulation.c.o
 solveur: CMakeFiles/solveur.dir/src/stack.c.o
 solveur: CMakeFiles/solveur.dir/build.make
-solveur: /usr/lib/x86_64-linux-gnu/libcurses.so
-solveur: /usr/lib/x86_64-linux-gnu/libform.so
+solveur: /usr/lib/libcurses.so
+solveur: /usr/lib/libform.so
 solveur: CMakeFiles/solveur.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/audran/Code/projet-cir/concepteur_solveur/solveur/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable solveur"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable solveur"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/solveur.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -159,6 +159,6 @@ CMakeFiles/solveur.dir/clean:
 .PHONY : CMakeFiles/solveur.dir/clean
 
 CMakeFiles/solveur.dir/depend:
-	cd /home/audran/Code/projet-cir/concepteur_solveur/solveur && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/audran/Code/projet-cir/concepteur_solveur/solveur /home/audran/Code/projet-cir/concepteur_solveur/solveur /home/audran/Code/projet-cir/concepteur_solveur/solveur /home/audran/Code/projet-cir/concepteur_solveur/solveur /home/audran/Code/projet-cir/concepteur_solveur/solveur/CMakeFiles/solveur.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur /home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/CMakeFiles/solveur.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/solveur.dir/depend
 

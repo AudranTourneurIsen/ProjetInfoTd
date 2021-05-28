@@ -161,6 +161,7 @@ void initWaves()
 
     if (file == NULL)
     {
+        puts("waves.txt not found");
         return;
     }
 
@@ -259,7 +260,8 @@ int main()
     int h = 0;
     char grid[GridSize][GridSize];
 
-    int i, j = 0;
+    int i = 0;
+    int j = 0;
 
     while (txt[h] != '\0')
     {
@@ -284,16 +286,25 @@ int main()
 
     fclose(file);
     printf("\n");
-    int gold = 70;
+
+    initWaves();
+    displayWaves();
+
+    int gold = Waves[0].gold;
     Cursor *cursors = getOptimalTurretPositions(grid, gold);
     displayGrid(grid);
     displayPositions(cursors, gold / 10);
 
-    initWaves();
-    displayWaves();
     //printf(" x = %d | y = %d \n", pos.x, pos.y);
 
     displayGrid(grid);
 
-    //simulate(grid, Waves[0]);
+    /*
+    for (int k = 0; k < 1e6; ++k) {
+        printf("Simulation %d\n", k);
+        simulate(grid, Waves[0], false);
+    }
+    */
+
+    simulate(grid, Waves[0], true);
 }
