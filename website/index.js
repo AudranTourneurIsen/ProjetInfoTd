@@ -90,6 +90,7 @@ function draw() {
     drawGrid()
     drawLasers()
     drawEnemies()
+    drawArrow()
     if (IsGameOver && ShowGameOver > 0) {
         ctx.fillStyle = 'red'
         ctx.font = '125px Arial'
@@ -307,6 +308,13 @@ function mainLoop() {
 }
 
 setInterval(mainLoop, GameTickMs)
+
+function drawArrow() {
+    ArrowImage = new Image()
+    ArrowImage.src = './Pictures/rightarrow.png'
+    ctx.drawImage(ArrowImage, 5, 105, 40, 40)
+    ctx.drawImage(ArrowImage, 755, 655, 40, 40)
+}
 
 function gridCoordsToCanvasCoords(x, y) {
     return {
