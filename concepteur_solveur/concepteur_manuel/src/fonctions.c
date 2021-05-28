@@ -18,7 +18,7 @@ void nettoyagefinstring(char* string,int size) {
 			string[i] = 0;
 
 		}
-		printf("%c", string[i]);
+		//printf("%c", string[i]);
 	}
 }
 
@@ -26,7 +26,7 @@ char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]) {
 	char tab2[gridSIZE][gridSIZE];
 	char* string = malloc(stringSIZE);
 	if (string == NULL) return NULL;
-	puts("Affichage cleanTab 1");
+	//puts("Affichage cleanTab 1");
 	// on transforme le tableau de signe en tableau de caract�re
 	for (int i = 0; i < gridSIZE; i++) {
 		for (int j = 0; j < gridSIZE; j++) {
@@ -38,13 +38,13 @@ char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]) {
 			}
 		}
 	}
-	// on affiche le tableau de caractère
+	/*// on affiche le tableau de caractère
 	for (int i = 0; i < gridSIZE; i++) {
 		for (int j = 0; j < gridSIZE; j++) {
 			printf("%c", tab2[j][i]);
 		}
 		printf("\n");
-	}
+	}*/
 
 
 	// on le transcrit en chaine de caractère
@@ -52,7 +52,7 @@ char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]) {
 	int j = 0;
 	for (int i = 0; i < gridSIZE; i++) {
 		for ( j = 0; j < gridSIZE; j++) {
-			printf("%c", tab2[j][i]);
+			//printf("%c", tab2[j][i]);
 			string[h] = tab2[j][i];
 			h++;
 		}
@@ -62,11 +62,11 @@ char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]) {
 		}
 	}
 	printf("\n\n\n\n");
-	printf("%s", string);
+	//printf("%s", string);
 	
 	// on printf la chaine
 
-	puts("Affichage cleanTab 2");
+	//puts("Affichage cleanTab 2");
 
 	// on renvoit la chaine de caract�re
 	return(string);
@@ -165,7 +165,7 @@ int main() {
 
 	printf("\n\n\n");
 
-	printf("\nAffichage de string\n%s\n", string);
+	printf("\nAffichage de votre grille :\n\n%s\n", string);
 	
 	printf("\n\n\n");
 
