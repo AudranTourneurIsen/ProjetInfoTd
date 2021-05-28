@@ -223,6 +223,33 @@ src/simulation.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/solveur.dir/build.make CMakeFiles/solveur.dir/src/simulation.c.s
 .PHONY : src/simulation.c.s
 
+src/stack.o: src/stack.c.o
+
+.PHONY : src/stack.o
+
+# target to build an object file
+src/stack.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/solveur.dir/build.make CMakeFiles/solveur.dir/src/stack.c.o
+.PHONY : src/stack.c.o
+
+src/stack.i: src/stack.c.i
+
+.PHONY : src/stack.i
+
+# target to preprocess a source file
+src/stack.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/solveur.dir/build.make CMakeFiles/solveur.dir/src/stack.c.i
+.PHONY : src/stack.c.i
+
+src/stack.s: src/stack.c.s
+
+.PHONY : src/stack.s
+
+# target to generate assembly for a file
+src/stack.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/solveur.dir/build.make CMakeFiles/solveur.dir/src/stack.c.s
+.PHONY : src/stack.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -241,6 +268,9 @@ help:
 	@echo "... src/simulation.o"
 	@echo "... src/simulation.i"
 	@echo "... src/simulation.s"
+	@echo "... src/stack.o"
+	@echo "... src/stack.i"
+	@echo "... src/stack.s"
 .PHONY : help
 
 

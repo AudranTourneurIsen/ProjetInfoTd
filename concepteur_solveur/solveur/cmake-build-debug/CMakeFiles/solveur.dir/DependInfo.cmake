@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_CHECK_C
   "/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/TerminalUtils.c" "/home/audran/Code/projet-cir/concepteur_solveur/solveur/cmake-build-debug/CMakeFiles/solveur.dir/src/TerminalUtils.c.o"
   "/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/main.c" "/home/audran/Code/projet-cir/concepteur_solveur/solveur/cmake-build-debug/CMakeFiles/solveur.dir/src/main.c.o"
   "/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.c" "/home/audran/Code/projet-cir/concepteur_solveur/solveur/cmake-build-debug/CMakeFiles/solveur.dir/src/simulation.c.o"
+  "/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/stack.c" "/home/audran/Code/projet-cir/concepteur_solveur/solveur/cmake-build-debug/CMakeFiles/solveur.dir/src/stack.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

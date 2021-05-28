@@ -6,15 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/TerminalUtils.h
+/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/TerminalUtils.h
 ncurses.h
 -
 stdlib.h
 -
 
-/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/conio.h
+/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/conio.h
 
-/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/fonctions.h
+/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/fonctions.h
 stdlib.h
 -
 stdio.h
@@ -22,17 +22,17 @@ stdio.h
 string.h
 -
 conio.h
-/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/conio.h
+/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/conio.h
 stdbool.h
 -
 
-/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/main.c
+/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/main.c
 fonctions.h
-/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/fonctions.h
+/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/fonctions.h
 TerminalUtils.h
-/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/TerminalUtils.h
+/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/TerminalUtils.h
 simulation.h
-/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/simulation.h
+/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.h
 
-/home/audran/Code/ProjetInfoTd/concepteur_solveur/solveur/src/simulation.h
+/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.h
 

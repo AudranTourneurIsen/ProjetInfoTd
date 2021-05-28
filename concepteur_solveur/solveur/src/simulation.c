@@ -274,7 +274,9 @@ bool simulate(char grid[GridSize][GridSize], Wave wave, bool graphics) {
     }
     if (graphics)
         End();
-    puts(sim.won ? "SUCCESS" : "FAILURE");
-    printf("Simulation finished after %d game ticks\n", sim.gameTick);
+    if (graphics) {
+        puts(sim.won ? "SUCCESS" : "FAILURE");
+        printf("Simulation finished after %d game ticks\n", sim.gameTick);
+    }
     return sim.won;
 }

@@ -17,7 +17,6 @@ set(CMAKE_C_SIMULATE_VERSION "")
 
 
 
-
 set(CMAKE_AR "/usr/bin/ar")
 set(CMAKE_C_COMPILER_AR "/usr/bin/gcc-ar-10")
 set(CMAKE_RANLIB "/usr/bin/ranlib")

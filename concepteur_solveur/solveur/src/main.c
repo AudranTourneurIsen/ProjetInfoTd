@@ -134,7 +134,6 @@ void displayGrid(char grid[GridSize][GridSize])
         }
         printf("\n");
     }
-    puts("bye");
 }
 
 
@@ -230,7 +229,7 @@ void displayWaves()
     }
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     puts("Starting solver");
     FILE *file;
@@ -306,5 +305,22 @@ int main()
     }
     */
 
-    simulate(grid, Waves[0], true);
+    bool graphics = true;
+    if (argc >= 2) {
+        if (strcmp("headless", argv[1]) == 0)
+            graphics = false;
+    }
+
+    int repeat = 1;
+
+    if (argc >= 3) {
+        repeat = atoi(argv[2]);
+    }
+
+    for (int k = 0; k < repeat; ++k) {
+        simulate(grid, Waves[0], graphics);
+        printf("Simulation %d\n", k);
+        //printf("Simulation %d - %s", k, simulate(grid, Waves[0], graphics) ? "SUCCESS" : "FAILURE");
+    }
+    printf("%d simulation(s) finished\n", repeat);
 }

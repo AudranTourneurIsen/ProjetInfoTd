@@ -39,7 +39,7 @@
 			</Target>
 			<Target title="solveur">
 				<Option output="/home/audran/Code/projet-cir/concepteur_solveur/solveur/cmake-build-debug/solveur" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir=""/>
+				<Option working_dir="/home/audran/Code/projet-cir/concepteur_solveur/solveur/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -61,7 +61,7 @@
 			</Target>
 			<Target title="solveur/fast">
 				<Option output="/home/audran/Code/projet-cir/concepteur_solveur/solveur/cmake-build-debug/solveur" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir=""/>
+				<Option working_dir="/home/audran/Code/projet-cir/concepteur_solveur/solveur/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -98,6 +98,12 @@
 			<Option target="solveur"/>
 		</Unit>
 		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.h">
+			<Option target="solveur"/>
+		</Unit>
+		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/stack.c">
+			<Option target="solveur"/>
+		</Unit>
+		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/stack.h">
 			<Option target="solveur"/>
 		</Unit>
 		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/CMakeLists.txt">

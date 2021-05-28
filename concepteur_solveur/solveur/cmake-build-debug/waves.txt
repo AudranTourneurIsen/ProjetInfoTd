@@ -1,0 +1,7 @@
+40,w,n,n,n,t
+20,w,w,w,w,w,w,w,w
+20,w,n,t
+40,w,n,n,n,t
+50,t,w,w,n,n,f,w
+60,i,t,n,w,n,w,t
+70,f,i,t,n,n,t,i,f,n,n
