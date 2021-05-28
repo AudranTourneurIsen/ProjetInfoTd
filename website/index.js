@@ -24,12 +24,12 @@ let Wave = 1
 
 const Levels = {
     1: {
-        enemies: ["fire", "ice", "tank"],
-        gold: 30
+        enemies: ["fire","weak","weak","normal","weak","normal", "ice", "tank"],
+        gold: 50
     },
     2: {
-        enemies: ["weak", "weak", "normal", "normal", "tank"],
-        gold: 30
+        enemies: ["fire","tank","tank","weak","weak","normal","weak","normal", "ice", "tank","normal"],
+        gold: 50
     },
     3: {
         enemies: ["tank", "weak", "weak", "normal", "normal", "weak", "weak", "tank"],
@@ -90,6 +90,7 @@ function draw() {
     drawGrid()
     drawLasers()
     drawEnemies()
+    drawArrow()
     if (IsGameOver && ShowGameOver > 0) {
         ctx.fillStyle = 'red'
         ctx.font = '125px Arial'
@@ -307,6 +308,13 @@ function mainLoop() {
 }
 
 setInterval(mainLoop, GameTickMs)
+
+function drawArrow() {
+    ArrowImage = new Image()
+    ArrowImage.src = './Pictures/rightarrow.png'
+    ctx.drawImage(ArrowImage, 5, 105, 40, 40)
+    ctx.drawImage(ArrowImage, 755, 655, 40, 40)
+}
 
 function gridCoordsToCanvasCoords(x, y) {
     return {
@@ -538,7 +546,7 @@ const EnemiesJson = {
         img: "lime_circle.png"
     },
     normal: {
-        health: 5,
+        health: 8,
         img: "orange_circle.png"
     },
     tank: {
