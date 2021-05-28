@@ -28,17 +28,17 @@ const Levels = {
         gold: 20,
         grid: "simple.txt"
     },
-    2: {
+    /*2: {
         enemies: ["fire","weak","weak","normal","weak","normal", "ice", "tank"],
         gold: 50,
         grid: "arena.txt"
-    },
-    3: {
+    },*/
+    2: {
         enemies: ["fire","tank","tank","weak","weak","normal","weak","normal", "ice", "tank","normal"],
         gold: 50,
         grid: "arena.txt"
     },
-    4: {
+    3: {
         enemies: ["tank", "weak", "weak", "normal", "normal", "weak", "weak", "tank"],
         gold: 30,
         grid: "arena.txt"
