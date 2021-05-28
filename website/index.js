@@ -28,8 +28,8 @@ const Levels = {
         gold: 50
     },
     2: {
-        enemies: ["weak", "weak", "normal", "normal", "tank"],
-        gold: 30
+        enemies: ["fire","tank","tank","weak","weak","normal","weak","normal", "ice", "tank","normal"],
+        gold: 50
     },
     3: {
         enemies: ["tank", "weak", "weak", "normal", "normal", "weak", "weak", "tank"],
@@ -546,7 +546,7 @@ const EnemiesJson = {
         img: "lime_circle.png"
     },
     normal: {
-        health: 5,
+        health: 8,
         img: "orange_circle.png"
     },
     tank: {
