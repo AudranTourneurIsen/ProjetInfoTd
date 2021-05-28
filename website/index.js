@@ -24,16 +24,24 @@ let Wave = 1
 
 const Levels = {
     1: {
-        enemies: ["fire","weak","weak","normal","weak","normal", "ice", "tank"],
-        gold: 50
+        enemies: ["normal", "tank"],
+        gold: 20,
+        grid: "simple.txt"
     },
     2: {
-        enemies: ["fire","tank","tank","weak","weak","normal","weak","normal", "ice", "tank","normal"],
-        gold: 50
+        enemies: ["fire","weak","weak","normal","weak","normal", "ice", "tank"],
+        gold: 50,
+        grid: "arena.txt"
     },
     3: {
+        enemies: ["fire","tank","tank","weak","weak","normal","weak","normal", "ice", "tank","normal"],
+        gold: 50,
+        grid: "arena.txt"
+    },
+    4: {
         enemies: ["tank", "weak", "weak", "normal", "normal", "weak", "weak", "tank"],
-        gold: 30
+        gold: 30,
+        grid: "arena.txt"
     }
 }
 
@@ -507,9 +515,11 @@ mainLoop()
 
 let GlobalTxt = null
 
-function importGridFromText() {
+function importGridFromText(x) {
     const request = new XMLHttpRequest();
-    request.open('GET', 'data/arena.txt', true);
+    
+    const fileName = Levels[x].grid
+    request.open('GET', `data/${fileName}`, true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
@@ -519,12 +529,13 @@ function importGridFromText() {
                 console.log(txt);
                 GlobalTxt = txt
                 resetGrid(txt)
+                console.log(`Reseting ${fileName}`)
             }
         }
     }
 }
 
-importGridFromText()
+importGridFromText(1)
 
 function resetGrid(txt) {
     const lines = txt.split('\n')
@@ -546,7 +557,7 @@ const EnemiesJson = {
         img: "lime_circle.png"
     },
     normal: {
-        health: 8,
+        health: 7,
         img: "orange_circle.png"
     },
     tank: {
@@ -692,9 +703,7 @@ function waveClear() {
 
     Turrets = []
 
-    resetGrid(GlobalTxt)
-    resetEnemiesCount()
-    instanciateEnemies()
+    setWave(Wave)
     WaveclearSound.play()
 }
 
@@ -791,7 +800,8 @@ function setWave(x) {
     }
     Enemies = []
     Turrets = []
-    resetGrid(GlobalTxt)
+    importGridFromText(x)
+    //resetGrid(GlobalTxt)
     resetEnemiesCount()
     instanciateEnemies()
 }
