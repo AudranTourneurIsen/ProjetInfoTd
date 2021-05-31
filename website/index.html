@@ -153,7 +153,7 @@
             </div>
 
             <div class="Grid" id="Grid">
-                <!-- <img src="Pictures/rightarrow.png" alt="Arrow" width="40" height="40" class="RightArrow"> -->
+                <br>
                 <canvas id="canvas" width="800" height="800"></canvas>
             </div>
 
@@ -175,9 +175,22 @@
                     <strong id="headertext">/</strong>
                     <br><br>
                     <div class ="SoundButton">
-                        <button id="change_sound" class="sound_on" onclick="PressSound();"><strong>Sound</strong></button>
+                        <button id="change_sound" class="sound_on" onclick="PressSound();">
+                            <strong>Sound</strong>
+                            <!-- <img src="Pictures/Buttons/sound_on.png"  width="30" height="30" >
+                            <img src="Pictures/Buttons/sound_off.png"  width="30" height="30" class="SoundImageOFF"> -->
+                        </button>
                     </div>
-                    <br><hr>
+                    <br>
+                    <div class ="SpeedButton">
+                        <button id="change_speed" class="speed_off" onclick="PressSpeed();">
+                        <strong>Speed</strong>
+                        <!-- <img src="Pictures/Buttons/speed_on.png"  width="30" height="30" class="SpeedImageON">
+                        <img src="Pictures/Buttons/speed_off.png"  width="30" height="30" > -->
+                        </button>
+                    </div>
+
+                    <hr>
                     <div id="EnemyAlive" class="EnemyAlive">
                        <div id="MobReference" class="Mob disabled">
                             <img src="Pictures/Enemies/lime_circle.png" alt="lime_circle" width="25" height="25" class="CircleImage">

@@ -4,12 +4,10 @@
     justify-content: center;
 }
 
-.Grid {
-    /*background-color: rgba(48,48,48, .5);*/
+/*.Grid {
+    background-color: rgba(48,48,48, .5);
     background-color: green;
-    height: 54.715rem;
-    /*background-image: url("Pictures/rightarrow.png");*/
-}
+}*/
 
 #headertext {
     color: silver;
@@ -23,16 +21,34 @@
     border-color: darkgrey;
     color: black;
     font-size: 1.4rem;
-    margin-left: 4.8rem;
+    margin-left: 5rem;
 }
 
 #change_sound:active, .sound_off {
     background-color: black;
     border: solid;
-    border-color: silver;
+    border-color: white;
     color: white;
     font-size: 1.4rem;
-    margin-left: 4.8rem;
+    margin-left: 5rem;
+}
+
+.speed_off {
+    background-color: white;
+    border: solid;
+    border-color: darkgrey;
+    color: black;
+    font-size: 1.4rem;
+    margin-left: 5rem;
+}
+
+#change_speed:active, .speed_on {
+    background-color: black;
+    border: solid;
+    border-color: white;
+    color: white;
+    font-size: 1.4rem;
+    margin-left: 5rem;
 }
 
 .RectangleTowers {

@@ -4,7 +4,7 @@ const Width = 800
 const Height = 800
 const SquareSize = 50
 const GridSize = 14
-const GameTickMs = 250
+let GameTickMs = 250
 //const GameTick = 5
 
 const Grid = generateGrid()
@@ -93,22 +93,31 @@ function generateHeaderText(timer) {
 let ShowGameOver = 0
 
 function draw() {
-    ctx.fillStyle = 'green'
-    ctx.fillRect(0, 0, Width, Height)
+    grass = new Image()
+    grass.src = './Pictures/tile.jpg'
+    ctx.drawImage(grass, 0, 0, Width, Height)
+    /*ctx.fillStyle = 'green'
+    ctx.fillRect(0, 0, Width, Height)*/
     drawGrid()
     drawLasers()
     drawEnemies()
     drawArrow()
     if (IsGameOver && ShowGameOver > 0) {
-        ctx.fillStyle = 'red'
+        gameoverText = new Image()
+        gameoverText.src = './Pictures/Text/gameOver.png'
+        ctx.drawImage(gameoverText, 50, 200, 700, 250)
+        /*ctx.fillStyle = 'red'
         ctx.font = '125px Arial'
-        ctx.fillText('GAME  OVER', 0, 450)
+        ctx.fillText('GAME  OVER', 0, 450)*/
         ShowGameOver--
     }
     if (IsWaveClear && ShowWaveClear > 0) {
-        ctx.fillStyle = 'black'
+        waveclearText = new Image()
+        waveclearText.src = './Pictures/Text/waveClear.png'
+        ctx.drawImage(waveclearText, 50, 200, 700, 250)
+        /*ctx.fillStyle = 'black'
         ctx.font = '100px Arial'
-        ctx.fillText('WAVE  CLEAR', 65, 450)
+        ctx.fillText('WAVE  CLEAR', 65, 450)*/
         ShowWaveClear--
     }
 }
@@ -309,13 +318,36 @@ function update() {
     }
 }
 
+let IsSpeedOn = true
+function PressSpeed() {
+    const SpdBtn = document.getElementById('change_speed')
+    IsSpeedOn = !IsSpeedOn
+
+    if(IsSpeedOn == false) {
+        GameTickMs = GameTickMs/10
+        SpdBtn.classList.remove('speed_off')
+        SpdBtn.classList.add('speed_on')
+        console.log('Speed On')
+    }
+
+    if(IsSpeedOn == true) {
+        GameTickMs = GameTickMs*10
+        SpdBtn.classList.remove('speed_on')
+        SpdBtn.classList.add('speed_off')
+        console.log('Speed Off')
+    }
+
+    clearInterval(intervalManager)
+    setInterval(mainLoop, GameTickMs)
+}
+
 function mainLoop() {
     update()
     draw()
     Timer += GameTickMs
 }
 
-setInterval(mainLoop, GameTickMs)
+let intervalManager = setInterval(mainLoop, GameTickMs)
 
 function drawArrow() {
     ArrowImage = new Image()
@@ -355,31 +387,37 @@ function drawGrid() {
     for (const x in Grid) {
         for (const y in Grid) {
             if (Grid[y][x] == GRASS) {
-                ctx.fillStyle = 'green'
-                ctx.fillRect(offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
+                tile = new Image()
+                tile.src = './Pictures/tile.jpg'
+                ctx.drawImage(tile, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
+                /*ctx.fillStyle = 'green'
+                ctx.fillRect(offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)*/
             }
             if (Grid[y][x] == PATH) {
-                ctx.fillStyle = '#e59400'
-                ctx.fillRect(offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
+                path = new Image()
+                path.src = './Pictures/path.jpg'
+                ctx.drawImage(path, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
+                /*ctx.fillStyle = '#e59400'
+                ctx.fillRect(offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)*/
             }
             if (Grid[y][x] == TURRET_FAST) {
                 tri = new Image();   // Create new img element
-                tri.src = './Pictures/Towers/yellowTriangle.png'; // Set source path
+                tri.src = './Pictures/Towers/Towers_Grass/yellowTriangle.png'; // Set source path
                 ctx.drawImage(tri, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
             }
             if (Grid[y][x] == TURRET_HEAVY) {
                 tri = new Image();   // Create new img element
-                tri.src = './Pictures/Towers/purpleTriangle.png'; // Set source path
+                tri.src = './Pictures/Towers/Towers_Grass/purpleTriangle.png'; // Set source path
                 ctx.drawImage(tri, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
             }
             if (Grid[y][x] == TURRET_FIRE) {
                 tri = new Image();   // Create new img element
-                tri.src = './Pictures/Towers/redTriangle.png'; // Set source path
+                tri.src = './Pictures/Towers/Towers_Grass/redTriangle.png'; // Set source path
                 ctx.drawImage(tri, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
             }
             if (Grid[y][x] == TURRET_ICE) {
                 tri = new Image();   // Create new img element
-                tri.src = './Pictures/Towers/blueTriangle.png'; // Set source path
+                tri.src = './Pictures/Towers/Towers_Grass/blueTriangle.png'; // Set source path
                 ctx.drawImage(tri, offset + x * SquareSize, offset + y * SquareSize, SquareSize, SquareSize)
             }
         }
