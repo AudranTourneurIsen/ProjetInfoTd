@@ -72,6 +72,9 @@
 		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/TerminalUtils.h">
 			<Option target="solveur"/>
 		</Unit>
+		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/fonctions.c">
+			<Option target="solveur"/>
+		</Unit>
 		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/fonctions.h">
 			<Option target="solveur"/>
 		</Unit>
@@ -82,6 +85,12 @@
 			<Option target="solveur"/>
 		</Unit>
 		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.h">
+			<Option target="solveur"/>
+		</Unit>
+		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation_manager.c">
+			<Option target="solveur"/>
+		</Unit>
+		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation_manager.h">
 			<Option target="solveur"/>
 		</Unit>
 		<Unit filename="/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/stack.c">

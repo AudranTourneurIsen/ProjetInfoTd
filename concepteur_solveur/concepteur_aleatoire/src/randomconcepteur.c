@@ -266,7 +266,7 @@ int main() {
 
 	char* string = cleanTab_tostring(grid);
 
-	FILE* f = fopen("grid.txt", "w+");
+	FILE* f = fopen("grid_old.txt", "w+");
 
 	if (f == NULL) {
 		printf("Erreur lors de l'ouverture d'un fichier");

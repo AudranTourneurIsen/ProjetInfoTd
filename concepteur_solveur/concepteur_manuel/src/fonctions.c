@@ -173,7 +173,7 @@ int main() {
 
 
 	//on met la chaine dans le fichier texte
-	FILE* f = fopen("grid.txt", "w+");
+	FILE* f = fopen("grid_old.txt", "w+");
 
 	if (f == NULL) {
 		printf("Erreur lors de l'ouverture d'un fichier");

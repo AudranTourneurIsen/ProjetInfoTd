@@ -1,6 +1,7 @@
 #include "fonctions.h"
 #include "TerminalUtils.h"
 #include "simulation.h"
+#include "simulation_manager.h"
 
 #define WaveAmount 64
 Wave Waves[WaveAmount] = {};
@@ -123,20 +124,6 @@ Cursor *TurretPositionInOrder(char grid[GridSize][GridSize], int gold)
     }
 }
 
-void displayGrid(char grid[GridSize][GridSize])
-{
-    puts("hi");
-    for (int i = 0; i < GridSize; i++)
-    {
-        for (int j = 0; j < GridSize; j++)
-        {
-            printf("%c", grid[j][i]);
-        }
-        printf("\n");
-    }
-}
-
-
 void updateGrid(char grid[GridSize][GridSize])
 {
     for (int i = 0; i < GridSize; i++)
@@ -233,11 +220,11 @@ int main(int argc, char* argv[])
 {
     puts("Starting solver");
     FILE *file;
-    file = fopen("grid.txt", "r");
+    file = fopen("grid_old.txt", "r");
 
     if (file == NULL)
     {
-        puts("Fatal error, grid.txt not found, returning...");
+        puts("Fatal error, grid_old.txt not found, returning...");
         return -1;
     }
     char txt[stringSIZE] = {0};
@@ -317,10 +304,16 @@ int main(int argc, char* argv[])
         repeat = atoi(argv[2]);
     }
 
+    /*
     for (int k = 0; k < repeat; ++k) {
         simulate(grid, Waves[0], graphics);
         printf("Simulation %d\n", k);
         //printf("Simulation %d - %s", k, simulate(grid, Waves[0], graphics) ? "SUCCESS" : "FAILURE");
     }
     printf("%d simulation(s) finished\n", repeat);
+    */
+
+    //manage(grid, Waves[0]);
+
+    simulate(grid, Waves[0], graphics, "IRRFR");
 }
