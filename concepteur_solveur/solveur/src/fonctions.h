@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -17,8 +19,6 @@ typedef struct Cursor {
 	int reach;
 } Cursor;
 
-
-
 typedef struct Wave {
 	int index;
 	int gold;
@@ -30,3 +30,5 @@ typedef struct Wave {
 void print_tab(int tab[GridSize][GridSize]);
 char* cleanTab_tostring(int tab[GridSize][GridSize]);
 void nettoyagefinstring(char* string, int size);
+
+void displayGrid(char grid[GridSize][GridSize]);
