@@ -1,10 +1,52 @@
+/** Boutons Menu **/
+
 .WaitForPlay, .Conceptor {
-    background-color: white;
+    font-family: 'Nova Flat', cursive;
+    background-color: black;
     border: solid;
-    border-color: darkgrey;
-    color: black;
-    font-size: 15rem;
+    color: white;
+    font-size: 2rem;
+    height: 200px;
+    width: 400px;
+    margin: 5%;
+    vertical-align: middle;
+    border-color: blue;
+    animation-name: border-color;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
 }
+
+.WaitForPlay:hover, .Conceptor:hover {
+    outline : 0.2rem solid blue;
+}
+
+.gridSize:hover{
+    outline : 0.4rem solid #BC13FE;
+}
+
+@keyframes border-color {
+    0%   {border-color:#4D4DFF;}
+    16.66%  {border-color:#E0E722;}
+    33.32%  {border-color:#FFAD00;}
+    49.98%  {border-color:#D22730;}
+    66.64%  {border-color:#DB3EB1;}
+    83.31%  {border-color:#C724B1;}
+    100% {border-color:#44D62C;}
+}
+
+.buttonPicture{
+    vertical-align: middle;
+    height : 100px;
+    width : 100px;
+}
+
+.ButtonMenu{
+    display: flex;
+    justify-content: center;
+}
+
 
 .Board {
     display: flex;
@@ -18,41 +60,8 @@
     font-size: 1.5rem;
 }
 
-.sound_on {
-    background-color: white;
-    border: solid;
-    border-color: darkgrey;
-    color: black;
-    font-size: 1.4rem;
-    margin-left: 5rem;
-}
 
-#change_sound:active, .sound_off {
-    background-color: black;
-    border: solid;
-    border-color: white;
-    color: white;
-    font-size: 1.4rem;
-    margin-left: 5rem;
-}
-
-.speed_off {
-    background-color: white;
-    border: solid;
-    border-color: darkgrey;
-    color: black;
-    font-size: 1.4rem;
-    margin-left: 5rem;
-}
-
-#change_speed:active, .speed_on {
-    background-color: black;
-    border: solid;
-    border-color: white;
-    color: white;
-    font-size: 1.4rem;
-    margin-left: 5rem;
-}
+/** Rectangle d'achat de tourelles **/
 
 .RectangleTowers {
     height: 863px;
@@ -90,28 +99,6 @@
     color: gold;
     font-size: 1.9rem;
 }
-
-/*.GreyTri {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-}
-.GreyTri .TextGrey {
-    visibility: hidden;
-    width: 300px;
-    background-color: silver;
-    color: black;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 40px;
-    right: -320px;
-    border: solid;
-    border-color: darkred;
-    position: absolute;
-}
-.GreyTri:hover .TextGrey {
-    visibility: visible;
-}*/
 
 .YellowTri {
     position: relative;
@@ -258,7 +245,7 @@
     outline : 0.2rem solid silver;
 }
 
-
+/** Rectangle d'infos de waves **/
 
 .Mobs {
     border-left-width: medium;
@@ -419,6 +406,8 @@ progress {
 }
 */
 
+/** Rectangle de stats des mobs **/
+
 .MobsStats {
     height: 863px;
     width: 250px;
@@ -506,6 +495,12 @@ p{
 
 header{
     font-size: 60px;
+}
+
+.Title {
+    width: 70%;
+    height: 40%;
+    max-height: 150px;
 }
 
 

@@ -28,7 +28,7 @@
     <header>
 
         <section id="banner">
-            <h1><i>Polygon TD</i></h1>
+            <h1><img src="Pictures/POLYGON_TD.png" alt="PolygonTD" class="Title"></h1>
         </section>
 
         <nav>
@@ -55,16 +55,15 @@
 
     <main>
         <br>
-
-        <button id="playbutton" class="WaitForPlay" onclick="PressPlay();">
-            Play
-        </button>
-        <br>
-
-        <button id="conceptor" class="Conceptor" onclick="PressConceptor();">
-            Conceptor
-        </button>
-
+        <div class="ButtonMenu">
+            <button id="playbutton" class="WaitForPlay" onclick="PressPlay();"><img src="Pictures/shuffle.png" alt="Shuffle" class = "buttonPicture">
+            &nbsp Random Level
+            </button>
+            
+            <button id="conceptor" class="Conceptor" onclick="PressConceptor();"><img src="Pictures/Levels.png" alt="Levels" class = "buttonPicture">
+                Choose Your Level
+            </button>
+        </div>
         <div class="BanqueChemin disabled" id="banquechemin">
             <div >
                 <img src="Pictures/Grids/choosemap.png" alt="Choose Your Map !" class="chooseMap" >
@@ -216,18 +215,16 @@
                     <strong id="headertext">/</strong>
                     <br><br>
                     <div class ="SoundButton">
-                        <button id="change_sound" class="sound_on" onclick="PressSound();">
-                            <strong>Sound</strong>
-                            <!-- <img src="Pictures/Buttons/sound_on.png"  width="30" height="30" >
-                            <img src="Pictures/Buttons/sound_off.png"  width="30" height="30" class="SoundImageOFF"> -->
+                        <button id="change_sound" class="SoundBtn" onclick="PressSound();"> 
+                            <img src="Pictures/Buttons/sound_on.png"  width="30" height="30" class="SoundImage" id="SoundON">
+                            <img src="Pictures/Buttons/sound_off.png"  width="30" height="30" class="SoundImage disabled" id="SoundOFF">
                         </button>
                     </div>
                     <br>
                     <div class ="SpeedButton">
-                        <button id="change_speed" class="speed_off" onclick="PressSpeed();">
-                        <strong>Speed</strong>
-                        <!-- <img src="Pictures/Buttons/speed_on.png"  width="30" height="30" class="SpeedImageON">
-                        <img src="Pictures/Buttons/speed_off.png"  width="30" height="30" > -->
+                        <button id="change_speed" class="SpeedBtn" onclick="PressSpeed();">
+                        <img src="Pictures/Buttons/speed_on.png"  width="30" height="30" class="SpeedImage disabled" id="SpeedON">
+                        <img src="Pictures/Buttons/speed_off.png"  width="30" height="30" class="SpeedImage" id="SpeedOFF">
                         </button>
                     </div>
 
