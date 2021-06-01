@@ -3,7 +3,7 @@
 #include "simulation.h"
 
 #define ARRAYSIZE 256
-#define GAMETICK 250
+#define GAMETICK 100
 
 typedef struct Position {
     int x;
@@ -51,7 +51,8 @@ typedef struct TurretType {
 
 
 
-Position spawn = {0, 1};
+Position realSpawn = {-1, 1};
+//Position realSpawn = {0, 1};
 Position end = {13, 12};
 
 
@@ -107,7 +108,7 @@ Position getNextAvailablePosition(char grid[GridSize][GridSize], Position curren
             }
         }
     }
-    Position defaultPosition = spawn;
+    Position defaultPosition = realSpawn;
     return defaultPosition;
 }
 
@@ -183,6 +184,10 @@ void updateTurrets(SimulationData *sim) {
     for (int t = 0; t < sim->turretsSize; ++t) {
         Turret* turret = &sim->turretsArray[t];
 
+        if (t == 1 && sim->gameTick == 11) {
+            puts("hi");
+        }
+
         Enemy *enemiesInRange[4] = {};
         int enemiesIndex = 0;
         for (int i = turret->position.x - 1; i <= turret->position.x + 1; i++) {
@@ -202,27 +207,33 @@ void updateTurrets(SimulationData *sim) {
             }
         }
 
-        turret->cooldownRemaining--;
         if (turret->cooldownRemaining > 0) {
+            turret->cooldownRemaining--;
             continue;
         }
 
+        turret->cooldownRemaining = turret->attackCooldown - 1;
         Enemy *enemyRef = getLowestIndexEnemy(enemiesInRange, enemiesIndex);
         if (enemyRef == NULL) continue;
         if (enemyRef->dead) continue;
-        turret->cooldownRemaining = turret->attackCooldown;
         if (enemyRef->name == 'f' && turret->name != 'I') continue;
         if (enemyRef->name == 'i' && turret->name != 'F') continue;
         enemyRef->hp -= turret->damage;
+        printf("%d - %c [%d/%d] attacked %c <%d> [%d/%d] (remaining %d HP)\n",
+                sim->gameTick,
+                turret->name, turret->position.x, turret->position.y,
+                enemyRef->name, enemyRef->index, enemyRef->currentPosition.x, enemyRef->currentPosition.y, enemyRef->hp);
         if (enemyRef->hp <= 0) {
             enemyRef->dead = true;
+            enemyRef->currentPosition.x = -1;
+            enemyRef->currentPosition.y = -1;
             sim->enemiesLeftToWin--;
         }
     }
 }
 
 void updateSimulation(SimulationData *simulationData) {
-
+    printf("GameTick %d\n", simulationData->gameTick);
     // Spawning enemies
     if (simulationData->gameTick % 2 == 0 && simulationData->enemiesLeftToSpawn > 0) {
         for (int i = 0; i < ARRAYSIZE; ++i) {
@@ -230,8 +241,8 @@ void updateSimulation(SimulationData *simulationData) {
             if (enemy.spawned) continue;
             if (enemy.name != 0) {
                 // Spawning enemy
-                simulationData->enemies[i].currentPosition = spawn;
-                simulationData->enemies[i].lastPosition = spawn;
+                simulationData->enemies[i].currentPosition = realSpawn;
+                simulationData->enemies[i].lastPosition = realSpawn;
                 simulationData->enemies[i].spawned = true;
                 simulationData->enemiesLeftToSpawn--;
                 break;

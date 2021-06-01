@@ -220,7 +220,8 @@ int main(int argc, char* argv[])
 {
     puts("Starting solver");
     FILE *file;
-    file = fopen("grid_old.txt", "r");
+    //file = fopen("grid_old.txt", "r");
+    file = fopen("grid_overlap.txt", "r");
 
     if (file == NULL)
     {
@@ -315,5 +316,5 @@ int main(int argc, char* argv[])
 
     //manage(grid, Waves[0]);
 
-    simulate(grid, Waves[0], graphics, "IRRFR");
+    simulate(grid, Waves[0], graphics, "RR");
 }
