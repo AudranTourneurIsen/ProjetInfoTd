@@ -5,6 +5,7 @@ const Height = 800
 const SquareSize = 50
 const GridSize = 14
 let GameTickMs = 250
+const MainLoopMs = Math.floor(1000 / 60)
 //const GameTick = 5
 
 const Grid = generateGrid()
@@ -22,11 +23,29 @@ const TURRET_ICE = 5
 let Timer = 0
 let Wave = 1
 
+function PressPlay() {
+    const DisplayBoard = document.getElementById('board')
+    DisplayBoard.classList.remove('disabled')
+    const PlayBtn = document.getElementById('playbutton')
+    PlayBtn.classList.add('disabled')
+    const CptBtn = document.getElementById('conceptor')
+    CptBtn.classList.add('disabled')
+}
+
+function PressConceptor() {
+    const CptBtn = document.getElementById('conceptor')
+    CptBtn.classList.add('disabled')
+    const PlayBtn = document.getElementById('playbutton')
+    PlayBtn.classList.add('disabled')
+    const BaChBtn = document.getElementById('banquechemin')
+    BaChBtn.classList.remove('disabled')
+}
+
 const Levels = {
     1: {
         enemies: ["normal", "tank"],
         gold: 20,
-        grid: "simple.txt"
+        //grid: "simple.txt"
     },
     /*2: {
         enemies: ["fire","weak","weak","normal","weak","normal", "ice", "tank"],
@@ -36,12 +55,12 @@ const Levels = {
     2: {
         enemies: ["fire","tank","tank","weak","weak","normal","weak","normal", "ice", "tank","normal"],
         gold: 50,
-        grid: "arena.txt"
+        //grid: "grid1.txt"
     },
     3: {
         enemies: ["tank", "weak", "weak", "normal", "normal", "weak", "weak", "tank"],
         gold: 30,
-        grid: "arena.txt"
+        // grid: "grid1.txt"
     }
 }
 
@@ -201,13 +220,14 @@ function updateTurrets() {
             for (let j = -1; j <= 1; j++) {
                 currentX = x + i
                 currentY = y + j
-                if (Enemies.some(e => e.x == currentX && e.y == currentY && e.dead == false)) {
-                    console.log(`Enemy found on ${currentX}/${currentY} by ${x}/${y}`)
-                    const enemy = Enemies.find(e => e.x == currentX && e.y == currentY && e.dead == false)
+
+                const enemy = Enemies.find(e => e.x == currentX && e.y == currentY && e.dead == false)
+                if (enemy) {
                     enemiesInRange.push(enemy)
                 }
             }
         }
+
         if (enemiesInRange.length == 0) continue;
         if (turret.cooldown > 0) {
             turret.cooldown--
@@ -221,48 +241,29 @@ function updateTurrets() {
             }
         }
 
+        function logInfo() {
+            console.log(`${CurrentTick} - ${turret.type} [${turret.x}/${turret.y}] attacked ${minEnemy.type} <${minEnemy.id}> [${minEnemy.x}/${minEnemy.y}] (remaining ${minEnemy.hp} HP)`)
+        }
+
         const dmg = TurretsJson[turret.type].damage
         const progress = minEnemy.htmlElement.children[1]
 
-        if (minEnemy.type == 'fire') {
-            if (turret.type == 'ice') {
-                minEnemy.hp -= dmg
-                progress.value -= dmg
-                if (minEnemy.hp <= 0) {
-                    minEnemy.dead = true
-                }
-                pushLasers(turret, minEnemy, 'red')
-            }
-            else {
-            minEnemy.hp = minEnemy.hp - 0
+        if (minEnemy.dead) continue;
+        if (minEnemy.name == 'f' && turret.name != 'I') {
             pushLasers(turret, minEnemy, 'black')
-            }
+            continue;
         }
-
-        if (minEnemy.type == 'ice') {
-            if (turret.type == 'fire') {
-                minEnemy.hp -= dmg
-                progress.value -= dmg
-                if (minEnemy.hp <= 0) {
-                    minEnemy.dead = true
-                }
-                pushLasers(turret, minEnemy, 'red')
-            }
-            else {
-            minEnemy.hp = minEnemy.hp - 0
+        if (minEnemy.name == 'i' && turret.name != 'F') {
             pushLasers(turret, minEnemy, 'black')
-            }
+            continue;
         }
-
-        if (minEnemy.type == 'weak' || minEnemy.type == 'normal' || minEnemy.type == 'tank') {
-            minEnemy.hp -= dmg
-            progress.value -= dmg
-            if (minEnemy.hp <= 0) {
-                minEnemy.dead = true
-            }
-            pushLasers(turret, minEnemy, 'red')
+        minEnemy.hp -= dmg
+        progress.value -= dmg
+        pushLasers(turret, minEnemy, 'red')
+        logInfo()
+        if (minEnemy.hp <= 0) {
+            minEnemy.dead = true;
         }
-
     }
 }
 
@@ -338,16 +339,21 @@ function PressSpeed() {
     }
 
     clearInterval(intervalManager)
-    setInterval(mainLoop, GameTickMs)
+    setInterval(mainLoop, MainLoopMs)
 }
+
+let LastUpdate = Date.now();
 
 function mainLoop() {
-    update()
+    if (LastUpdate + GameTickMs < Date.now()) {
+        update()
+        LastUpdate = Date.now()
+    }
     draw()
-    Timer += GameTickMs
+    Timer += MainLoopMs
 }
 
-let intervalManager = setInterval(mainLoop, GameTickMs)
+let intervalManager = setInterval(mainLoop, MainLoopMs)
 
 function drawArrow() {
     ArrowImage = new Image()
@@ -555,8 +561,9 @@ let GlobalTxt = null
 
 function importGridFromText(x) {
     const request = new XMLHttpRequest();
-    
-    const fileName = Levels[x].grid
+
+    //const fileName = Levels[x].grid
+    fileName = Levels[x].grid
     request.open('GET', `data/${fileName}`, true);
     request.send(null);
     request.onreadystatechange = function () {
@@ -574,6 +581,37 @@ function importGridFromText(x) {
 }
 
 importGridFromText(1)
+
+function selectLevel(elem) {
+    console.log(elem);
+    const id = elem.id;
+    file = `${id}.txt`;
+    importGridFromFilename(file)
+
+    const LvlBtn = document.getElementById('banquechemin')
+    LvlBtn.classList.add('disabled')
+    const DisplayBoard = document.getElementById('board')
+    DisplayBoard.classList.remove('disabled')
+}
+
+function importGridFromFilename(file) {
+    const request = new XMLHttpRequest();
+
+    request.open('GET', `data/${file}`, true);
+    request.send(null);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            var type = request.getResponseHeader('Content-Type');
+            if (type.indexOf("text") !== 1) {
+                const txt = request.responseText
+                console.log(txt);
+                GlobalTxt = txt
+                resetGrid(txt)
+                console.log(`Reseting ${fileName}`)
+            }
+        }
+    }
+}
 
 function resetGrid(txt) {
     const lines = txt.split('\n')

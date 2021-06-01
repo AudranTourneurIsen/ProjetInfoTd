@@ -55,7 +55,48 @@
 
     <main>
         <br>
-        <div class="Board" id="Board">
+
+        <button id="playbutton" class="WaitForPlay" onclick="PressPlay();">
+            Play
+        </button>
+        <br>
+
+        <button id="conceptor" class="Conceptor" onclick="PressConceptor();">
+            Conceptor
+        </button>
+
+        <div class="BanqueChemin disabled" id="banquechemin">
+            <div >
+                <img src="Pictures/Grids/choosemap.png" alt="Choose Your Map !" class="chooseMap" >
+            </div>
+        
+            <div class="GridRow">
+                <div class="GridColumn">
+                  <img src="Pictures/Grids/grid1.png" id="grid1" class="gridSize" onclick="selectLevel(this)">
+                </div>
+                <div class="GridColumn">
+                  <img src="Pictures/Grids/grid2.png" id="grid2" class="gridSize" onclick="selectLevel(this)">
+                </div>
+                <div class="GridColumn">
+                  <img src="Pictures/Grids/grid3.png" id="grid3" class="gridSize" onclick="selectLevel(this)">
+                </div>
+            </div>
+            
+            <div class="GridRow">
+                <div class="GridColumn">
+                  <img src="Pictures/Grids/grid4.png" id="grid4" class="gridSize" onclick="selectLevel(this)">
+                </div>
+                <div class="GridColumn">
+                  <img src="Pictures/Grids/grid5.png" id="grid5" class="gridSize" onclick="selectLevel(this)">
+                </div>
+                <div class="GridColumn">
+                  <img src="Pictures/Grids/grid6.png" id="grid6" class="gridSize" onclick="selectLevel(this)">
+                </div>
+            </div>
+        
+        </div>
+
+        <div class="Board disabled" id="board">
 
             <div class="Towers" id="Towers">
 
