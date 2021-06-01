@@ -68,7 +68,7 @@ Cursor *getOptimalTurretPositions(char grid[GridSize][GridSize], int gold)
 
 void displayPositions(Cursor *cursors, int size)
 {
-    for (size_t i = 0; i < size; i++)
+    for (int i = 0; i < size; i++)
     {
         Cursor cursor = cursors[i];
         printf("Position %d - [%d/%d]\n", i, cursor.x, cursor.y);
@@ -220,8 +220,8 @@ int main(int argc, char* argv[])
 {
     puts("Starting solver");
     FILE *file;
-    //file = fopen("grid_old.txt", "r");
-    file = fopen("grid_overlap.txt", "r");
+    file = fopen("grid_test.txt", "r");
+    //file = fopen("grid_overlap.txt", "r");
 
     if (file == NULL)
     {
@@ -314,7 +314,7 @@ int main(int argc, char* argv[])
     printf("%d simulation(s) finished\n", repeat);
     */
 
-    //manage(grid, Waves[0]);
+    manage(grid, Waves[0]);
 
-    simulate(grid, Waves[0], graphics, "RR");
+    //simulate(grid, Waves[0], graphics, "FIRFR");
 }

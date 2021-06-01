@@ -1,5 +1,3 @@
-20,w,t
-20,w,w,t
 50,f,t,t,w,w,n,w,n,i,t,n,w,w,w,i,w,n,i,w,t,i,f,n,w
 20,n,t
 50,f,t,t,w,w,n,w,n,i,t,n

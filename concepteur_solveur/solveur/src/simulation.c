@@ -41,6 +41,7 @@ typedef struct SimulationData {
     Turret *turretsArray;
     int enemiesLeftToWin;
     char turretsArrangment[ARRAYSIZE];
+    bool graphics;
 } SimulationData;
 
 typedef struct TurretType {
@@ -50,17 +51,16 @@ typedef struct TurretType {
 } TurretType;
 
 
-
 Position realSpawn = {-1, 1};
 //Position realSpawn = {0, 1};
 Position end = {13, 12};
 
 
 TurretType turretTypes[] = {
-        {'R', 1, 1},
+        {'R', 1,  1},
         {'H', 15, 15},
-        {'F', 1, 2},
-        {'I', 1, 2},
+        {'F', 1,  2},
+        {'I', 1,  2},
 };
 
 int getDamageByTurretType(char type) {
@@ -121,7 +121,8 @@ int enemyNameToHp(char name) {
         case 't':
             return 15;
         case 'i':
-            return 2;     return 15;
+            return 2;
+            return 15;
         case 'f':
             return 2;
         default:
@@ -182,11 +183,7 @@ Enemy *getLowestIndexEnemy(Enemy *enemies[], int size) {
 
 void updateTurrets(SimulationData *sim) {
     for (int t = 0; t < sim->turretsSize; ++t) {
-        Turret* turret = &sim->turretsArray[t];
-
-        if (t == 1 && sim->gameTick == 11) {
-            puts("hi");
-        }
+        Turret *turret = &sim->turretsArray[t];
 
         Enemy *enemiesInRange[4] = {};
         int enemiesIndex = 0;
@@ -219,10 +216,12 @@ void updateTurrets(SimulationData *sim) {
         if (enemyRef->name == 'f' && turret->name != 'I') continue;
         if (enemyRef->name == 'i' && turret->name != 'F') continue;
         enemyRef->hp -= turret->damage;
-        printf("%d - %c [%d/%d] attacked %c <%d> [%d/%d] (remaining %d HP)\n",
-                sim->gameTick,
-                turret->name, turret->position.x, turret->position.y,
-                enemyRef->name, enemyRef->index, enemyRef->currentPosition.x, enemyRef->currentPosition.y, enemyRef->hp);
+        if (sim->graphics)
+            printf("%d - %c [%d/%d] attacked %c <%d> [%d/%d] (remaining %d HP)\n",
+                   sim->gameTick,
+                   turret->name, turret->position.x, turret->position.y,
+                   enemyRef->name, enemyRef->index, enemyRef->currentPosition.x, enemyRef->currentPosition.y,
+                   enemyRef->hp);
         if (enemyRef->hp <= 0) {
             enemyRef->dead = true;
             enemyRef->currentPosition.x = -1;
@@ -233,7 +232,8 @@ void updateTurrets(SimulationData *sim) {
 }
 
 void updateSimulation(SimulationData *simulationData) {
-    printf("GameTick %d\n", simulationData->gameTick);
+    if (simulationData->graphics)
+        printf("GameTick %d\n", simulationData->gameTick);
     // Spawning enemies
     if (simulationData->gameTick % 2 == 0 && simulationData->enemiesLeftToSpawn > 0) {
         for (int i = 0; i < ARRAYSIZE; ++i) {
@@ -342,8 +342,9 @@ void initializeTurrets(SimulationData *sim, int turretAmount) {
 }
 
 // Returns true if the simulation is successful, false otherwise
-bool simulate(char grid[GridSize][GridSize], Wave wave, bool graphics, char* combination) {
+bool simulate(char grid[GridSize][GridSize], Wave wave, bool graphics, char *combination) {
     SimulationData sim = {false, false, 0};
+    sim.graphics = graphics;
     strcpy(sim.turretsArrangment, combination);
     for (int i = 0; i < GridSize; ++i)
         for (int j = 0; j < GridSize; ++j)

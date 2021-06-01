@@ -54,10 +54,11 @@ void displayArray(char* arr[], int size) {
     }
 }
 
-void manage(char grid[GridSize][GridSize], Wave wave) {
+int manage(char grid[GridSize][GridSize], Wave wave) {
     ResultArray* arr = malloc(sizeof(ResultArray));
     char set[] = {'R', 'H', 'I', 'F'};
     int nbTypes = sizeof(set);
+    int nbLocations = wave.gold/10;
     int nbTurrets = wave.gold/10;
     arr->globalSize = (int) pow((double) nbTypes, (double) nbTurrets);
     arr->array = malloc(arr->globalSize * sizeof(char*));
@@ -73,10 +74,16 @@ void manage(char grid[GridSize][GridSize], Wave wave) {
     //displayArray(arr->array, arr->globalSize);
     //printf("\nHi?\n");
 
+    int successCount = 0;
     for (int i = 0; i < arr->globalSize; ++i) {
         bool res = simulate(grid, wave, false, arr->array[i]);
-        if (res)
+        if (res) {
             printf("%s - %s\n", arr->array[i], res ? "SUCCESS" : "FAILURE");
+            successCount++;
+        }
     }
+
+    printf("COUNT = %d", successCount);
+    return successCount;
 
 }
