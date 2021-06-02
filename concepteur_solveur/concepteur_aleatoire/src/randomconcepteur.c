@@ -100,8 +100,7 @@ int main() {
 		*/
 		
 
-
-		/* quand la direction est choisie, il faut maintenant déterminer de combien de cases on avance,
+		/* Quand la direction est choisie, il faut déterminer de combien de cases on avance,
 		pour ça on pose un nouvel int qui prendra une valeur pseudo-random entre 1 et 3*/
 
 		direction = rand() % 4;
@@ -111,10 +110,8 @@ int main() {
 
 		switch (direction) {
 			case(0):
-				
-				
 
-				// cas ou il ne faut pas aller vers le haut : 
+				// Cas ou il ne faut pas aller vers le haut : 
 					// quand on est sur les lignes 1 ou moins
 					// si en se déplaçant de 2 cases vers le haut on retombe sur le chemin
 					// quand on est sur les colonnes 11 ou plus
@@ -124,12 +121,13 @@ int main() {
 					break;
 				}
 				else{
-				//on dépasse pas de la grille
+
+				// On ne dépasse pas de la grille
 					while (path.y - avancement < 1) {
 						avancement--;
 					}
 						
-				// on avance vers le haut
+				// On avance vers le haut
 					for (int i = 0; i < avancement; i++) {
 						if ((grid[path.x][path.y - 2] == 1)||(grid[path.x+1][path.y-1]==1)||(grid[path.x-1][path.y-1]==1)){
 							break;
