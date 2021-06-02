@@ -1,0 +1,73 @@
+\documentclass{article}
+
+% Language setting
+\usepackage[french]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=black]{hyperref}
+
+\title{Rapport Projet CIR 1}
+\author{Groupe 14 - The Civilization}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\section{Introduction}
+
+Polygon TD est notre projet de fin d'année de CIR 1. 
+Il est basé sur la mécanique de jeu d'un Tower Défense mais adapté aux consignes de notre projet.
+En effet, nous devions réaliser un jeu basé uniquement sur la réflexion, toute restriction liée au temps ou aux réflexes était prohibée.
+
+Les 6 membres du groupe ayant joués à des Towers Défense en étant plus jeunes, nous avons décidé d'adapter ce style de jeu.\newline
+
+Voici les modifications effectuées :
+\begin{itemize}
+    \item Impossibilité de placer des tourelles pendant les vagues
+    \item Temps infini entre les vagues pour placer les tourelles
+    \item Réinitialisation du terrain de jeu entre chaque vague pour pouvoir placer les tourelles à d'autres endroits
+    \item Connaissance de toutes les statistiques des ennemis avant chaque vague\newline
+\end{itemize}
+
+Ces modifications font que le jeu devient seulement un aspect de réflexion, et ne possède aucune autre contrainte.
+
+
+\section{Attentes du projet}
+
+\subsection{Besoin exprimé}
+
+Le client a exprimé le besoin de pouvoir jouer à un jeu tout public basé uniquement sur de la réflexion, accessible par interface web dynamique.
+
+\subsection{Contraintes}
+
+Suite au besoin, nous devions réaliser un jeu sans aucune contrainte aléatoire ni aucune contrainte de temps dans le gameplay. Nous avions 3 semaines pour réaliser ce projet : Du 17 mai 2021 au 4 juin 2021.
+L'utilisateur doit pouvoir gagner la partie avec une pure expérience de réflexion, sans être pressé ni jouer sur la chance.\newline
+
+En plus du jeu, nous devions également réaliser des concepteurs de niveaux : Aléatoire et Manuel, mais également un solveur de niveau.\newline
+
+Concernant les langages de programmation, nous étions limités à nos apprentissages. Suivant nos connaissances personnelles, nous avons utilisé de l'HTML et du CSS pour le site web, du JS pour le jeu, et du C pour les concepteurs et le solveur.\newline
+
+\subsection{Proposition du groupe}
+
+Après l'étude du besoin et des contraintes imposées, nous avons réfléchi à différents types de jeu plus ou moins réalisables. Nous avons pensé à un Tower Défense, mais la version classique de ce type de jeu ne correspondait pas aux contraintes. Cependant, ce concept nous tenant à coeur, nous avons décidés de l'adapter.\newline
+
+Mais d'abord, qu'est-ce qu'un Tower Défense ?\newline
+
+Un Tower défense est un jeu de stratégie où le but du joueur est de défendre ses territoires ou biens contre des vagues d'ennemis. Son seul moyen de gagner est de tuer les ennemis en plaçant des tourelles avec différentes caractéristiques près du chemin qu'emprunte les ennemis.\newline
+
+Cependant, ce jeu est réputé pour être un jeu de stratégie en temps réel, nous devions donc enlever ces paramètres en adaptant notre projet, voici les modifications effectuées :
+\begin{itemize}
+    \item Impossibilité de placer des tourelles pendant les vagues
+    \item Temps infini entre les vagues pour placer les tourelles
+    \item Réinitialisation du terrain de jeu entre chaque vague pour pouvoir placer les tourelles à d'autres endroits
+    \item Connaissance de toutes les statistiques des ennemis avant chaque vague\newline
+\end{itemize}
+
+En appliquant ces modifications, notre jeu se transforme en un jeu de réflexion uniquement.\newline
+
+\end{document}

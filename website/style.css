@@ -60,10 +60,52 @@
     font-size: 1.5rem;
 }
 
+.SoundBtn, .SpeedBtn{
+    margin: auto;
+    border : solid;
+    border-color: rgb(207, 6, 207);
+    border-radius: 4px;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.SoundBtn .TextSound, .SpeedBtn .TextSpeed {
+    visibility: hidden;
+    width: 300px;
+    background: radial-gradient(white 30%, pink);
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: -125px;
+    bottom: 40px;
+    border: solid;
+    border-color: purple;
+    position: absolute;
+}
+
+.SoundBtn:hover .TextSound, .SpeedBtn:hover .TextSpeed {
+    visibility: visible;
+}
+
+.SoundBtn:hover, .SpeedBtn:hover{
+    background-color: silver;
+    margin: auto;
+    border : solid;
+    border-color: rgb(207, 6, 207);
+    border-radius: 4px;
+}
+
+.SpeedAndSound{
+    display: flex;
+    justify-content: space-around;
+}
 
 /** Rectangle d'achat de tourelles **/
 
 .RectangleTowers {
+    text-align: center;
     height: 863px;
     width: 250px;
     background: radial-gradient(black 50%, blue);
@@ -108,14 +150,14 @@
 .YellowTri .TextYellow {
     visibility: hidden;
     width: 300px;
-    background-color: silver;
+    background: radial-gradient(white 30%, yellow);
     color: black;
     text-align: center;
     padding: 5px 0;
     border-radius: 40px;
     right: -320px;
     border: solid;
-    border-color: darkred;
+    border-color: gold;
     position: absolute;
 }
 .YellowTri:hover .TextYellow {
@@ -130,7 +172,7 @@
 .RedTri .TextRed {
     visibility: hidden;
     width: 320px;
-    background-color: silver;
+    background: radial-gradient(white 30%, red);
     color: black;
     text-align: center;
     padding: 5px 0;
@@ -152,14 +194,14 @@
 .PurpleTri .TextPurple {
     visibility: hidden;
     width: 320px;
-    background-color: silver;
+    background: radial-gradient(white 30%, purple);
     color: black;
     text-align: center;
     padding: 5px 0;
     border-radius: 40px;
     right: -320px;
     border: solid;
-    border-color: darkred;
+    border-color: rebeccapurple;
     position: absolute;
 }
 .PurpleTri:hover .TextPurple {
@@ -174,14 +216,14 @@
 .BlueTri .TextBlue {
     visibility: hidden;
     width: 310px;
-    background-color: silver;
+    background: radial-gradient(white 30%, blue);
     color: black;
     text-align: center;
     padding: 5px 0;
     border-radius: 40px;
     right: -320px;
     border: solid;
-    border-color: darkred;
+    border-color: darkblue;
     position: absolute;
 }
 .BlueTri:hover .TextBlue {
@@ -208,6 +250,8 @@
     outline : 0.2rem solid red;
 }
 
+
+
 .Selected {
     border: solid;
     border-color: orange;
@@ -224,11 +268,36 @@
     font-size: 2.5rem;
     color : red;
     text-shadow: 2px 2px black;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
 }
 
 .Sell:hover {
     border: solid;
     border-color: red;
+}
+
+
+
+.Sell .TextSell {
+    visibility: hidden;
+    font-size: 1.5rem;
+    text-shadow: none;
+    width: 310px;
+    background: radial-gradient(white 30%, red);
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: -320px;
+    border: solid;
+    border-color: darkred;
+    position: absolute;
+}
+
+.Sell:hover .TextSell {
+    visibility: visible;
 }
 
 .Cancel {
@@ -239,10 +308,33 @@
     font-size: 2.5rem;
     color : silver;
     text-shadow: 2px 2px black;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
 }
 
 .Cancel:hover {
     outline : 0.2rem solid silver;
+}
+
+.Cancel .TextCancel {
+    visibility: hidden;
+    font-size: 1.5rem;
+    text-shadow: none;
+    width: 310px;
+    background: radial-gradient(white 30%, grey);
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: -320px;
+    border: solid;
+    border-color: black;
+    position: absolute;
+}
+
+.Cancel:hover .TextCancel {
+    visibility: visible;
 }
 
 /** Rectangle d'infos de waves **/
@@ -281,6 +373,39 @@
     background-color : red;
     border: solid;
     border-color: darkred;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.waveinactive:hover {
+    background-color: black;
+    border: solid;
+    border-color: rgb(255, 8, 8);
+    color: red;
+    font-size: 2rem;
+    margin: 2.2rem;
+}
+
+.waveinactive .TextStart {
+    visibility: hidden;
+    font-size: 1.5rem;
+    text-shadow: none;
+    width: 310px;
+    color: rgb(231, 231, 231);
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: 200px;
+    border: solid;
+    border-color: darkred;
+    position: absolute;
+
+    background: radial-gradient(black 30%, darkred);
+}
+
+.waveinactive:hover .TextStart {
+    visibility: visible;
 }
 
 .Enemies {
@@ -297,6 +422,25 @@
     font-size: 2rem;
     margin: 2.2rem;
 }
+
+.waveactive .TextStart {
+    visibility: hidden;
+    font-size: 1.5rem;
+    text-shadow: none;
+    width: 310px;
+    color: rgb(231, 231, 231);
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: 200px;
+    border: solid;
+    border-color: darkred;
+    position: absolute;
+    background: radial-gradient(black 30%, darkred);
+}
+
+
+
 
 /*
 .tank {
@@ -406,7 +550,7 @@ progress {
 }
 */
 
-/** Rectangle de stats des mobs **/
+/** Rectangle de statistiques des mobs **/
 
 .MobsStats {
     height: 863px;
@@ -444,6 +588,8 @@ progress {
     display: flex;
     flex-direction: column;
 }
+
+/** Général **/
 
 body{
     font-family: 'Nova Flat', cursive;
@@ -671,6 +817,14 @@ hr{
     padding: 1.2rem;
     text-align: center;
 }
+
+/*.FooterText {
+    background-image: url("Pictures/Enemies/blue_circle.png");
+    background-size: 9rem;
+    background-attachment: ;
+    background-position: center;
+    background-repeat: no-repeat;
+}*/
 
 .disabled {
     display: none;

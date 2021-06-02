@@ -41,6 +41,66 @@ function PressConceptor() {
     BaChBtn.classList.remove('disabled')
 }
 
+function manageKeypress(event) {
+    console.log(event)
+
+    if(event.key == "r" || event.key == 'R' || event.key == '&' || event.key == '1') {
+        const fast = document.getElementById('FastTurret')
+        SelectedTurret = 'fast'
+        unselectAll()
+        fast.classList.add('Selected')
+    }
+
+    if(event.key == "h" || event.key == 'H' || event.key == 'é' || event.key == '2') {
+        const heavy = document.getElementById('HeavyTurret')
+        SelectedTurret = 'heavy'
+        unselectAll()
+        heavy.classList.add('Selected')
+    }
+
+    if(event.key == "f" || event.key == 'F' || event.key == '"' || event.key == '3') {
+        const fire = document.getElementById('FireTurret')
+        SelectedTurret = 'fire'
+        unselectAll()
+        fire.classList.add('Selected')
+    }
+
+    if(event.key == "i" || event.key == 'I' || event.key == "'" || event.key == '4') {
+        const ice = document.getElementById('IceTurret')
+        SelectedTurret = 'ice'
+        unselectAll()
+        ice.classList.add('Selected')
+    }
+
+    if(event.key == "s" || event.key == 'S' || event.key == "(" || event.key == '5') {
+        const sell = document.getElementById('Sell')
+            SelectedTurret = 'sell'
+            unselectAll()
+            sell.classList.add('Selected')
+        }
+
+    if(event.key == "c" || event.key == 'C' || event.key == "-" || event.key == '6') {
+        const cancel = document.getElementById('Cancel')
+        SelectedTurret = null
+        unselectAll()
+    }   
+
+    if(event.key == "w" || event.key == 'W' || event.key == "è" || event.key == '7') {
+        pressStartWave();
+    }
+
+    if(event.key == "v" || event.key == 'V' || event.key == "_" || event.key == '8') {
+        PressSound();
+    }
+
+    if(event.key == "t" || event.key == 'T' || event.key == "ç" || event.key == '9') {
+        PressSpeed();
+    }
+}
+
+
+document.onkeypress = manageKeypress
+
 /*
 const Levels = {
     1: {
@@ -616,7 +676,7 @@ function selectLevel(elem) {
 function importGridFromFilename(file) {
     const request = new XMLHttpRequest();
 
-    request.open('GET', `data/${file}`, true);
+    request.open('GET', `data/grids/${file}`, true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
@@ -771,6 +831,7 @@ function pressStartWave() {
     IsWaveStarted = true
     IsGameOver = false
     ShowGameOver = 50
+    Turrets = reOrderTurrets()
     //const WavestartSound = new Audio('./Sounds/wavestart.mp3')
     WavestartSound.play()
     console.log('start wave')
@@ -778,7 +839,6 @@ function pressStartWave() {
     btn.classList.add('waveactive')
     btn.classList.remove('waveinactive')
 }
-
 
 function stopWave() {
     const btn = document.getElementById('startwave')
@@ -987,12 +1047,45 @@ function importWaves() {
 
 importWaves()
 
+
 function reOrderTurrets() {
-    let entity = Object.assign(Spawn)
+    orderedTurrets = []
+    //let entity = Object.assign(Spawn)
+    let entity = {}
+    entity.x = Spawn.x
+    entity.y = Spawn.y
     entity.excluding = []
     let pos = {}
 
-    while (!pos) {
-        pos = getNextAvailablePosition(pos)
+    function getTurretAtPosition(x, y) {
+        return Turrets.find(t => t.x == x && t.y == y)
     }
+
+    while (pos) {
+        pos = getNextAvailablePosition(entity)
+        if (!pos) break;
+        entity.excluding.push(pos)
+        entity.x = pos.x
+        entity.y = pos.y
+        console.log(pos)
+
+        for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+                if (i != 0 && j != 0) continue;
+                let newX = entity.x + i
+                let newY = entity.y + j
+                if (newX == 6 && newY == 4) {
+                    console.log('test')
+                }
+                const candidateTurret = getTurretAtPosition(newX, newY)
+                if (!candidateTurret) continue
+                const maybeAlready = orderedTurrets.some(t => t.x == candidateTurret.x && t.y == candidateTurret.y)
+                if (maybeAlready) continue
+                if (candidateTurret) {
+                    orderedTurrets.push(candidateTurret)
+                }
+            }
+        }
+    }
+    return orderedTurrets
 }

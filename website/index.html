@@ -115,33 +115,26 @@
                     </div>
                     <br>
 
-                    <div class="Triangle">
-                        <!--<div id="ClassicTurret" class="GreyTri">
-                            <img src="Pictures/Towers/greyTriangle.png" alt="Grey" width="50" height="50">
-                            <span class="TextGrey">Attack Speed : 2 <br> Damage : 1</span>
-                            <strong>5</strong>
-                            <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
-                            <br>
-                        </div> <br><br> -->                        
+                    <div class="Triangle">                    
                         
                         <div id="FastTurret" class="YellowTri">
                             <img src="Pictures/Towers/yellowTriangle.png" alt="Yellow" width="50" height="50">
-                            <span class="TextYellow">Attack Cooldown : 1 <br> Damage : 1</span>
-                            <strong>10</strong>
+                            <span class="TextYellow">Attack Cooldown : 1 <br> Damage : 1 <br> Hotckeys : R / 1 </span> 
+                            <strong>10</strong> 
                             <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                             <br>
                         </div><br><br>
 
                         <div id="HeavyTurret" class="PurpleTri">
                             <img src="Pictures/Towers/purpleTriangle.png" alt="Purple" width="50" height="50">
-                            <span class="TextPurple">Attack Cooldown : 15 <br> Damage : 15</span>
+                            <span class="TextPurple">Attack Cooldown : 15 <br> Damage : 15 <br> Hotckeys : H / 2</span>  
                             <strong>10</strong>
                             <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                         </div><br><br>
 
                         <div id="FireTurret" class="RedTri">
                             <img src="Pictures/Towers/redTriangle.png" alt="Red" width="50" height="50">
-                            <span class="TextRed">Attack Cooldown : 2 <br> Damage : 1 <br> Fire Damage</span>
+                            <span class="TextRed">Attack Cooldown : 2 <br> Damage : 1 <br> Fire Damage <br> Hotckeys : F / 3 </span> 
                             <strong>10</strong>
                             <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                             <br>
@@ -149,7 +142,7 @@
 
                         <div id="IceTurret" class="BlueTri">
                             <img src="Pictures/Towers/blueTriangle.png" alt="Blue" width="50" height="50">
-                            <span class="TextBlue">Attack Cooldown : 2 <br> Damage : 1 <br> Ice Damage</span>
+                            <span class="TextBlue">Attack Cooldown : 2 <br> Damage : 1 <br> Ice Damage <br> Hotckeys : I / 4</span>
                             <strong>10</strong>
                             <img src="Pictures/Gold.png" alt="Gold" width="20" height="20">
                             <br>
@@ -178,14 +171,15 @@
                     <br>
                     <hr>
                     <br>
-
-                    <div id="Sell" class="Sell">
-                        <strong class="SellText">SELL</strong> &nbsp;
-                        <img src="Pictures/RedCross.png" alt="RedCross" width="50" height="50" class="SellImage">
-                    </div>
-                    <br>
+                        <div id="Sell" class="Sell">
+                            <strong class="SellText">SELL</strong>
+                            <!-- <img src="Pictures/RedCross.png" alt="RedCross" width="50" height="50" class="SellImage"> -->
+                            <span class="TextSell"> Hotckeys : S / 5 <span>
+                        </div>
+                    <hr><br>
                     <div id="Cancel" class="Cancel">
-                        <strong>CANCEL</strong>
+                        <strong class="CancelText">CANCEL</strong>
+                        <span class="TextCancel"> Hotckeys : C / 6 <span>
                     </div>
 
                 </div>
@@ -210,24 +204,29 @@
                     </div>
 
                     <div class="StartButton">
-                        <button id="startwave" class="waveinactive" onclick="pressStartWave();">Start Wave</button>
+                        <button id="startwave" class="waveinactive" onclick="pressStartWave();">Start Wave <span class="TextStart"> Hotckeys : W / 7 <span> </button>
+                        
                     </div>
-                    <strong id="headertext">/</strong>
+                    <strong id="headertext"></strong>
                     <br><br>
-                    <div class ="SoundButton">
-                        <button id="change_sound" class="SoundBtn" onclick="PressSound();"> 
-                            <img src="Pictures/Buttons/sound_on.png"  width="30" height="30" class="SoundImage" id="SoundON">
-                            <img src="Pictures/Buttons/sound_off.png"  width="30" height="30" class="SoundImage disabled" id="SoundOFF">
-                        </button>
-                    </div>
-                    <br>
-                    <div class ="SpeedButton">
-                        <button id="change_speed" class="SpeedBtn" onclick="PressSpeed();">
-                        <img src="Pictures/Buttons/speed_on.png"  width="30" height="30" class="SpeedImage disabled" id="SpeedON">
-                        <img src="Pictures/Buttons/speed_off.png"  width="30" height="30" class="SpeedImage" id="SpeedOFF">
-                        </button>
-                    </div>
 
+                    <div class="SpeedAndSound">
+                        <div class ="SoundButton">
+                            <button id="change_sound" class="SoundBtn" onclick="PressSound();"> 
+                                <img src="Pictures/Buttons/sound_on.png"  width="30" height="30" class="SoundImage" id="SoundON">
+                                <img src="Pictures/Buttons/sound_off.png"  width="30" height="30" class="SoundImage disabled" id="SoundOFF">
+                                <span class="TextSound"> Hotckeys : V / 8 <span>
+                            </button>
+                        </div>
+                        <br>
+                        <div class ="SpeedButton">
+                            <button id="change_speed" class="SpeedBtn" onclick="PressSpeed();">
+                            <img src="Pictures/Buttons/speed_on.png"  width="30" height="30" class="SpeedImage disabled" id="SpeedON">
+                            <img src="Pictures/Buttons/speed_off.png"  width="30" height="30" class="SpeedImage" id="SpeedOFF">
+                            <span class="TextSpeed"> Hotckeys : T / 9 <span>
+                            </button>
+                        </div>
+                    </div>
                     <hr>
                     <div id="EnemyAlive" class="EnemyAlive">
                        <div id="MobReference" class="Mob disabled">
@@ -266,7 +265,7 @@
     </main>
     <footer>
         <div class="foot">
-            <ul>
+            <ul class="FooterText">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="howtoplay.html">How To Play</a></li>
                 <li><a href="lore.html">Lore</a></li>
