@@ -41,6 +41,11 @@ function PressConceptor() {
     BaChBtn.classList.remove('disabled')
 }
 
+function PressSolveur() {
+    const SolvBtn = document.getElementById('board')
+    SolvBtn.classList.add('disabled')
+}
+
 function manageKeypress(event) {
     console.log(event)
 
