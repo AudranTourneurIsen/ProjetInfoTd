@@ -102,7 +102,7 @@ int main() {
 
 		/* Quand la direction est choisie, il faut déterminer de combien de cases on avance,
 		pour ça on pose un nouvel int qui prendra une valeur pseudo-random entre 1 et 3*/
-
+	
 		direction = rand() % 4;
 		avancement = rand() % 3 + 1;
 

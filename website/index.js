@@ -23,6 +23,13 @@ const TURRET_ICE = 5
 let Timer = 0
 let Wave = 1
 
+const OSTSound = new Audio('./Sounds/ost.mp3')
+function GameOST() {
+    OSTSound.volume = 0.2
+    OSTSound.play()
+    OSTSound.loop = true
+}
+
 function PressPlay() {
     const DisplayBoard = document.getElementById('board')
     DisplayBoard.classList.remove('disabled')
@@ -30,6 +37,26 @@ function PressPlay() {
     PlayBtn.classList.add('disabled')
     const CptBtn = document.getElementById('conceptor')
     CptBtn.classList.add('disabled')
+    GameOST()
+    RandomConceptor()
+}
+
+function RandomConceptor() {
+    const request = new XMLHttpRequest();
+
+    request.open('GET', `data/global.txt`, true);
+    request.send(null);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            var type = request.getResponseHeader('Content-Type');
+            if (type.indexOf("text") !== 1) {
+                const txt = request.responseText
+                console.log(txt);
+                GlobalTxt = txt
+                resetGrid(txt)
+            }
+        }
+    }
 }
 
 function PressConceptor() {
@@ -43,7 +70,10 @@ function PressConceptor() {
 
 function PressSolveur() {
     const SolvBtn = document.getElementById('board')
-    SolvBtn.classList.add('disabled')
+    const result = window.confirm('Are you sure that you want the answer of this problem ?')
+    if(result == false) return 
+    else SolvBtn.classList.add('disabled')
+    
 }
 
 function manageKeypress(event) {
@@ -264,6 +294,7 @@ const DeathSound = new Audio('./Sounds/death.mp3')
 function removeEnemy(enemy) {
     console.log(`removing enemy ${enemy}`)
     //const DeathSound = new Audio('./Sounds/death.mp3')
+    DeathSound.volume = 0.6
     DeathSound.play()
     Enemies = Enemies.filter(x => x != enemy)
     EnemiesCounts[enemy.type]--
@@ -464,6 +495,7 @@ function drawLasers() {
         ctx.lineTo(toPos.x, toPos.y)
         ctx.stroke()
         ctx.lineWidth = 1
+        LaserSound.volume = 0.1
         LaserSound.play()
     }
 }
@@ -676,6 +708,7 @@ function selectLevel(elem) {
     LvlBtn.classList.add('disabled')
     const DisplayBoard = document.getElementById('board')
     DisplayBoard.classList.remove('disabled')
+    GameOST()
 }
 
 function importGridFromFilename(file) {
@@ -986,8 +1019,9 @@ function PressSound() {
         WavestartSound.volume = 1
         WaveclearSound.volume = 1
         GameoverSound.volume = 1
-        DeathSound.volume = 1
-        LaserSound.volume = 0.2
+        DeathSound.volume = 0.6
+        OSTSound.volume = 0.2
+        LaserSound.volume = 0.1
 
         SndOFF.classList.add('disabled')
         SndON.classList.remove('disabled')
@@ -997,6 +1031,7 @@ function PressSound() {
         WaveclearSound.volume = 0
         GameoverSound.volume = 0
         DeathSound.volume = 0
+        OSTSound.volume = 0
         LaserSound.volume = 0
 
         SndOFF.classList.remove('disabled')
