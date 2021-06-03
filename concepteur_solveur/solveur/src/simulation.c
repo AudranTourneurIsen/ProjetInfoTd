@@ -2,60 +2,6 @@
 #include "TerminalUtils.h"
 #include "simulation.h"
 
-#define ARRAYSIZE 256
-#define GAMETICK 100
-
-typedef struct Position {
-    int x;
-    int y;
-} Position;
-
-typedef struct Enemy {
-    char name;
-    int index;
-    int hp;
-    int maxHp;
-    Position currentPosition;
-    Position lastPosition;
-    bool spawned;
-    bool dead;
-} Enemy;
-
-typedef struct Turret {
-    char name;
-    int damage;
-    int attackCooldown;
-    Position position;
-    int cooldownRemaining;
-} Turret;
-
-typedef struct SimulationData {
-    bool isFinished;
-    bool won;
-    int gameTick;
-    int enemiesLeftToSpawn;
-    //Queue* enemiesRemainingToSpawn;
-    Enemy enemies[ARRAYSIZE];
-    char grid[GridSize][GridSize];
-    int turretsSize;
-    Turret *turretsArray;
-    int enemiesLeftToWin;
-    char turretsArrangment[ARRAYSIZE];
-    bool graphics;
-} SimulationData;
-
-typedef struct TurretType {
-    char name;
-    int damage;
-    int attackCooldown;
-} TurretType;
-
-
-Position realSpawn = {-1, 1};
-//Position realSpawn = {0, 1};
-Position end = {13, 12};
-
-
 TurretType turretTypes[] = {
         {'R', 1,  1},
         {'H', 15, 15},
@@ -78,6 +24,9 @@ int getAttackCooldownByTurretType(char type) {
 
     return 1;
 }
+
+extern Position realSpawn;
+extern Position end;
 
 Position getNextAvailablePosition(char grid[GridSize][GridSize], Position currentPosition, Position lastPosition) {
     for (int i = currentPosition.x - 1; i <= currentPosition.x + 1; i++) {
@@ -181,9 +130,14 @@ Enemy *getLowestIndexEnemy(Enemy *enemies[], int size) {
 
 }
 
+
+
 void updateTurrets(SimulationData *sim) {
     for (int t = 0; t < sim->turretsSize; ++t) {
         Turret *turret = &sim->turretsArray[t];
+        if (turret->name == 0) {
+            continue;
+        }
 
         Enemy *enemiesInRange[4] = {};
         int enemiesIndex = 0;
@@ -207,7 +161,11 @@ void updateTurrets(SimulationData *sim) {
         if (turret->cooldownRemaining > 0) {
             turret->cooldownRemaining--;
             continue;
+
+
         }
+
+        if (enemiesIndex <= 0) continue;
 
         turret->cooldownRemaining = turret->attackCooldown - 1;
         Enemy *enemyRef = getLowestIndexEnemy(enemiesInRange, enemiesIndex);
@@ -326,6 +284,10 @@ void initializeTurrets(SimulationData *sim, int turretAmount) {
     for (int i = 0; i < GridSize; ++i) {
         for (int j = 0; j < GridSize; ++j) {
             if (sim->grid[i][j] == TURRET) {
+                if (sim->turretsArrangment[count] == '.') {
+                    count++;
+                    continue;
+                }
                 Turret turret;
                 //turret.name = 'R';
                 turret.name = sim->turretsArrangment[count];
@@ -342,7 +304,9 @@ void initializeTurrets(SimulationData *sim, int turretAmount) {
 }
 
 // Returns true if the simulation is successful, false otherwise
-bool simulate(char grid[GridSize][GridSize], Wave wave, bool graphics, char *combination) {
+
+
+SimulationResult simulate(char grid[GridSize][GridSize], Wave wave, bool graphics, char *combination) {
     SimulationData sim = {false, false, 0};
     sim.graphics = graphics;
     strcpy(sim.turretsArrangment, combination);
@@ -350,7 +314,8 @@ bool simulate(char grid[GridSize][GridSize], Wave wave, bool graphics, char *com
         for (int j = 0; j < GridSize; ++j)
             sim.grid[i][j] = grid[i][j];
     initializeEnemies(&sim, wave.enemies);
-    initializeTurrets(&sim, wave.gold / 10);
+    int locationAmount = (int) strlen(combination);
+    initializeTurrets(&sim, locationAmount);
     if (graphics)
         Init();
     while (!sim.isFinished) {
@@ -366,5 +331,6 @@ bool simulate(char grid[GridSize][GridSize], Wave wave, bool graphics, char *com
     }
     if (graphics)
         displayGrid(grid);
-    return sim.won;
+    SimulationResult res = {sim.won, sim.gameTick};
+    return res;
 }
