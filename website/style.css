@@ -274,8 +274,7 @@
 }
 
 .Sell:hover {
-    border: solid;
-    border-color: red;
+    outline : 0.2rem solid red;
 }
 
 
@@ -378,7 +377,7 @@
 
 }
 
-.waveinactive:hover {
+.inactive:hover {
     background-color: black;
     border: solid;
     border-color: rgb(255, 8, 8);
@@ -547,11 +546,16 @@
 .EnemyAlive > div {
     margin: 13px;
     padding: 10px;
+    height: 2.5rem;
+    width: 2rem;
+    align-items: center;
 }
 
 .CircleImage {
     margin-left: 5px;
     margin-bottom: 8px;
+    height: 1.2rem;
+    width: 1.2em;
 }
 
 progress {
@@ -559,6 +563,7 @@ progress {
     width: 35px;
     color: lime;
     background-color: white;
+    margin-left: 4px;
 }
 
 /*
@@ -605,6 +610,23 @@ progress {
 .Mob {
     display: flex;
     flex-direction: column;
+}
+
+.SolvButton {
+    margin-left: 2.6rem;
+    color: black;
+    font-size: 3rem;
+    background-color : gold;
+    border: solid;
+    border-color: orange
+}
+.SolvButton:hover {
+    margin-left: 2.5rem;
+    color: gold;
+    font-size: 3rem;
+    background-color : black;
+    border: solid;
+    border-color: orange;
 }
 
 /** Général **/
@@ -867,9 +889,8 @@ hr{
 }
 
 .EntireLore {
-    font-size: 2rem;
     margin: 2rem;
-
+    line-height: 2rem;
 }
 
 .disabled {
