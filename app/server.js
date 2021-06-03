@@ -36,7 +36,13 @@ function gridToString(str) {
     return result
 }
 
+const SolverCache = new Map()
+
+let CachedLevel = null
+
 async function getLevel() {
+    if (CachedLevel)
+        return CachedLevel
     console.log('a')
     const levelResult = await exec('./leveldesigner.exe')
     console.log('b')
@@ -50,38 +56,68 @@ async function getLevel() {
         enemiesStr = enemiesArray.join(',')
         const cmd = `./solver.exe solve ${grid} ${gold} ${enemiesStr}`
         console.log(cmd)
-        let index = 0
         const solverResult = await exec(cmd)
         if (solverResult.stdout.includes('successful')) {
+            const key = `${grid}-${gold}-${enemiesStr}`
+            SolverCache.set(key, solverResult.stdout)
+            console.log(`Saving ${key}`)
             successCount++;
+        }
+        else {
+            console.log('impossibe')
+            return getLevel()
         }
     }
     if (successCount == DefaultWaves.length) {
-        console.log('ok')
+        let index = 0
+        console.log('Successfully generated random level')
+
+        if (CachedLevel)
+            return CachedLevel
+
+        CachedLevel = levelResult.stdout
         return levelResult.stdout
     }
     else {
         console.log('impossibe')
         return getLevel()
     }
-    //gridStr = stdout;
-    //console.log(gridStr);
 }
 
+
 app.get('/api/leveldesigner', async (req, res) => {
-    res.send(await getLevel())
+    console.log('CachedLevel', CachedLevel)
+    if (CachedLevel)
+        res.send(CachedLevel)
+    else
+        res.send(await getLevel())
 })
 
 app.get('/api/solver', (req, res) => {
+    //console.log(SolverCache)
+    const grid = req.query.grid
+    const gold = req.query.gold
+    const wave = req.query.wave
+    const cacheKey = `${grid}-${gold}-${wave}`
+    if (SolverCache.has(cacheKey)) {
+        console.log('Cached!')
+        res.send(SolverCache.get(cacheKey))
+        return
+    }
+    else {
+        console.log('Not cached')
+    }
     const { exec } = require('child_process');
     console.log(req.query)
-    exec(`./solver.exe solve ${req.query.grid} ${req.query.gold} ${req.query.wave}`, (err, stdout, stderr) => {
+    exec(`./solver.exe solve ${grid} ${gold} ${wave}`, (err, stdout, stderr) => {
         if (err) {
             res.send('Fatal error')
             console.error(err)
         } else {
+            SolverCache.set(cacheKey, stdout)
             res.send(stdout)
         }
+        return
     })
 })
 
@@ -89,6 +125,15 @@ app.get('/api/getwaves', async (req, res) => {
     res.send(DefaultWaves.join('\n'))
 })
 
+
+app.get('/api/test', async (req, res) => {
+    console.log(CachedLevel)
+    console.log(SolverCache)
+    res.send('test')
+})
+
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
+
+getLevel()

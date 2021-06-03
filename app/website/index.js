@@ -84,18 +84,16 @@ const turretLettersToTurretId = {
 
 
 
-function requestSolver() {
+function requestSolver(grid, gold, enemies, apply) {
     const request = new XMLHttpRequest();
 
-    let gold = GlobalWaves[Wave].gold
-    let enemies = GlobalWaves[Wave].enemies.map(e => e[0]).join(',')
-
-    request.open('GET', `api/solver?grid=${gridToString()}&gold=${gold}&wave=${enemies}`, true);
+    request.open('GET', `api/solver?grid=${grid}&gold=${gold}&wave=${enemies}`, true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
             var type = request.getResponseHeader('Content-Type');
             if (type.indexOf("text") !== 1) {
+                if (!apply) return;
                 const txt = request.responseText
                 console.log(txt);
                 setWave(Wave)
@@ -118,6 +116,7 @@ function requestSolver() {
                         for (const ch of line) {
                             tmp += ch
                             if (!['+', '.'].includes(ch)) {
+                                console.log(`Adding solver turret ${i} ${j}`)
                                 Turrets.push({
                                     type: turretLettersToTurretName[ch],
                                     x: j,
@@ -143,7 +142,9 @@ function PressSolveur() {
     const result = window.confirm('Are you sure that you want the answer of this problem ?')
     if (result == false) return
     //else SolvBtn.classList.add('disabled')
-    requestSolver()
+    let gold = GlobalWaves[Wave].gold
+    let enemies = GlobalWaves[Wave].enemies.map(e => e[0]).join(',')
+    requestSolver(gridToString(), gold, enemies, true)
 }
 
 function manageKeypress(event) {
@@ -215,6 +216,7 @@ let LastClick = {} // {x: number, y: number}
 let IsGameOver = false
 let IsWaveClear = false
 let ShowWaveClear = 0
+let ShowVictoryText = 0
 
 const Spawn = {
     x: -1,
@@ -264,16 +266,34 @@ function draw() {
     drawEnemies()
     drawArrow()
     if (IsGameOver && ShowGameOver > 0) {
-        gameoverText = new Image()
+        const gameoverText = new Image()
         gameoverText.src = './Pictures/Text/gameOver.png'
         ctx.drawImage(gameoverText, 50, 200, 700, 250)
         ShowGameOver--
     }
     if (IsWaveClear && ShowWaveClear > 0) {
-        waveclearText = new Image()
+        const waveclearText = new Image()
         waveclearText.src = './Pictures/Text/waveClear.png'
         ctx.drawImage(waveclearText, 50, 200, 700, 250)
         ShowWaveClear--
+    }
+    if ((Wave == GlobalWaves.length) && (ShowVictoryText > 0)){
+        const victoryText = new Image()
+        victoryText.src = './Pictures/Text/victory.png'
+        ctx.drawImage(victoryText, 50, 200, 700, 250)
+        ShowVictoryText--
+
+        //const SolvBtn = document.getElementById('board')
+
+        //window.alert("Well done !");
+
+        //window.location.href = "index.html";
+
+        //const result = window.confirm('Well done !')
+        //if (result == false) return
+        //else SolvBtn.classList.add('disabled')
+        //requestSolver()
+
     }
 }
 
@@ -700,32 +720,6 @@ mainLoop()
 
 let GlobalTxt = null
 
-function importGridFromText(x) {
-    const request = new XMLHttpRequest();
-
-    //const fileName = Levels[x].grid
-    //fileName = Levels[x].grid
-    fileName = "arena.txt"
-    //fileName = GlobalWaves[x].grid
-    //fileName = GlobalWaves[x].grid
-    request.open('GET', `data/${fileName}`, true);
-    request.send(null);
-    request.onreadystatechange = function () {
-        if (request.readyState === 4 && request.status === 200) {
-            var type = request.getResponseHeader('Content-Type');
-            if (type.indexOf("text") !== 1) {
-                const txt = request.responseText
-                console.log(txt);
-                GlobalTxt = txt
-                resetGrid(txt)
-                console.log(`Reseting ${fileName}`)
-            }
-        }
-    }
-}
-
-importGridFromText(1)
-
 function selectLevel(elem) {
     console.log(elem);
     const id = elem.id;
@@ -752,7 +746,15 @@ function importGridFromFilename(file) {
                 console.log(txt);
                 GlobalTxt = txt
                 resetGrid(txt)
-                console.log(`Reseting ${fileName}`)
+                console.log(`Reseting ${file}`)
+                let i = 0
+                for (const w of GlobalWaves) {
+                    if (!w) continue
+                    i++
+                    let enemies = w.enemies.map(e => e[0]).join(',')
+                    requestSolver(gridToString(), w.gold, enemies, false)
+                    console.log(`Request solver wave ${i}`)
+                }
             }
         }
     }
@@ -915,20 +917,24 @@ function stopWave() {
 
 const WaveclearSound = new Audio('Sounds/victory.mp3')
 function waveClear() {
-    //const WaveclearSound = new Audio('Sounds/victory.mp3')
-    IsWaveClear = true
-    ShowWaveClear = 50
-    IsWaveStarted = false
-    const btn = document.getElementById('startwave')
-    btn.classList.add('waveinactive')
-    btn.classList.remove('waveactive')
-    const waveCounter = document.getElementById('WaveCounter')
     Wave++
-    waveCounter.innerText = `${Wave} / ${MaxWave}`
+    IsWaveClear = true
+    IsWaveStarted = false
+    if (Wave >= GlobalWaves.length) {
+        ShowVictoryText = 100
+    }
+    else {
+        ShowWaveClear = 50
+        const btn = document.getElementById('startwave')
+        btn.classList.add('waveinactive')
+        btn.classList.remove('waveactive')
+        const waveCounter = document.getElementById('WaveCounter')
+        waveCounter.innerText = `${Wave} / ${MaxWave}`
 
-    Turrets = []
+        Turrets = []
 
-    setWave(Wave)
+        setWave(Wave)
+    }
     WaveclearSound.play()
 }
 
@@ -1029,9 +1035,12 @@ function setWave(x) {
     }
     Enemies = []
     Turrets = []
-    importGridFromText(x)
+    //importGridFromText(x)
     resetGrid(GlobalTxt)
+    
     resetEnemiesCount()
+    if (x >= GlobalWaves.length)
+        return
     instanciateEnemies()
 }
 
