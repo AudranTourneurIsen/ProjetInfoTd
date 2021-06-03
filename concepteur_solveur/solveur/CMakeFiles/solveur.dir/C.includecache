@@ -26,15 +26,21 @@ conio.h
 stdbool.h
 -
 
-/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.c
+/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/main.c
 fonctions.h
 /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/fonctions.h
 TerminalUtils.h
 /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/TerminalUtils.h
 simulation.h
 /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.h
+simulation_manager.h
+/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation_manager.h
 
 /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation.h
+fonctions.h
+/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/fonctions.h
+
+/home/audran/Code/projet-cir/concepteur_solveur/solveur/src/simulation_manager.h
 fonctions.h
 /home/audran/Code/projet-cir/concepteur_solveur/solveur/src/fonctions.h
 
