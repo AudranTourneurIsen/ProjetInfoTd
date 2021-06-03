@@ -28,7 +28,7 @@ typedef struct Wave {
 } Wave;
 
 void print_tab(int tab[GridSize][GridSize]);
-char* cleanTab_tostring(int tab[GridSize][GridSize]);
+char* print_cleanTab_tostring(int tab[GridSize][GridSize]);
 void nettoyagefinstring(char* string, int size);
 
 void displayGrid(const char grid[GridSize][GridSize]);

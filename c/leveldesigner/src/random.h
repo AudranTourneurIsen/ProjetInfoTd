@@ -14,6 +14,6 @@ typedef struct cursor {
 }cursor;
 
 void print_tab(int tab[gridSIZE][gridSIZE]);
-char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]);
+char* print_cleanTab_tostring(int tab[gridSIZE][gridSIZE]);
 // char* tabtostring(char tab[gridSIZE][gridSIZE]);
 void nettoyagefinstring(char* string, int size);

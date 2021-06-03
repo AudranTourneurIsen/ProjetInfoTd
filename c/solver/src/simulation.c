@@ -314,7 +314,7 @@ void displayTurrets(Turret* arr, int size) {
 */
 
 SimulationResult simulate(const char battleGrid[GridSize][GridSize], const Wave wave, const bool graphics, const char *combination) {
-    SimulationData sim = {false, false, 0};
+    SimulationData sim = {false, false, 0, 0, {}, {}, 0, NULL, 0, {0}, false};
     sim.graphics = graphics;
     strcpy(sim.turretsArrangment, combination);
     for (int i = 0; i < GridSize; ++i)

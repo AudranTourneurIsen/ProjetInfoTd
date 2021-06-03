@@ -28,18 +28,18 @@ void rotateArray(const char input[GridSize][GridSize], char toRotate[GridSize][G
 
 void displayGridWithTurrets(const char grid[GridSize][GridSize], const char *turretArrangment) {
     int index = 0;
-    char toRotate[GridSize][GridSize];
+    char finalGrid[GridSize][GridSize];
     for (int i = 0; i < GridSize; i++) {
         for (int j = 0; j < GridSize; j++) {
             if (grid[i][j] == '$') {
-                toRotate[i][j] = turretArrangment[index];
+                finalGrid[i][j] = turretArrangment[index];
                 index++;
             } else
-                toRotate[i][j] = grid[i][j];
+                finalGrid[i][j] = grid[i][j];
         }
     }
 
-    displayGrid(toRotate);
+    displayGrid(finalGrid);
 }
 
 Cursor *getTurretPositionsInOrder(char grid[GridSize][GridSize], int gold) {
@@ -148,6 +148,7 @@ Battlefield *getOptimalTurretPositions(char grid[GridSize][GridSize], int turret
     return resultBattlefield;
 }
 
+/*
 char *getEquivalenceClass(char grid[GridSize][GridSize], int turretAmount) {
     char *response = malloc(turretAmount * 4);
 
@@ -171,3 +172,4 @@ char *getEquivalenceClass(char grid[GridSize][GridSize], int turretAmount) {
     }
     return response;
 }
+*/

@@ -10,7 +10,7 @@ void print_tab(int tab[gridSIZE][gridSIZE]) {
 }
 
 
- char* cleanTab_tostring(int tab[gridSIZE][gridSIZE]) {
+ char* print_cleanTab_tostring(int tab[gridSIZE][gridSIZE]) {
 	char tab2[gridSIZE][gridSIZE];
 	char* string = malloc(stringSIZE);
 
@@ -259,7 +259,7 @@ int main() {
 		}
 	}
 
-	char* string = cleanTab_tostring(grid);
+	print_cleanTab_tostring(grid);
 
 	return EXIT_SUCCESS;
 }

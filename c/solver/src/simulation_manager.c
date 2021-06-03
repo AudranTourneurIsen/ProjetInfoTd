@@ -65,7 +65,7 @@ void printAllKLength(ResultArray *arr, char set[SIZE], int k, int n, int restric
 
 void displayArray(char *arr[], int size) {
     for (int i = 0; i < size; ++i) {
-        //printf("%s\n", arr[i]);
+        printf("%s\n", arr[i]);
     }
 }
 

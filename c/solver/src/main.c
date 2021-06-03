@@ -23,7 +23,7 @@ void updateGrid(char grid[GridSize][GridSize]) {
     }
 }
 
-void importGridFromInputString(const char *input, char gridToEdit[GridSize][GridSize]) {
+void importGridFromInputString(char *input, char gridToEdit[GridSize][GridSize]) {
     for (int i = 0; i < GridSize; i++) {
         for (int j = 0; j < GridSize; j++) {
             char ch = input[i * GridSize + j];
@@ -46,7 +46,7 @@ void test(char grid[GridSize][GridSize], Wave customWave, bool graphics) {
     int locations = (int) strlen(a);
 
     Battlefield *bf = getOptimalTurretPositions(grid, locations);
-    const SimulationResult res = simulate(bf->grid, customWave, graphics, a);
+    SimulationResult res = simulate(bf->grid, customWave, graphics, a);
     displayGridWithTurrets(bf->grid, a);
 
     displayGrid(grid);
@@ -65,19 +65,11 @@ int main(int argc, char *argv[]) {
     for (int k = 0; k < ARRAYSIZE; ++k) {
         customWave.enemies[k] = 0;
     }
-    bool graphics = true;
-    int repeat = 1;
     if (argc <= 2) {
         puts("ERROR: Please provide arguments");
         return 1;
     }
     if (argc >= 2) {
-        if (strcmp("headless", argv[1]) == 0) {
-            graphics = false;
-            if (argc >= 3) {
-                repeat = atoi(argv[2]);
-            }
-        }
         if (strcmp("solve", argv[1]) == 0) {
             if (argc >= 4) {
                 importGridFromInputString(argv[2], grid);
@@ -94,8 +86,6 @@ int main(int argc, char *argv[]) {
             }
         }
     }
-
-
 
    manage(grid, customWave);
 
