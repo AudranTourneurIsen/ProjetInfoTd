@@ -15,18 +15,31 @@ void displayGrid(const char grid[GridSize][GridSize]) {
 }
 
 
+void rotateArray(const char input[GridSize][GridSize], char toRotate[GridSize][GridSize] ) {
+    for (int r = 0; r < GridSize; ++r)
+    {
+        for (int c = 0; c < GridSize; ++c)
+        {
+            toRotate[r][c] = input[c][GridSize-1-r];
+        }
+    }
+
+}
+
 void displayGridWithTurrets(const char grid[GridSize][GridSize], const char *turretArrangment) {
     int index = 0;
+    char toRotate[GridSize][GridSize];
     for (int i = 0; i < GridSize; i++) {
         for (int j = 0; j < GridSize; j++) {
-            if (grid[j][i] == '$') {
-                printf("%c", turretArrangment[index]);
+            if (grid[i][j] == '$') {
+                toRotate[i][j] = turretArrangment[index];
                 index++;
             } else
-                printf("%c", grid[j][i]);
+                toRotate[i][j] = grid[i][j];
         }
-        printf("\n");
     }
+
+    displayGrid(toRotate);
 }
 
 Cursor *getTurretPositionsInOrder(char grid[GridSize][GridSize], int gold) {

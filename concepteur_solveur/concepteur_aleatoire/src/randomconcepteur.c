@@ -6,7 +6,6 @@ void print_tab(int tab[gridSIZE][gridSIZE]) {
 		for (int j = 0; j < gridSIZE; j++) {
 			printf("%d ", tab[j][i]);
 		}
-		printf("\n");
 	}
 }
 
@@ -259,8 +258,6 @@ int main() {
 			arrivee = true;
 		}
 	}
-
-	printf("\n");
 
 	char* string = cleanTab_tostring(grid);
 

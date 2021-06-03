@@ -42,13 +42,12 @@ void displayWave(Wave w) {
 
 void test(char grid[GridSize][GridSize], Wave customWave, bool graphics) {
 
-    char *a = "..FFFFF";
+    char *a = "RRH...";
     int locations = (int) strlen(a);
 
     Battlefield *bf = getOptimalTurretPositions(grid, locations);
     const SimulationResult res = simulate(bf->grid, customWave, graphics, a);
     displayGridWithTurrets(bf->grid, a);
-
 
     displayGrid(grid);
     displayWave(customWave);
@@ -68,6 +67,10 @@ int main(int argc, char *argv[]) {
     }
     bool graphics = true;
     int repeat = 1;
+    if (argc <= 2) {
+        puts("ERROR: Please provide arguments");
+        return 1;
+    }
     if (argc >= 2) {
         if (strcmp("headless", argv[1]) == 0) {
             graphics = false;
@@ -91,6 +94,7 @@ int main(int argc, char *argv[]) {
             }
         }
     }
+
 
 
    manage(grid, customWave);

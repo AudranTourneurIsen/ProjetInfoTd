@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="solveur" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="solveur" TARGET_NAME="solveur" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="solveur" RUN_TARGET_NAME="solveur">
+  <configuration default="false" name="solveur" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="solve 0000000000000011001111000000010010010000000100100100000001001001000000010010010000000111100100000000000001000000000000010000000000000100000000000001111000000000000010000000000000111100000000000000 30 w,w,n,t" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="solveur" TARGET_NAME="solveur" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="solveur" RUN_TARGET_NAME="solveur">
     <envs>
       <env name="TERM" value="xterm-256color" />
     </envs>

@@ -129,8 +129,6 @@ Enemy *getLowestIndexEnemy(Enemy *enemies[], int size) {
 
 }
 
-
-
 void updateTurrets(SimulationData *sim) {
     for (int t = 0; t < sim->turretsSize; ++t) {
         Turret *turret = &sim->turretsArray[t];
@@ -160,8 +158,6 @@ void updateTurrets(SimulationData *sim) {
         if (turret->cooldownRemaining > 0) {
             turret->cooldownRemaining--;
             continue;
-
-
         }
 
         if (enemiesIndex <= 0) continue;
