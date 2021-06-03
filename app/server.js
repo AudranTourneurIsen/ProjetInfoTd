@@ -64,7 +64,7 @@ async function getLevel() {
             successCount++;
         }
         else {
-            //console.log('impossibe')
+            //console.log('No solution found for this level, regenerating a new one')
             return getLevel()
         }
     }
@@ -79,7 +79,7 @@ async function getLevel() {
         return levelResult.stdout
     }
     else {
-        console.log('impossibe')
+        //console.log('No solution found for this level, regenerating a new one')
         return getLevel()
     }
 }
