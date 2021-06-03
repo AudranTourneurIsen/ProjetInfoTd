@@ -41,19 +41,85 @@ function PressConceptor() {
     BaChBtn.classList.remove('disabled')
 }
 
+function PressSolveur() {
+    const SolvBtn = document.getElementById('board')
+    SolvBtn.classList.add('disabled')
+}
+
+function manageKeypress(event) {
+    console.log(event)
+
+    if(event.key == "r" || event.key == 'R' || event.key == '&' || event.key == '1') {
+        const fast = document.getElementById('FastTurret')
+        SelectedTurret = 'fast'
+        unselectAll()
+        fast.classList.add('Selected')
+    }
+
+    if(event.key == "h" || event.key == 'H' || event.key == 'é' || event.key == '2') {
+        const heavy = document.getElementById('HeavyTurret')
+        SelectedTurret = 'heavy'
+        unselectAll()
+        heavy.classList.add('Selected')
+    }
+
+    if(event.key == "f" || event.key == 'F' || event.key == '"' || event.key == '3') {
+        const fire = document.getElementById('FireTurret')
+        SelectedTurret = 'fire'
+        unselectAll()
+        fire.classList.add('Selected')
+    }
+
+    if(event.key == "i" || event.key == 'I' || event.key == "'" || event.key == '4') {
+        const ice = document.getElementById('IceTurret')
+        SelectedTurret = 'ice'
+        unselectAll()
+        ice.classList.add('Selected')
+    }
+
+    if(event.key == "s" || event.key == 'S' || event.key == "(" || event.key == '5') {
+        const sell = document.getElementById('Sell')
+            SelectedTurret = 'sell'
+            unselectAll()
+            sell.classList.add('Selected')
+        }
+
+    if(event.key == "c" || event.key == 'C' || event.key == "-" || event.key == '6') {
+        const cancel = document.getElementById('Cancel')
+        SelectedTurret = null
+        unselectAll()
+    }   
+
+    if(event.key == "w" || event.key == 'W' || event.key == "è" || event.key == '7') {
+        pressStartWave();
+    }
+
+    if(event.key == "v" || event.key == 'V' || event.key == "_" || event.key == '8') {
+        PressSound();
+    }
+
+    if(event.key == "t" || event.key == 'T' || event.key == "ç" || event.key == '9') {
+        PressSpeed();
+    }
+}
+
+
+document.onkeypress = manageKeypress
+
+/*
 const Levels = {
     1: {
         enemies: ["normal", "tank"],
         gold: 20,
         //grid: "simple.txt"
     },
-    /*2: {
+    2: {
         enemies: ["fire","weak","weak","normal","weak","normal", "ice", "tank"],
         gold: 50,
         grid: "arena.txt"
-    },*/
+    },
     2: {
-        enemies: ["fire","tank","tank","weak","weak","normal","weak","normal", "ice", "tank","normal"],
+        enemies: ["fire", "tank", "tank", "weak", "weak", "normal", "weak", "normal", "ice", "tank", "normal"],
         gold: 50,
         //grid: "grid1.txt"
     },
@@ -63,8 +129,12 @@ const Levels = {
         // grid: "grid1.txt"
     }
 }
+*/
 
-let MaxWave = Object.keys(Levels).length
+
+GlobalWaves = []
+
+let MaxWave = 1
 let Gold = 20
 let LastClick = {} // {x: number, y: number}
 
@@ -98,7 +168,7 @@ function resetEnemiesCount() {
         tank: 0,
         weak: 0,
         normal: 0,
-        fire: 0, 
+        fire: 0,
         ice: 0,
     }
 }
@@ -144,34 +214,34 @@ function draw() {
 
 //let NextGameUpdate = GameTick
 
-function updateEnemies() {
-    if (!IsWaveStarted) return;
-
-    function getNextAvailablePosition(enemy) {
-        const x = enemy.x
-        const y = enemy.y
-        const excluding = enemy.excluding
-        for (const mode of [0, 1]) {
-            for (let i = -1; i <= 1; i++) {
-                for (let j = -1; j <= 1; j++) {
-                    if (i == 0 && j == 0) continue;
-                    currentX = x + i
-                    currentY = y + j
-                    if (mode == 0 && (i != 0 && j != 0)) continue;
-                    if (Grid[currentY] == null) continue;
-                    if (Grid[currentY][currentX] == null) continue;
-                    currentValue = Grid[currentY][currentX]
-                    if (currentValue == PATH) {
-                        if (excluding.some(pos => pos.x == currentX && pos.y == currentY)) {
-                            continue;
-                        }
-                        return { x: currentX, y: currentY }
+function getNextAvailablePosition(enemy) {
+    const x = enemy.x
+    const y = enemy.y
+    const excluding = enemy.excluding
+    for (const mode of [0, 1]) {
+        for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+                if (i == 0 && j == 0) continue;
+                currentX = x + i
+                currentY = y + j
+                if (mode == 0 && (i != 0 && j != 0)) continue;
+                if (Grid[currentY] == null) continue;
+                if (Grid[currentY][currentX] == null) continue;
+                currentValue = Grid[currentY][currentX]
+                if (currentValue == PATH) {
+                    if (excluding.some(pos => pos.x == currentX && pos.y == currentY)) {
+                        continue;
                     }
+                    return { x: currentX, y: currentY }
                 }
             }
         }
-        return null
     }
+    return null
+}
+
+function updateEnemies() {
+    if (!IsWaveStarted) return;
 
     for (const e of Enemies) {
         if (e.x == null || e.y == null) continue;
@@ -212,6 +282,7 @@ function pushLasers(turret, enemy, color) {
 
 function updateTurrets() {
     Lasers = []
+    index = 0
     for (const turret of Turrets) {
         const x = turret.x
         const y = turret.y
@@ -228,11 +299,17 @@ function updateTurrets() {
             }
         }
 
-        if (enemiesInRange.length == 0) continue;
         if (turret.cooldown > 0) {
             turret.cooldown--
             continue
         }
+
+        if (enemiesInRange.length == 0) continue;
+
+        if (turret.name == 'heavy')
+            console.log('kill me');
+
+
         turret.cooldown = TurretsJson[turret.type].attack_speed - 1
         let minEnemy = enemiesInRange[0]
         for (const enemy of enemiesInRange) {
@@ -249,11 +326,11 @@ function updateTurrets() {
         const progress = minEnemy.htmlElement.children[1]
 
         if (minEnemy.dead) continue;
-        if (minEnemy.name == 'f' && turret.name != 'I') {
+        if (minEnemy.type == 'fire' && turret.type != 'ice') {
             pushLasers(turret, minEnemy, 'black')
             continue;
         }
-        if (minEnemy.name == 'i' && turret.name != 'F') {
+        if (minEnemy.type == 'ice' && turret.type != 'fire') {
             pushLasers(turret, minEnemy, 'black')
             continue;
         }
@@ -264,6 +341,7 @@ function updateTurrets() {
         if (minEnemy.hp <= 0) {
             minEnemy.dead = true;
         }
+        index++
     }
 }
 
@@ -272,7 +350,6 @@ let spawnSpace = false
 let CurrentTick = 0
 
 function update() {
-    CurrentTick++
     for (const e of Enemies) {
         if (e.dead) {
             removeEnemy(e)
@@ -311,31 +388,35 @@ function update() {
         }
     }
 
+    if (CurrentTick >= 40)
+        console.log("wtf");
+
     updateEnemies()
     updateTurrets()
 
     if (Enemies.length == 0) {
         waveClear()
     }
+    CurrentTick++
 }
 
 let IsSpeedOn = true
 function PressSpeed() {
     const SpdBtn = document.getElementById('change_speed')
+    const SpdON = document.getElementById('SpeedON')
+    const SpdOFF = document.getElementById('SpeedOFF')
     IsSpeedOn = !IsSpeedOn
 
-    if(IsSpeedOn == false) {
-        GameTickMs = GameTickMs/10
-        SpdBtn.classList.remove('speed_off')
-        SpdBtn.classList.add('speed_on')
-        console.log('Speed On')
+    if (IsSpeedOn == false) {
+        GameTickMs = GameTickMs / 10
+        SpdON.classList.remove('disabled')
+        SpdOFF.classList.add('disabled')
     }
 
-    if(IsSpeedOn == true) {
-        GameTickMs = GameTickMs*10
-        SpdBtn.classList.remove('speed_on')
-        SpdBtn.classList.add('speed_off')
-        console.log('Speed Off')
+    if (IsSpeedOn == true) {
+        GameTickMs = GameTickMs * 10
+        SpdON.classList.add('disabled')
+        SpdOFF.classList.remove('disabled')
     }
 
     clearInterval(intervalManager)
@@ -537,8 +618,8 @@ function getMousePosition(canvas, event) {
     }
     else {
         if (SelectedTurret == 'sell') {
-            if ([TURRET_FAST, TURRET_HEAVY, TURRET_FIRE,TURRET_ICE].includes(Grid[pos.y][pos.x])) {
-                const id = Grid[pos.y][pos.x] 
+            if ([TURRET_FAST, TURRET_HEAVY, TURRET_FIRE, TURRET_ICE].includes(Grid[pos.y][pos.x])) {
+                const id = Grid[pos.y][pos.x]
                 console.log(id, idToName(id), getPricePerTurret(idToName(id)))
                 const price = getPricePerTurret(idToName(id))
                 Grid[pos.y][pos.x] = GRASS
@@ -563,7 +644,10 @@ function importGridFromText(x) {
     const request = new XMLHttpRequest();
 
     //const fileName = Levels[x].grid
-    fileName = Levels[x].grid
+    //fileName = Levels[x].grid
+    fileName = "arena.txt"
+    //fileName = GlobalWaves[x].grid
+    //fileName = GlobalWaves[x].grid
     request.open('GET', `data/${fileName}`, true);
     request.send(null);
     request.onreadystatechange = function () {
@@ -597,7 +681,7 @@ function selectLevel(elem) {
 function importGridFromFilename(file) {
     const request = new XMLHttpRequest();
 
-    request.open('GET', `data/${file}`, true);
+    request.open('GET', `data/grids/${file}`, true);
     request.send(null);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
@@ -734,20 +818,25 @@ function instanciateEnemies() {
     //RemainingEnemiesToSpawn = enemiesToSpawn.map(x => x) 
     Turrets = []
 
-    const remaining = Levels[Wave].enemies.map(x => x)
-    Gold = Levels[Wave].gold
+    //const remaining = Levels[Wave].enemies.map(x => x)
+    const remaining = GlobalWaves[Wave].enemies.map(x => x)
+    Gold = GlobalWaves[Wave].gold
     for (const type of remaining) {
         EnemiesCounts[type]++
         instanciateEnemy(type)
     }
 }
+
 const WavestartSound = new Audio('./Sounds/wavestart.mp3')
+
 function pressStartWave() {
+    CurrentTick = 0
     if (IsWaveStarted)
         return
     IsWaveStarted = true
     IsGameOver = false
-    ShowGameOver = 10
+    ShowGameOver = 50
+    Turrets = reOrderTurrets()
     //const WavestartSound = new Audio('./Sounds/wavestart.mp3')
     WavestartSound.play()
     console.log('start wave')
@@ -755,7 +844,6 @@ function pressStartWave() {
     btn.classList.add('waveactive')
     btn.classList.remove('waveinactive')
 }
-
 
 function stopWave() {
     const btn = document.getElementById('startwave')
@@ -768,7 +856,7 @@ const WaveclearSound = new Audio('Sounds/victory.mp3')
 function waveClear() {
     //const WaveclearSound = new Audio('Sounds/victory.mp3')
     IsWaveClear = true
-    ShowWaveClear = 10
+    ShowWaveClear = 50
     IsWaveStarted = false
     const btn = document.getElementById('startwave')
     btn.classList.add('waveinactive')
@@ -802,6 +890,7 @@ function gameOver() {
     resetEnemiesCount()
     instanciateEnemies()
     GameoverSound.play()
+    setWave(Wave)
 }
 
 function unselectAll() {
@@ -866,9 +955,12 @@ function cloneHtmlEnemyElement() {
     return cloned
 }
 
-instanciateEnemies()
+function initBoard() {
+    instanciateEnemies()
+}
 
 function setWave(x) {
+    CurrentTick = 0
     Wave = x
     Lasers = []
     for (const enemy of Enemies) {
@@ -877,7 +969,7 @@ function setWave(x) {
     Enemies = []
     Turrets = []
     importGridFromText(x)
-    //resetGrid(GlobalTxt)
+    resetGrid(GlobalTxt)
     resetEnemiesCount()
     instanciateEnemies()
 }
@@ -886,6 +978,8 @@ let IsSoundOn = true
 
 function PressSound() {
     const Sbtn = document.getElementById('change_sound')
+    const SndON = document.getElementById('SoundON')
+    const SndOFF = document.getElementById('SoundOFF')
     IsSoundOn = !IsSoundOn
 
     if (IsSoundOn == false) {
@@ -894,9 +988,9 @@ function PressSound() {
         GameoverSound.volume = 1
         DeathSound.volume = 1
         LaserSound.volume = 0.2
-        Sbtn.classList.remove('sound_off')
-        Sbtn.classList.add('sound_on')
-        console.log('Sound On')
+
+        SndOFF.classList.add('disabled')
+        SndON.classList.remove('disabled')
     }
     if (IsSoundOn == true) {
         WavestartSound.volume = 0
@@ -904,8 +998,99 @@ function PressSound() {
         GameoverSound.volume = 0
         DeathSound.volume = 0
         LaserSound.volume = 0
-        Sbtn.classList.remove('sound_on')
-        Sbtn.classList.add('sound_off')
-        console.log('Sound Muted')
+
+        SndOFF.classList.remove('disabled')
+        SndON.classList.add('disabled')
     }
+}
+
+let WavesLoaded = false
+
+EnemyNamesMap = {
+    w: "weak",
+    n: "normal",
+    t: "tank",
+    f: "fire",
+    i: "ice",
+}
+
+function importWaves() {
+    console.log('importWaves()')
+    const request = new XMLHttpRequest();
+
+    request.open('GET', `data/waves.txt`, true);
+    request.send(null);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            var type = request.getResponseHeader('Content-Type');
+            if (type.indexOf("text") !== 1) {
+                const txt = request.responseText
+                const lines = txt.split('\n')
+                waveIndex = 1
+                for (line of lines) {
+                    const chars = line.split(',')
+                    GlobalWaves[waveIndex] = {
+                        gold: chars[0],
+                        enemies: []
+                    }
+                    chars.shift()
+                    for (const char of chars) {
+                        GlobalWaves[waveIndex].enemies.push(EnemyNamesMap[char])
+                    }
+                    waveIndex++
+                }
+                MaxWave = waveIndex
+                console.log(txt);
+                console.log('importWaves()')
+            }
+            WavesLoaded = true
+            console.log('Successfully loaded waves')
+            initBoard()
+        }
+    }
+}
+
+importWaves()
+
+
+function reOrderTurrets() {
+    orderedTurrets = []
+    //let entity = Object.assign(Spawn)
+    let entity = {}
+    entity.x = Spawn.x
+    entity.y = Spawn.y
+    entity.excluding = []
+    let pos = {}
+
+    function getTurretAtPosition(x, y) {
+        return Turrets.find(t => t.x == x && t.y == y)
+    }
+
+    while (pos) {
+        pos = getNextAvailablePosition(entity)
+        if (!pos) break;
+        entity.excluding.push(pos)
+        entity.x = pos.x
+        entity.y = pos.y
+        console.log(pos)
+
+        for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+                if (i != 0 && j != 0) continue;
+                let newX = entity.x + i
+                let newY = entity.y + j
+                if (newX == 6 && newY == 4) {
+                    console.log('test')
+                }
+                const candidateTurret = getTurretAtPosition(newX, newY)
+                if (!candidateTurret) continue
+                const maybeAlready = orderedTurrets.some(t => t.x == candidateTurret.x && t.y == candidateTurret.y)
+                if (maybeAlready) continue
+                if (candidateTurret) {
+                    orderedTurrets.push(candidateTurret)
+                }
+            }
+        }
+    }
+    return orderedTurrets
 }

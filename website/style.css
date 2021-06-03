@@ -1,10 +1,52 @@
+/** Boutons Menu **/
+
 .WaitForPlay, .Conceptor {
-    background-color: white;
+    font-family: 'Nova Flat', cursive;
+    background-color: black;
     border: solid;
-    border-color: darkgrey;
-    color: black;
-    font-size: 15rem;
+    color: white;
+    font-size: 2rem;
+    height: 200px;
+    width: 400px;
+    margin: 5%;
+    vertical-align: middle;
+    border-color: blue;
+    animation-name: border-color;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
 }
+
+.WaitForPlay:hover, .Conceptor:hover {
+    outline : 0.2rem solid blue;
+}
+
+.gridSize:hover{
+    outline : 0.4rem solid #BC13FE;
+}
+
+@keyframes border-color {
+    0%   {border-color:#4D4DFF;}
+    16.66%  {border-color:#E0E722;}
+    33.32%  {border-color:#FFAD00;}
+    49.98%  {border-color:#D22730;}
+    66.64%  {border-color:#DB3EB1;}
+    83.31%  {border-color:#C724B1;}
+    100% {border-color:#44D62C;}
+}
+
+.buttonPicture{
+    vertical-align: middle;
+    height : 100px;
+    width : 100px;
+}
+
+.ButtonMenu{
+    display: flex;
+    justify-content: center;
+}
+
 
 .Board {
     display: flex;
@@ -18,43 +60,52 @@
     font-size: 1.5rem;
 }
 
-.sound_on {
-    background-color: white;
-    border: solid;
-    border-color: darkgrey;
+.SoundBtn, .SpeedBtn{
+    margin: auto;
+    border : solid;
+    border-color: rgb(207, 6, 207);
+    border-radius: 4px;
+    position: relative;
+    display: inline-block;
+   
+}
+
+.SoundBtn .TextSound, .SpeedBtn .TextSpeed {
+    visibility: hidden;
+    width: 300px;
+    background: radial-gradient(white 30%, pink);
     color: black;
-    font-size: 1.4rem;
-    margin-left: 5rem;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: -125px;
+    bottom: 40px;
+    border: solid;
+    border-color: purple;
+    position: absolute;
 }
 
-#change_sound:active, .sound_off {
-    background-color: black;
-    border: solid;
-    border-color: white;
-    color: white;
-    font-size: 1.4rem;
-    margin-left: 5rem;
+.SoundBtn:hover .TextSound, .SpeedBtn:hover .TextSpeed {
+    visibility: visible;
 }
 
-.speed_off {
-    background-color: white;
-    border: solid;
-    border-color: darkgrey;
-    color: black;
-    font-size: 1.4rem;
-    margin-left: 5rem;
+.SoundBtn:hover, .SpeedBtn:hover{
+    background-color: silver;
+    margin: auto;
+    border : solid;
+    border-color: rgb(207, 6, 207);
+    border-radius: 4px;
 }
 
-#change_speed:active, .speed_on {
-    background-color: black;
-    border: solid;
-    border-color: white;
-    color: white;
-    font-size: 1.4rem;
-    margin-left: 5rem;
+.SpeedAndSound{
+    display: flex;
+    justify-content: space-around;
 }
+
+/** Rectangle d'achat de tourelles **/
 
 .RectangleTowers {
+    text-align: center;
     height: 863px;
     width: 250px;
     background: radial-gradient(black 50%, blue);
@@ -91,28 +142,6 @@
     font-size: 1.9rem;
 }
 
-/*.GreyTri {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
-}
-.GreyTri .TextGrey {
-    visibility: hidden;
-    width: 300px;
-    background-color: silver;
-    color: black;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 40px;
-    right: -320px;
-    border: solid;
-    border-color: darkred;
-    position: absolute;
-}
-.GreyTri:hover .TextGrey {
-    visibility: visible;
-}*/
-
 .YellowTri {
     position: relative;
     display: inline-block;
@@ -121,14 +150,14 @@
 .YellowTri .TextYellow {
     visibility: hidden;
     width: 300px;
-    background-color: silver;
+    background: radial-gradient(white 30%, yellow);
     color: black;
     text-align: center;
     padding: 5px 0;
     border-radius: 40px;
     right: -320px;
     border: solid;
-    border-color: darkred;
+    border-color: gold;
     position: absolute;
 }
 .YellowTri:hover .TextYellow {
@@ -143,7 +172,7 @@
 .RedTri .TextRed {
     visibility: hidden;
     width: 320px;
-    background-color: silver;
+    background: radial-gradient(white 30%, red);
     color: black;
     text-align: center;
     padding: 5px 0;
@@ -165,14 +194,14 @@
 .PurpleTri .TextPurple {
     visibility: hidden;
     width: 320px;
-    background-color: silver;
+    background: radial-gradient(white 30%, purple);
     color: black;
     text-align: center;
     padding: 5px 0;
     border-radius: 40px;
     right: -320px;
     border: solid;
-    border-color: darkred;
+    border-color: rebeccapurple;
     position: absolute;
 }
 .PurpleTri:hover .TextPurple {
@@ -187,14 +216,14 @@
 .BlueTri .TextBlue {
     visibility: hidden;
     width: 310px;
-    background-color: silver;
+    background: radial-gradient(white 30%, blue);
     color: black;
     text-align: center;
     padding: 5px 0;
     border-radius: 40px;
     right: -320px;
     border: solid;
-    border-color: darkred;
+    border-color: darkblue;
     position: absolute;
 }
 .BlueTri:hover .TextBlue {
@@ -221,6 +250,8 @@
     outline : 0.2rem solid red;
 }
 
+
+
 .Selected {
     border: solid;
     border-color: orange;
@@ -237,11 +268,36 @@
     font-size: 2.5rem;
     color : red;
     text-shadow: 2px 2px black;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
 }
 
 .Sell:hover {
     border: solid;
     border-color: red;
+}
+
+
+
+.Sell .TextSell {
+    visibility: hidden;
+    font-size: 1.5rem;
+    text-shadow: none;
+    width: 310px;
+    background: radial-gradient(white 30%, red);
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: -320px;
+    border: solid;
+    border-color: darkred;
+    position: absolute;
+}
+
+.Sell:hover .TextSell {
+    visibility: visible;
 }
 
 .Cancel {
@@ -252,13 +308,36 @@
     font-size: 2.5rem;
     color : silver;
     text-shadow: 2px 2px black;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
 }
 
 .Cancel:hover {
     outline : 0.2rem solid silver;
 }
 
+.Cancel .TextCancel {
+    visibility: hidden;
+    font-size: 1.5rem;
+    text-shadow: none;
+    width: 310px;
+    background: radial-gradient(white 30%, grey);
+    color: black;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: -320px;
+    border: solid;
+    border-color: black;
+    position: absolute;
+}
 
+.Cancel:hover .TextCancel {
+    visibility: visible;
+}
+
+/** Rectangle d'infos de waves **/
 
 .Mobs {
     border-left-width: medium;
@@ -294,6 +373,39 @@
     background-color : red;
     border: solid;
     border-color: darkred;
+    position: relative;
+    display: inline-block;
+
+}
+
+.waveinactive:hover {
+    background-color: black;
+    border: solid;
+    border-color: rgb(255, 8, 8);
+    color: red;
+    font-size: 2rem;
+    margin: 2.2rem;
+}
+
+.waveinactive .TextStart {
+    visibility: hidden;
+    font-size: 1.5rem;
+    text-shadow: none;
+    width: 310px;
+    color: rgb(231, 231, 231);
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: 200px;
+    border: solid;
+    border-color: darkred;
+    position: absolute;
+
+    background: radial-gradient(black 30%, darkred);
+}
+
+.waveinactive:hover .TextStart {
+    visibility: visible;
 }
 
 .Enemies {
@@ -310,6 +422,25 @@
     font-size: 2rem;
     margin: 2.2rem;
 }
+
+.waveactive .TextStart {
+    visibility: hidden;
+    font-size: 1.5rem;
+    text-shadow: none;
+    width: 310px;
+    color: rgb(231, 231, 231);
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 40px;
+    right: 200px;
+    border: solid;
+    border-color: darkred;
+    position: absolute;
+    background: radial-gradient(black 30%, darkred);
+}
+
+
+
 
 /*
 .tank {
@@ -393,7 +524,25 @@
 .EnemyAlive {
     display: flex;
     flex-wrap: wrap;
+    overflow: scroll;
+    overflow: hidden visible;
+    height: 350px;
 }
+::-webkit-scrollbar {
+    width: 7.5px;
+    height: 13px;
+   }
+   ::-webkit-scrollbar-thumb {
+    background: radial-gradient(circle, #b21bbd 14%,#ff19ff 64%);
+    border-radius: 15px;
+   }
+   ::-webkit-scrollbar-thumb:hover{
+    background: radial-gradient(circle, #B21BBD 14%,#ff19ff 64%);
+   }
+   ::-webkit-scrollbar-track{
+    background: #ecaff7;
+    border-radius: 15px;
+   }
 
 .EnemyAlive > div {
     margin: 13px;
@@ -418,6 +567,8 @@ progress {
     background-color: white;
 }
 */
+
+/** Rectangle de statistiques des mobs **/
 
 .MobsStats {
     height: 863px;
@@ -455,6 +606,8 @@ progress {
     display: flex;
     flex-direction: column;
 }
+
+/** Général **/
 
 body{
     font-family: 'Nova Flat', cursive;
@@ -506,6 +659,12 @@ p{
 
 header{
     font-size: 60px;
+}
+
+.Title {
+    width: 70%;
+    height: 40%;
+    max-height: 150px;
 }
 
 
@@ -675,6 +834,42 @@ hr{
     font-size:15px;
     padding: 1.2rem;
     text-align: center;
+}
+
+
+/*.FooterText {
+    background-image: url("Pictures/Enemies/blue_circle.png");
+    background-size: 9rem;
+    background-attachment: ;
+    background-position: center;
+    background-repeat: no-repeat;
+}*/
+
+.FootLore, .FootHowToPlay, .FootTeam {
+    text-shadow: 2px 2px black;
+    background-size: 7.5rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 170px;
+    height: 170px;
+    text-align: center;
+}
+
+
+.FootLore {
+    background-image: url("Pictures/Enemies/lime_circle.png");
+}
+.FootHowToPlay {
+    background-image: url("Pictures/Enemies/purple_circle.png");
+}
+.FootTeam {
+    background-image: url("Pictures/Enemies/orange_circle.png");
+}
+
+.EntireLore {
+    font-size: 2rem;
+    margin: 2rem;
+
 }
 
 .disabled {
