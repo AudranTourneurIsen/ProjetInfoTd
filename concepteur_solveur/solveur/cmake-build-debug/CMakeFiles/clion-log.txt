@@ -1,4 +1,0 @@
-/home/audran/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/audran/Code/projet-cir/concepteur_solveur/solveur
--- Configuring done
--- Generating done
--- Build files have been written to: /home/audran/Code/projet-cir/concepteur_solveur/solveur

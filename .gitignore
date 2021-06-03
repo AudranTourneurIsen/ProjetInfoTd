@@ -1,2 +1,7 @@
-*/main.exe
-*/obj
+node_modules/
+CMakeFiles/
+cmake_install.cmake
+CMakeCache.txt
+Makefile
+*.exe
+.env

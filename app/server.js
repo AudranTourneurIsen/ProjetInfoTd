@@ -1,9 +1,12 @@
 const express = require('express')
+require('dotenv').config()
 const app = express()
-const port = 3000
+const PORT = process.env.PORT || 3000
 
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
+
+
 
 app.use(express.static('website'))
 
@@ -25,14 +28,14 @@ const GridSize = 14
 
 function gridToString(str) {
     result = ""
-    console.log(str)
+    //console.log(str)
     const lines = str.split('\n')
     for (const line of lines) {
         for (ch of line) {
             result += ch == '@' ? 1 : 0
         }
     }
-    console.log(result)
+    //console.log(result)
     return result
 }
 
@@ -43,10 +46,7 @@ let CachedLevel = null
 async function getLevel() {
     if (CachedLevel)
         return CachedLevel
-    console.log('a')
     const levelResult = await exec('./leveldesigner.exe')
-    console.log('b')
-    console.log(levelResult)
     const grid = gridToString(levelResult.stdout)
     let successCount = 0
     for (const waveStr of DefaultWaves) {
@@ -55,16 +55,16 @@ async function getLevel() {
         enemiesArray.shift()
         enemiesStr = enemiesArray.join(',')
         const cmd = `./solver.exe solve ${grid} ${gold} ${enemiesStr}`
-        console.log(cmd)
+        //console.log(cmd)
         const solverResult = await exec(cmd)
         if (solverResult.stdout.includes('successful')) {
             const key = `${grid}-${gold}-${enemiesStr}`
             SolverCache.set(key, solverResult.stdout)
-            console.log(`Saving ${key}`)
+            //console.log(`Saving ${key}`)
             successCount++;
         }
         else {
-            console.log('impossibe')
+            //console.log('impossibe')
             return getLevel()
         }
     }
@@ -132,8 +132,9 @@ app.get('/api/test', async (req, res) => {
     res.send('test')
 })
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+app.listen(PORT, () => {
+    console.log(`Successfully started app PolygonTD, listening at http://localhost:${PORT}`)
+    console.log('Please wait a few seconds while the first level is generated and solved')
 })
 
 getLevel()
