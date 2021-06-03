@@ -1129,3 +1129,13 @@ function reOrderTurrets() {
     }
     return orderedTurrets
 }
+
+function gridToString() {
+    let str = ""
+    for (const x of Grid) {
+        for (const y of x) {
+            str += y
+        }
+    }
+    return str
+}
