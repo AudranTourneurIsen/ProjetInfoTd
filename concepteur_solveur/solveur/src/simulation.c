@@ -71,7 +71,6 @@ int enemyNameToHp(char name) {
             return 15;
         case 'i':
             return 2;
-            return 15;
         case 'f':
             return 2;
         default:
@@ -280,6 +279,9 @@ void drawSimulation(SimulationData *simulationData) {
 void initializeTurrets(SimulationData *sim, int turretAmount) {
     sim->turretsSize = turretAmount;
     sim->turretsArray = malloc(sizeof(Turret) * turretAmount);
+    for (int i = 0; i < sim->turretsSize; ++i) {
+        sim->turretsArray[i].name = 0;
+    }
     int count = 0;
     for (int i = 0; i < GridSize; ++i) {
         for (int j = 0; j < GridSize; ++j) {
@@ -305,14 +307,23 @@ void initializeTurrets(SimulationData *sim, int turretAmount) {
 
 // Returns true if the simulation is successful, false otherwise
 
+/*
+void displayTurrets(Turret* arr, int size) {
+    for (int i = 0; i < size; ++i) {
+        if (arr[i].name != 0)
+            printf("%c -> ", arr[i].name);
+    }
+    printf("\n");
+}
+*/
 
-SimulationResult simulate(char grid[GridSize][GridSize], Wave wave, bool graphics, char *combination) {
+SimulationResult simulate(const char battleGrid[GridSize][GridSize], const Wave wave, const bool graphics, const char *combination) {
     SimulationData sim = {false, false, 0};
     sim.graphics = graphics;
     strcpy(sim.turretsArrangment, combination);
     for (int i = 0; i < GridSize; ++i)
         for (int j = 0; j < GridSize; ++j)
-            sim.grid[i][j] = grid[i][j];
+            sim.grid[i][j] = battleGrid[i][j];
     initializeEnemies(&sim, wave.enemies);
     int locationAmount = (int) strlen(combination);
     initializeTurrets(&sim, locationAmount);
@@ -330,7 +341,8 @@ SimulationResult simulate(char grid[GridSize][GridSize], Wave wave, bool graphic
         printf("Simulation finished after %d game ticks\n", sim.gameTick);
     }
     if (graphics)
-        displayGrid(grid);
+        displayGrid(battleGrid);
     SimulationResult res = {sim.won, sim.gameTick};
+    free(sim.turretsArray);
     return res;
 }

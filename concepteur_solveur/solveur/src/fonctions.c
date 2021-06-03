@@ -5,7 +5,7 @@ Position realSpawn = {-1, 1};
 //Position realSpawn = {0, 1};
 Position end = {13, 12};
 
-void displayGrid(char grid[GridSize][GridSize]) {
+void displayGrid(const char grid[GridSize][GridSize]) {
     for (int i = 0; i < GridSize; i++) {
         for (int j = 0; j < GridSize; j++) {
             printf("%c", grid[j][i]);
@@ -15,15 +15,15 @@ void displayGrid(char grid[GridSize][GridSize]) {
 }
 
 
-void displayGridWithTurrets(Battlefield *bf, char *turretArrangment) {
+void displayGridWithTurrets(const char grid[GridSize][GridSize], const char *turretArrangment) {
     int index = 0;
     for (int i = 0; i < GridSize; i++) {
         for (int j = 0; j < GridSize; j++) {
-            if (bf->grid[j][i] == '$') {
+            if (grid[j][i] == '$') {
                 printf("%c", turretArrangment[index]);
                 index++;
             } else
-                printf("%c", bf->grid[j][i]);
+                printf("%c", grid[j][i]);
         }
         printf("\n");
     }
@@ -69,8 +69,16 @@ Cursor *getTurretPositionsInOrder(char grid[GridSize][GridSize], int gold) {
             }
         }
     }
+    return turretOrder;
 }
 
+void copyGrid(const char src[GridSize][GridSize], char dest[GridSize][GridSize]) {
+    for (int i = 0; i < GridSize; ++i) {
+        for (int j = 0; j < GridSize; ++j) {
+            dest[i][j] = src[i][j];
+        }
+    }
+}
 
 Battlefield *getOptimalTurretPositions(char grid[GridSize][GridSize], int turretsTotal) {
     Battlefield *resultBattlefield = malloc(sizeof(Battlefield));

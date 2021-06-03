@@ -31,7 +31,7 @@ void print_tab(int tab[GridSize][GridSize]);
 char* cleanTab_tostring(int tab[GridSize][GridSize]);
 void nettoyagefinstring(char* string, int size);
 
-void displayGrid(char grid[GridSize][GridSize]);
+void displayGrid(const char grid[GridSize][GridSize]);
 
 typedef struct SimulationResult {
     bool success;
@@ -48,11 +48,11 @@ typedef struct Battlefield {
 
 Battlefield *getOptimalTurretPositions(char grid[GridSize][GridSize], int turretsTotal);
 
-void displayGridWithTurrets(Battlefield* bf, char* turretArrangment);
+void displayGridWithTurrets(const char grid[GridSize][GridSize], const char *turretArrangment);
 
 
 #define ARRAYSIZE 256
-#define GAMETICK 500
+#define GAMETICK 100
 
 typedef struct Position {
     int x;
@@ -102,3 +102,5 @@ typedef struct TurretType {
 Position getNextAvailablePosition(char grid[GridSize][GridSize], Position currentPosition, Position lastPosition);
 
 char* getEquivalenceClass(char grid[GridSize][GridSize], int turretAmount);
+
+void copyGrid(const char src[GridSize][GridSize], char dest[GridSize][GridSize]);
