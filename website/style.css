@@ -613,7 +613,7 @@ progress {
 }
 
 .SolvButton {
-    margin-left: 1.8rem;
+    margin-left: 2.6rem;
     color: black;
     font-size: 3rem;
     background-color : gold;
@@ -621,7 +621,7 @@ progress {
     border-color: orange
 }
 .SolvButton:hover {
-    margin-left: 1.8rem;
+    margin-left: 2.5rem;
     color: gold;
     font-size: 3rem;
     background-color : black;
@@ -889,9 +889,8 @@ hr{
 }
 
 .EntireLore {
-    font-size: 2rem;
     margin: 2rem;
-
+    line-height: 2rem;
 }
 
 .disabled {
