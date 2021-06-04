@@ -283,7 +283,7 @@ function draw() {
         ctx.drawImage(victoryText, 50, 200, 700, 250)
         ShowVictoryText--
         if (ShowVictoryText == 0){
-            //victoryalert()
+            const alert = window.alert('Well done !')
             window.location.href = "index.html";
         }
 
@@ -300,6 +300,8 @@ function draw() {
 
     }
 }
+
+
 
 function getNextAvailablePosition(enemy) {
     const x = enemy.x
@@ -925,7 +927,7 @@ function waveClear() {
     IsWaveClear = true
     IsWaveStarted = false
     if (Wave >= GlobalWaves.length) {
-        ShowVictoryText = 100
+        ShowVictoryText = 50
     }
     else {
         ShowWaveClear = 50

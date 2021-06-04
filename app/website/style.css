@@ -546,7 +546,7 @@
 .EnemyAlive > div {
     margin: 13px;
     padding: 10px;
-    height: 2.5rem;
+    height: 300px;
     width: 2rem;
     align-items: center;
 }
