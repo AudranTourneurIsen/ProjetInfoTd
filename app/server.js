@@ -45,14 +45,15 @@ const SolverCache = new Map()
 
 let CachedLevel = null
 
-async function getLevel() {
-    if (CachedLevel)
+async function getLevel(time, force) {
+    if (CachedLevel && !force)
         return CachedLevel
     try {
         const levelResult = await exec('./leveldesigner.exe')
         const grid = gridToString(levelResult.stdout)
         let successCount = 0
-        for (const waveStr of DefaultWaves) {
+        const revertedWaves = DefaultWaves.slice().reverse()
+        for (const waveStr of revertedWaves) {
             const gold = Number(waveStr.split(',')[0])
             const enemiesArray = waveStr.split(',')
             enemiesArray.shift()
@@ -68,12 +69,14 @@ async function getLevel() {
             }
             else {
                 //console.log('No solution found for this level, regenerating a new one')
-                return getLevel()
+                return getLevel(time, force)
             }
         }
         if (successCount == DefaultWaves.length) {
             let index = 0
-            console.log('Successfully generated random level')
+            const deltaSeconds = Math.floor((Date.now() - time)/1000)
+            //console.log(deltaSeconds, Date.now(), time)
+            console.log(`Successfully generated random level (Took ${deltaSeconds}s)`)
 
             if (CachedLevel)
                 return CachedLevel
@@ -83,11 +86,11 @@ async function getLevel() {
         }
         else {
             //console.log('No solution found for this level, regenerating a new one')
-            return getLevel()
+            return getLevel(time, force)
         }
     } catch(e) {
         console.log('Regenerating a new level')
-        getLevel()
+        getLevel(time, force)
     }
 }
 
@@ -97,7 +100,7 @@ app.get('/api/leveldesigner', async (req, res) => {
     if (CachedLevel)
         res.send(CachedLevel)
     else
-        res.send(await getLevel())
+        res.send(await getLevel(Date.now(), false))
 })
 
 app.get('/api/solver', (req, res) => {
@@ -139,9 +142,16 @@ app.get('/api/test', async (req, res) => {
     res.send('test')
 })
 
+app.get('/api/resetcache', async (req, res) => {
+    console.log('Regenerating cache')
+    getLevel(Date.now(), true)
+})
+
+
+
 app.listen(PORT, () => {
     console.log(`Successfully started app PolygonTD, listening at http://localhost:${PORT}`)
     console.log('Please wait a few seconds while the first level is generated and solved')
 })
 
-getLevel()
+getLevel(Date.now(), false)

@@ -37,6 +37,8 @@ function PressPlay() {
     PlayBtn.classList.add('disabled')
     const CptBtn = document.getElementById('conceptor')
     CptBtn.classList.add('disabled')
+    const CheBtn = document.getElementById('cacheclean')
+    CheBtn.classList.add('disabled')
     GameOST()
     RandomConceptor()
 }
@@ -66,6 +68,24 @@ function PressConceptor() {
     PlayBtn.classList.add('disabled')
     const BaChBtn = document.getElementById('banquechemin')
     BaChBtn.classList.remove('disabled')
+    const CheBtn = document.getElementById('cacheclean')
+    CheBtn.classList.add('disabled')
+}
+
+let IsCacheON = false
+function PressCache() {
+    if(IsCacheON == true) return
+    const result = window.confirm('Are you sure you want to clean the cache ?')
+    if (result == false) return
+
+    IsCacheON = true
+    const CheBtn = document.getElementById('cacheclean')
+    CheBtn.classList.remove('Cache')
+    CheBtn.classList.add('CacheON')
+
+    const request = new XMLHttpRequest()
+    request.open("GET", "/api/resetcache")
+    request.send(null);
 }
 
 const turretLettersToTurretName = {
@@ -139,13 +159,15 @@ function requestSolver(grid, gold, enemies, apply) {
 }
 
 function PressSolveur() {
-    const SolvBtn = document.getElementById('board')
-    const result = window.confirm('Are you sure that you want the answer of this problem ?')
+    if (IsWaveStarted == true) return
+
+    const result = window.confirm('Are you sure that you want the answer of this problem ? (it might a few seconds)')
     if (result == false) return
     //else SolvBtn.classList.add('disabled')
     let gold = GlobalWaves[Wave].gold
     let enemies = GlobalWaves[Wave].enemies.map(e => e[0]).join(',')
     requestSolver(gridToString(), gold, enemies, true)
+
 }
 
 function manageKeypress(event) {
@@ -278,12 +300,12 @@ function draw() {
         ctx.drawImage(waveclearText, 50, 200, 700, 250)
         ShowWaveClear--
     }
-    if ((Wave == GlobalWaves.length) && (ShowVictoryText > 0)){
+    if ((Wave == GlobalWaves.length) && (ShowVictoryText > 0)) {
         const victoryText = new Image()
         victoryText.src = './Pictures/Text/victory.png'
         ctx.drawImage(victoryText, 50, 200, 700, 250)
         ShowVictoryText--
-        if (ShowVictoryText == 0){
+        if (ShowVictoryText == 0) {
             const alert = window.alert('Well done !')
             window.location.href = "index.html";
         }
@@ -913,6 +935,9 @@ function pressStartWave() {
     const btn = document.getElementById('startwave')
     btn.classList.add('waveactive')
     btn.classList.remove('waveinactive')
+    const slv = document.getElementById('solveur')
+    slv.classList.remove('SolvButton')
+    slv.classList.add('Solvblock')
 }
 
 function stopWave() {
@@ -927,6 +952,7 @@ function waveClear() {
     Wave++
     IsWaveClear = true
     IsWaveStarted = false
+
     if (Wave >= GlobalWaves.length) {
         ShowVictoryText = 50
     }
@@ -937,11 +963,13 @@ function waveClear() {
         btn.classList.remove('waveactive')
         const waveCounter = document.getElementById('WaveCounter')
         waveCounter.innerText = `${Wave} / ${MaxWave}`
-
         Turrets = []
+        const slv = document.getElementById('solveur')
+        slv.classList.remove('Solvblock')
+        slv.classList.add('SolvButton')
 
-        setWave(Wave)
     }
+    setWave(Wave)
     WaveclearSound.play()
 }
 
@@ -958,6 +986,10 @@ function gameOver() {
     for (const turret of Turrets) {
         turret.cooldown = 0
     }
+
+    const slv = document.getElementById('solveur')
+    slv.classList.remove('Solvblock')
+    slv.classList.add('SolvButton')
 
     Turrets = []
     resetGrid(GlobalTxt)
@@ -1044,7 +1076,7 @@ function setWave(x) {
     Turrets = []
     //importGridFromText(x)
     resetGrid(GlobalTxt)
-    
+
     resetEnemiesCount()
     if (x >= GlobalWaves.length)
         return

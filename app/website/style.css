@@ -22,6 +22,51 @@
     outline : 0.2rem solid blue;
 }
 
+.Cache {
+    font-family: 'Nova Flat', cursive;
+    background-color: black;
+    border: solid;
+    color: white;
+    font-size: 2rem;
+    height: 120px;
+    width: 400px;
+    margin: 5%;
+    vertical-align: middle;
+    border-color: blue;
+    animation-name: border-color;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+}
+
+.Cache:hover{
+    outline : 0.2rem solid blue;
+}
+
+.CacheON {
+    font-family: 'Nova Flat', cursive;
+    background-color: silver;
+    border: solid;
+    color: black;
+    font-size: 2rem;
+    height: 120px;
+    width: 400px;
+    margin: 5%;
+    vertical-align: middle;
+    border-color: lightblue;
+    animation-name: border-color;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    margin-left: 4rem;
+}
+
+.CacheDiv {
+    text-align: center;
+}
+
 .gridSize:hover{
     outline : 0.4rem solid #BC13FE;
 }
@@ -524,7 +569,7 @@
     display: flex;
     flex-wrap: wrap;
     overflow: scroll;
-    /*overflow: hidden visible;*/
+    overflow: hidden visible;
     height: 350px;
 }
 ::-webkit-scrollbar {
@@ -620,7 +665,7 @@ progress {
     border: solid;
     border-color: orange
 }
-.SolvButton:hover {
+.SolvButton:hover, .Solvblock {
     margin-left: 2.5rem;
     color: gold;
     font-size: 3rem;
@@ -628,6 +673,7 @@ progress {
     border: solid;
     border-color: orange;
 }
+
 
 /** Général **/
 
@@ -886,6 +932,10 @@ hr{
 }
 .FootTeam {
     background-image: url("Pictures/Enemies/orange_circle.png");
+}
+
+.Team{
+    margin-left: 5%;
 }
 
 .EntireLore {

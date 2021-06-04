@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="style.css">
 
+
     <link rel="shortcut icon" href="Pictures/logo.png" type="image/x-icon">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -63,7 +64,15 @@
             <button id="conceptor" class="Conceptor" onclick="PressConceptor();"><img src="Pictures/Levels.png" alt="Levels" class = "buttonPicture">
                 Choose Your Level
             </button>
+            
         </div>
+        
+        <div class="CacheDiv">
+            <button id="cacheclean" class="Cache" onclick="PressCache();"><img src="Pictures/Buttons/cached.png" alt="cached" class ="buttonPicture">
+                 Clean Cache
+            </button>
+        </div>
+
         <div class="BanqueChemin disabled" id="banquechemin">
             <div >
                 <img src="Pictures/Grids/choosemap.png" alt="Choose Your Map !" class="chooseMap" >
@@ -90,6 +99,18 @@
                 </div>
                 <div class="GridColumn">
                   <img src="Pictures/Grids/grid6.png" id="grid6" class="gridSize" onclick="selectLevel(this)">
+                </div>
+            </div>
+
+            <div class="GridRow">
+                <div class="GridColumn">
+                  <img src="Pictures/Grids/grid7.png" id="grid7" class="gridSize" onclick="selectLevel(this)">
+                </div>
+                <div class="GridColumn">
+                  <img src="Pictures/Grids/grid8.png" id="grid8" class="gridSize" onclick="selectLevel(this)">
+                </div>
+                <div class="GridColumn">
+                  <img src="Pictures/Grids/grid9.png" id="grid9" class="gridSize" onclick="selectLevel(this)">
                 </div>
             </div>
         
