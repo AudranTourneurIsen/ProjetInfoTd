@@ -22,7 +22,8 @@ const DefaultWaves = [
     "40,n,w,w,w,i,i",
     "40,w,i,i,i,t,n",
     "50,w,w,w,n,t,i,w,f,t",
-    "50,i,n,w,n,t,f,f,w,w,t,w"
+    "50,i,n,w,n,t,f,f,w,w,t",
+    "50,i,i,w,n,f,n,w,f,t,w,w,n,n,t"
 ]
 
 const GridSize = 14

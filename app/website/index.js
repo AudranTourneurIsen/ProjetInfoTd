@@ -130,6 +130,7 @@ function requestSolver(grid, gold, enemies, apply) {
                         console.log(tmp)
                         i++
                     }
+                    reOrderTurrets()
 
                 }
             }
