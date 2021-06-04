@@ -37,8 +37,8 @@ function PressPlay() {
     PlayBtn.classList.add('disabled')
     const CptBtn = document.getElementById('conceptor')
     CptBtn.classList.add('disabled')
-    const CheBtn = document.getElementById('cacheclean')
-    CheBtn.classList.add('disabled')
+    //const CheBtn = document.getElementById('cacheclean')
+    //CheBtn.classList.add('disabled')
     GameOST()
     RandomConceptor()
 }
@@ -101,8 +101,6 @@ const turretLettersToTurretId = {
     F: TURRET_FIRE,
     I: TURRET_ICE,
 }
-
-
 
 function requestSolver(grid, gold, enemies, apply) {
     const request = new XMLHttpRequest();
