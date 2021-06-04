@@ -6,8 +6,6 @@ const PORT = process.env.PORT || 3000
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-
-
 app.use(express.static('website'))
 
 app.get('/', (req, res) => {
@@ -94,7 +92,6 @@ async function getLevel(time, force) {
     }
 }
 
-
 app.get('/api/leveldesigner', async (req, res) => {
     console.log('CachedLevel', CachedLevel)
     if (CachedLevel)
@@ -143,11 +140,10 @@ app.get('/api/test', async (req, res) => {
 })
 
 app.get('/api/resetcache', async (req, res) => {
-    console.log('Regenerating cache')
+    console.log('Regenerating cache...')
     getLevel(Date.now(), true)
+    res.send('Regenerating cache...')
 })
-
-
 
 app.listen(PORT, () => {
     console.log(`Successfully started app PolygonTD, listening at http://localhost:${PORT}`)
