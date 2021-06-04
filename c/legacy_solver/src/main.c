@@ -1,4 +1,5 @@
 #include "fonctions.h"
+#include "TerminalUtils.h"
 #include "simulation.h"
 #include "simulation_manager.h"
 

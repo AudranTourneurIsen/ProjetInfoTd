@@ -282,6 +282,10 @@ function draw() {
         victoryText.src = './Pictures/Text/victory.png'
         ctx.drawImage(victoryText, 50, 200, 700, 250)
         ShowVictoryText--
+        if (ShowVictoryText == 0){
+            //victoryalert()
+            window.location.href = "index.html";
+        }
 
         //const SolvBtn = document.getElementById('board')
 

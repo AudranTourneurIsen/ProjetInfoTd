@@ -1,4 +1,5 @@
 #include "fonctions.h"
+#include "TerminalUtils.h"
 #include "simulation.h"
 
 TurretType turretTypes[] = {
@@ -225,6 +226,52 @@ void updateSimulation(SimulationData *simulationData) {
     simulationData->gameTick++;
 }
 
+void drawSimulation(SimulationData *simulationData) {
+    Clear();
+    for (int i = 0; i < GridSize; i++) {
+        for (int j = 0; j < GridSize; j++) {
+            Draw(j + 1, i + 1, simulationData->grid[j][i]);
+        }
+        char line[6];
+        sprintf(line, "L%d", i);
+        Write(20 + 1, i + 1, line);
+    }
+    char str[32] = "";
+    sprintf(str, "Game Tick %d", simulationData->gameTick);
+    Write(0 + 1, GridSize + 1, str);
+
+    for (int i = 0; i < ARRAYSIZE; ++i) {
+        Enemy enemy = simulationData->enemies[i];
+        if (enemy.name == 0) break;
+        if (enemy.name != 0) {
+            if (!enemy.spawned || enemy.dead) continue;
+            Draw(enemy.currentPosition.x + 1, enemy.currentPosition.y + 1, enemy.name);
+        }
+    }
+
+    for (int i = 0; i < simulationData->turretsSize; ++i) {
+        Turret turret = simulationData->turretsArray[i];
+        Draw(turret.position.x + 1, turret.position.y + 1, turret.name);
+    }
+
+    int posY = GridSize + 2;
+    for (int i = 0; i < ARRAYSIZE; ++i) {
+        Enemy enemy = simulationData->enemies[i];
+        if (enemy.name == 0) break;
+        if (enemy.name != 0) {
+            sprintf(str, "E %c %d/%d %s", enemy.name, enemy.hp, enemy.maxHp, enemy.dead ? "DEAD" : "ALIVE");
+            Write(1, posY + 1, str);
+            posY++;
+        }
+    }
+
+    Refresh();
+    Wait(GAMETICK);
+
+    //End();
+}
+
+
 void initializeTurrets(SimulationData *sim, int turretAmount) {
     sim->turretsSize = turretAmount;
     sim->turretsArray = malloc(sizeof(Turret) * turretAmount);
@@ -276,9 +323,15 @@ SimulationResult simulate(const char battleGrid[GridSize][GridSize], const Wave 
     initializeEnemies(&sim, wave.enemies);
     int locationAmount = (int) strlen(combination);
     initializeTurrets(&sim, locationAmount);
+    if (graphics)
+        Init();
     while (!sim.isFinished) {
         updateSimulation(&sim);
+        if (graphics)
+            drawSimulation(&sim);
     }
+    if (graphics)
+        End();
     if (graphics) {
         puts(sim.won ? "SUCCESS" : "FAILURE");
         printf("Simulation finished after %d game ticks\n", sim.gameTick);
