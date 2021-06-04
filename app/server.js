@@ -22,6 +22,7 @@ const DefaultWaves = [
     "40,n,w,w,w,i,i",
     "40,w,i,i,i,t,n",
     "50,w,w,w,n,t,i,w,f,t",
+    "50,i,n,w,n,t,f,f,w,w,t,w"
 ]
 
 const GridSize = 14
@@ -46,41 +47,46 @@ let CachedLevel = null
 async function getLevel() {
     if (CachedLevel)
         return CachedLevel
-    const levelResult = await exec('./leveldesigner.exe')
-    const grid = gridToString(levelResult.stdout)
-    let successCount = 0
-    for (const waveStr of DefaultWaves) {
-        const gold = Number(waveStr.split(',')[0])
-        const enemiesArray = waveStr.split(',')
-        enemiesArray.shift()
-        enemiesStr = enemiesArray.join(',')
-        const cmd = `./solver.exe solve ${grid} ${gold} ${enemiesStr}`
-        //console.log(cmd)
-        const solverResult = await exec(cmd)
-        if (solverResult.stdout.includes('successful')) {
-            const key = `${grid}-${gold}-${enemiesStr}`
-            SolverCache.set(key, solverResult.stdout)
-            //console.log(`Saving ${key}`)
-            successCount++;
+    try {
+        const levelResult = await exec('./leveldesigner.exe')
+        const grid = gridToString(levelResult.stdout)
+        let successCount = 0
+        for (const waveStr of DefaultWaves) {
+            const gold = Number(waveStr.split(',')[0])
+            const enemiesArray = waveStr.split(',')
+            enemiesArray.shift()
+            enemiesStr = enemiesArray.join(',')
+            const cmd = `./solver.exe solve ${grid} ${gold} ${enemiesStr}`
+            //console.log(cmd)
+            const solverResult = await exec(cmd)
+            if (solverResult.stdout.includes('successful')) {
+                const key = `${grid}-${gold}-${enemiesStr}`
+                SolverCache.set(key, solverResult.stdout)
+                //console.log(`Saving ${key}`)
+                successCount++;
+            }
+            else {
+                //console.log('No solution found for this level, regenerating a new one')
+                return getLevel()
+            }
+        }
+        if (successCount == DefaultWaves.length) {
+            let index = 0
+            console.log('Successfully generated random level')
+
+            if (CachedLevel)
+                return CachedLevel
+
+            CachedLevel = levelResult.stdout
+            return levelResult.stdout
         }
         else {
             //console.log('No solution found for this level, regenerating a new one')
             return getLevel()
         }
-    }
-    if (successCount == DefaultWaves.length) {
-        let index = 0
-        console.log('Successfully generated random level')
-
-        if (CachedLevel)
-            return CachedLevel
-
-        CachedLevel = levelResult.stdout
-        return levelResult.stdout
-    }
-    else {
-        //console.log('No solution found for this level, regenerating a new one')
-        return getLevel()
+    } catch(e) {
+        console.log('Regenerating a new level')
+        getLevel()
     }
 }
 
